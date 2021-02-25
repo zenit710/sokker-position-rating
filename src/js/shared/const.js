@@ -9,6 +9,17 @@ const SKILLS = {
     striker: "striker",
 };
 
+const SKILLS_ORDER = [
+    SKILLS.stamina,
+    SKILLS.keeper,
+    SKILLS.pace,
+    SKILLS.defender,
+    SKILLS.technique,
+    SKILLS.playmaker,
+    SKILLS.passing,
+    SKILLS.striker,
+];
+
 const SKILLS_MAX_VALUE = {
     [SKILLS.stamina]: 11,
     [SKILLS.pace]: 18,
@@ -55,5 +66,7 @@ const POSITION_SKILLS_IMPORTANCE = {
 
 export {
     POSITION,
+    SKILLS_ORDER,
     SKILLS_MAX_VALUE,
+    POSITION_SKILLS_IMPORTANCE,
 };
