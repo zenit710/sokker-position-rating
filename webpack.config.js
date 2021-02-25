@@ -7,7 +7,7 @@ const isDev = (nodeEnv) => {
 module.exports = ({ NODE_ENV = "production" }) => {
     return {
         entry: {
-            background: "./src/js/background.js",
+            content: "./src/js/content-script.js",
             options: "./src/js/options-page.js",
             popup: "./src/js/popup-page.js",
         },
