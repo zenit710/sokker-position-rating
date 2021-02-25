@@ -8,7 +8,7 @@
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "options_page": "options-page.html",
   "content_scripts": [{
-    "js": ["content-script.js"],
+    "js": ["js/content.js"],
     "matches": ["https://sokker.org/"]
   }],
   "browser_action": {
