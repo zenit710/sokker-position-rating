@@ -1,0 +1,47 @@
+{
+  "name": "sokker-position-rating",
+  "version": "0.1.0",
+  "description": "Display player ability rating to play at position in sokker.org",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "cross-zip-cli": "^1.0.0",
+    "css-loader": "^5.0.2",
+    "eslint": "^7.20.0",
+    "husky": "^5.0.9",
+    "mkdirp": "^1.0.4",
+    "node-sass": "^5.0.0",
+    "sass": "^1.32.7",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "stylelint": "^13.10.0",
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "webpack": "^5.22.0",
+    "webpack-cli": "^4.5.0"
+  },
+  "scripts": {
+    "build": "webpack --mode=production",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "postinstall": "husky install",
+    "publish": "npm run build && npm run zip",
+    "stylelint": "stylelint **/*.scss",
+    "stylelint:fix": "stylelint --fix **/*.scss",
+    "watch": "webpack --watch --env NODE_ENV=development --mode=development",
+    "zip": "mkdirp build && cross-zip dist build/sokker-position-rating.zip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zenit710/sokker-position-rating.git"
+  },
+  "keywords": [
+    "sokker.org",
+    "position rating"
+  ],
+  "author": "Kamil Małek <zenit710@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zenit710/sokker-position-rating/issues"
+  },
+  "homepage": "https://github.com/zenit710/sokker-position-rating#readme"
+}
