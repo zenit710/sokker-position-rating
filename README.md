@@ -1,4 +1,4 @@
-# Farmersi Notifier
+# Sokker Position Rating
 Google Chrome Extension for display player ability rating to play at position in sokker.org
 
 ## Development
