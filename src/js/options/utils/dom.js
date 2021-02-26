@@ -1,5 +1,6 @@
 const CLASS_NAME_STATUS_BASE = "status";
 const CLASS_NAMES_STATUS = {
+    base: CLASS_NAME_STATUS_BASE,
     show: `${CLASS_NAME_STATUS_BASE}--show`,
     success: `${CLASS_NAME_STATUS_BASE}--success`,
     failure: `${CLASS_NAME_STATUS_BASE}--failure`,

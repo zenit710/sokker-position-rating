@@ -1,7 +1,8 @@
 import RatingComponent from "./component/RatingComponent";
-import { SKILLS_ORDER, POSITION_SKILLS_IMPORTANCE } from "./shared/const";
+import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "./shared/const";
 import { findPlayerNodes, getPlayerContainerNode, getPlayerSkillNodes } from "./shared/domHelper";
 import SkillRatingResolver from "./shared/SkillRatingResolver";
+import { getItemFromStore } from "./shared/storage";
 import "../scss/content.scss";
 
 const transfromSkills = (skillNodes) => {
@@ -15,8 +16,9 @@ const transfromSkills = (skillNodes) => {
     return skills;
 };
 
-const init = () => {
-    const resolver = new SkillRatingResolver(POSITION_SKILLS_IMPORTANCE);
+const init = async () => {
+    const skillsImportance = await getItemFromStore(STORAGE_SKILL_IMPORTANCE_KEY);
+    const resolver = new SkillRatingResolver(skillsImportance);
     const players = findPlayerNodes();
 
     if (players.length) {
