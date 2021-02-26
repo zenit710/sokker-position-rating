@@ -14,7 +14,16 @@ const getItemFromStore = (name) => {
     });
 };
 
+const removeItemFromStore = (name) => {
+    return new Promise(resolve => {
+        chrome.storage.sync.remove(name, () => {
+            resolve(true);
+        });
+    });
+};
+
 export {
     setItemInStore,
     getItemFromStore,
+    removeItemFromStore,
 };

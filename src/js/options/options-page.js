@@ -1,29 +1,36 @@
-import { getItemFromStore, setItemInStore } from "./shared/storage";
-import "../scss/options-page.scss";
+import { STORAGE_SKILL_IMPORTANCE_KEY } from "../shared/const";
+import { getItemFromStore, setItemInStore } from "../shared/storage";
+import { getForm, getFormFields, setFieldValue } from "./utils/dom";
+import { showFailureStatus, showSuccessStatus } from "./utils/status";
+import "../../scss/options-page.scss";
 
 const init = async () => {
-    const $form = document.querySelector(".form");
-    const storedSkillsImportance = await getItemFromStore("skillsImportance");
+    const $form = getForm();
+    const storedSkillsImportance = await getItemFromStore(STORAGE_SKILL_IMPORTANCE_KEY);
 
     fillFormWithSkillsImportance(storedSkillsImportance);
 
     $form.addEventListener("submit", (event) => {
         event.preventDefault();
-        const skillsImportance = getSkillsImportanceFromForm($form);
-        const invalid = getInvalidImportances(skillsImportance);
-
-        if (invalid.length) {
-            handleInvalidImportances(invalid);
-        } else {
-            storeSkillsImportance(skillsImportance);
-        }
+        handleFormSubmit($form);
     });
 };
 
-const getSkillsImportanceFromForm = ($form) => {
+const handleFormSubmit = () => {
+    const skillsImportance = getSkillsImportanceFromForm();
+    const invalid = getInvalidImportances(skillsImportance);
+
+    if (invalid.length) {
+        handleInvalidImportances(invalid);
+    } else {
+        storeSkillsImportance(skillsImportance);
+    }
+};
+
+const getSkillsImportanceFromForm = () => {
     const skillsImportance = {};
 
-    $form.querySelectorAll(".form__field").forEach($field => {
+    getFormFields().forEach($field => {
         const [position, skill] = $field.name.split("-");
 
         if (skillsImportance[position] !== undefined) {
@@ -45,22 +52,11 @@ const handleInvalidImportances = (invalid) => {
 };
 
 const storeSkillsImportance = async (skillsImportance) => {
-    await setItemInStore("skillsImportance", skillsImportance);
-    showSuccessStatus("Settings saved!");
-};
+    const stored = await setItemInStore(STORAGE_SKILL_IMPORTANCE_KEY, skillsImportance);
 
-const showStatus = (message, type) => {
-    const $status = document.querySelector(".status");
-    $status.innerHTML = message;
-    $status.className = `status status--show status--${type}`;
-};
-
-const showFailureStatus = (message) => {
-    showStatus(message, "failure");
-};
-
-const showSuccessStatus = (message) => {
-    showStatus(message, "success");
+    if (stored) {
+        showSuccessStatus("Settings saved!");
+    }
 };
 
 const getInvalidImportances = (skillsImportance) => {
@@ -88,7 +84,7 @@ const fillFormWithSkillsImportance = (skillsImportance) => {
         Object.entries(skillImportances).forEach(skillImportance => {
             const [skill, importance] = skillImportance;
             const fieldId = `${position.toLowerCase()}-${skill}`;
-            document.getElementById(fieldId).value = importance;
+            setFieldValue(fieldId, importance);
         });
     });
 };
