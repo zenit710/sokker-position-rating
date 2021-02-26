@@ -1,20 +1,33 @@
-const { SKILLS_ORDER, POSITION_SKILLS_IMPORTANCE } = require("./shared/const");
+import RatingComponent from "./component/RatingComponent";
+import { SKILLS_ORDER, POSITION_SKILLS_IMPORTANCE } from "./shared/const";
+import { findPlayerNodes, getPlayerContainerNode, getPlayerSkillNodes } from "./shared/domHelper";
 import SkillRatingResolver from "./shared/SkillRatingResolver";
+import "../scss/content.scss";
 
-const resolver = new SkillRatingResolver(POSITION_SKILLS_IMPORTANCE);
-const players = document.querySelectorAll(".table-skills");
+const transfromSkills = (skillNodes) => {
+    const skills = {};
 
-if (players.length) {
-    players.forEach($player => {
-        const skills = {};
-
-        $player.querySelectorAll(".skillNameNumber").forEach(($skill, index) => {
-            const skillValue = /\[(\d+)\]/.exec($skill.textContent)[1];
-            skills[SKILLS_ORDER[index]] = skillValue;
-        });
-
-        const div = document.createElement("div");
-        div.innerHTML = JSON.stringify(resolver.getPlayerRating(skills));
-        $player.parentNode.insertBefore(div, $player.nextSibling);
+    skillNodes.forEach(($skill, index) => {
+        const skillValue = /\[(\d+)\]/.exec($skill.textContent)[1];
+        skills[SKILLS_ORDER[index]] = skillValue;
     });
-}
+
+    return skills;
+};
+
+const init = () => {
+    const resolver = new SkillRatingResolver(POSITION_SKILLS_IMPORTANCE);
+    const players = findPlayerNodes();
+
+    if (players.length) {
+        players.forEach($player => {
+            const skills = transfromSkills(getPlayerSkillNodes($player));
+            const ratings = resolver.getPlayerRating(skills);
+            const $container = getPlayerContainerNode($player);
+            const ratingComponent = new RatingComponent(ratings);
+            $container.append(ratingComponent.render());
+        });
+    }
+};
+
+init();
