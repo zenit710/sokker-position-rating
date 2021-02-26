@@ -24,7 +24,7 @@ To install local extension read <https://developer.chrome.com/docs/extensions/mv
 - `npm run stylelint:fix` to fix formatting errors
 
 ### Publishing
-`npm run publish` - extension code will be build and located in `build/farmersi-notifier.zip`
+`npm run publish` - extension code will be build and located in `build/sokker-position-rating.zip`
 
 ### Visual Studio Code support
 You can have automatically formatted code (JS, SCSS) in VSCode in few steps:

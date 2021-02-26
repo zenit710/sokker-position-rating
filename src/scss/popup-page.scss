@@ -1,1 +1,7 @@
 @import './mixins';
+
+button {
+  @include button;
+  margin: 5px 0;
+  min-width: 200px;
+}
