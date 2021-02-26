@@ -1,11 +1,11 @@
+import { getItemFromStore, setItemInStore } from "./shared/storage";
 import "../scss/options-page.scss";
 
-const init = () => {
+const init = async () => {
     const $form = document.querySelector(".form");
+    const storedSkillsImportance = await getItemFromStore("skillsImportance");
 
-    chrome.storage.sync.get("skillsImportance", items => {
-        console.log(items);
-    });
+    fillFormWithSkillsImportance(storedSkillsImportance);
 
     $form.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -44,10 +44,9 @@ const handleInvalidImportances = (invalid) => {
     showFailureStatus(message.trim());
 };
 
-const storeSkillsImportance = (skillsImportance) => {
-    chrome.storage.sync.set({skillsImportance}, () => {
-        showSuccessStatus("Settings saved!");
-    });
+const storeSkillsImportance = async (skillsImportance) => {
+    await setItemInStore("skillsImportance", skillsImportance);
+    showSuccessStatus("Settings saved!");
 };
 
 const showStatus = (message, type) => {
@@ -76,6 +75,22 @@ const getInvalidImportances = (skillsImportance) => {
             importanceSum: sum,
         };
     }).filter(positionImportance => positionImportance.importanceSum !== 100);
+};
+
+const fillFormWithSkillsImportance = (skillsImportance) => {
+    if (!skillsImportance) {
+        return;
+    }
+
+    Object.entries(skillsImportance).forEach(positionSkillsImportance => {
+        const [position, skillImportances] = positionSkillsImportance;
+
+        Object.entries(skillImportances).forEach(skillImportance => {
+            const [skill, importance] = skillImportance;
+            const fieldId = `${position.toLowerCase()}-${skill}`;
+            document.getElementById(fieldId).value = importance;
+        });
+    });
 };
 
 init();
