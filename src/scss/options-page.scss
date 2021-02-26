@@ -33,12 +33,25 @@
 }
 
 .status {
-  border: 1px solid $c-success;
-  color: $c-success;
+  border: 1px solid;
   display: none;
   margin-top: 20px;
   padding: 10px 20px;
   text-align: center;
+
+  &--show {
+    display: block;
+  }
+
+  &--success {
+    border-color: $c-success;
+    color: $c-success;
+  }
+
+  &--failure {
+    border-color: $c-failure;
+    color: $c-failure;
+  }
 }
 
 @media screen and (min-width: 768px) {
