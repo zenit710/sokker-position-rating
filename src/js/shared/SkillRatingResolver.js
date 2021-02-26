@@ -14,14 +14,20 @@ class SkillRatingResolver {
     resolvePositionScore(position, skills) {
         let score = 0;
 
-        for (const [skill, importance] of Object.entries(this.skillsImportance[position])) {
-            score += importance * skills[skill];
+        if (this.skillsImportance?.[position]) {
+            for (const [skill, importance] of Object.entries(this.skillsImportance[position])) {
+                score += importance * skills[skill];
+            }
         }
 
         return score;
     }
 
     getPositionPercentageScore(position, score) {
+        if (this.maxPositionScore === 0) {
+            return 0;
+        }
+
         return Math.round(score / this.maxPositionScore[position] * 1000) / 10; // allow one decimal place
     }
 

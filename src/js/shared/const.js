@@ -38,35 +38,11 @@ const POSITION = {
     striker: "ATT",
 };
 
-const POSITION_SKILLS_IMPORTANCE = {
-    [POSITION.keeper]: {
-        [SKILLS.keeper]: 55,
-        [SKILLS.pace]: 30,
-        [SKILLS.passing]: 15,
-    },
-    [POSITION.defender]: {
-        [SKILLS.defender]: 55,
-        [SKILLS.pace]: 30,
-        [SKILLS.passing]: 15,
-    },
-    [POSITION.midfielder]: {
-        [SKILLS.defender]: 15,
-        [SKILLS.playmaker]: 30,
-        [SKILLS.pace]: 15,
-        [SKILLS.technique]: 10,
-        [SKILLS.passing]: 30,
-    },
-    [POSITION.striker]: {
-        [SKILLS.striker]: 35,
-        [SKILLS.pace]: 30,
-        [SKILLS.technique]: 25,
-        [SKILLS.passing]: 10,
-    },
-};
+const STORAGE_SKILL_IMPORTANCE_KEY = "skillsImportance";
 
 export {
     POSITION,
     SKILLS_ORDER,
     SKILLS_MAX_VALUE,
-    POSITION_SKILLS_IMPORTANCE,
+    STORAGE_SKILL_IMPORTANCE_KEY,
 };
