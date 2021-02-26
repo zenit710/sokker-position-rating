@@ -6,7 +6,178 @@
     <title>Farmersi Notifier - ustawienia</title>
 </head>
 <body>
-    <h1>Options</h1>
+    <div class="page">
+        <h1 class="page__title">Sokker Position Rating</h1>
+
+        <p class="page__lead">
+            Set importance of each skill for each position - player rating will be based on this setup.
+        </p>
+
+        <form class="form">
+
+            <!-- GOALKEEPER SKILLS IMPORTANCE -->
+            <div class="form__section">
+                <p class="form__section-label">GK</p>
+                <div class="form__fields-group">
+                    <div class="form__group">
+                        <label for="gk-stamina">Stamina</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="gk-stamina" name="gk-stamina">
+                    </div>
+                    <div class="form__group">
+                        <label for="gk-pace">Pace</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="gk-pace" name="gk-pace">
+                    </div>
+                    <div class="form__group">
+                        <label for="gk-technique">Technique</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="gk-technique" name="gk-technique">
+                    </div>
+                    <div class="form__group">
+                        <label for="gk-passing">Passing</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="gk-passing" name="gk-passing">
+                    </div>
+                    <div class="form__group">
+                        <label for="gk-keeper">Keeper</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="gk-keeper" name="gk-keeper">
+                    </div>
+                    <div class="form__group">
+                        <label for="gk-defender">Defender</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="gk-defender" name="gk-defender">
+                    </div>
+                    <div class="form__group">
+                        <label for="gk-playmaker">Playmaker</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="gk-playmaker" name="gk-playmaker">
+                    </div>
+                    <div class="form__group">
+                        <label for="gk-striker">Striker</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="gk-striker" name="gk-striker">
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEFENDER SKILLS IMPORTANCE -->
+            <div class="form__section">
+                <p class="form__section-label">DEF</p>
+                <div class="form__fields-group">
+                    <div class="form__group">
+                        <label for="def-stamina">Stamina</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="def-stamina" name="def-stamina">
+                    </div>
+                    <div class="form__group">
+                        <label for="def-pace">Pace</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="def-pace" name="def-pace">
+                    </div>
+                    <div class="form__group">
+                        <label for="def-technique">Technique</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="def-technique" name="def-technique">
+                    </div>
+                    <div class="form__group">
+                        <label for="def-passing">Passing</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="def-passing" name="def-passing">
+                    </div>
+                    <div class="form__group">
+                        <label for="def-keeper">Keeper</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="def-keeper" name="def-keeper">
+                    </div>
+                    <div class="form__group">
+                        <label for="def-defender">Defender</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="def-defender" name="def-defender">
+                    </div>
+                    <div class="form__group">
+                        <label for="def-playmaker">Playmaker</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="def-playmaker" name="def-playmaker">
+                    </div>
+                    <div class="form__group">
+                        <label for="def-striker">Striker</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="def-striker" name="def-striker">
+                    </div>
+                </div>
+            </div>
+
+            <!-- MIDFIELDER SKILLS IMPORTANCE -->
+            <div class="form__section">
+                <p class="form__section-label">MID</p>
+                <div class="form__fields-group">
+                    <div class="form__group">
+                        <label for="mid-stamina">Stamina</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="mid-stamina" name="mid-stamina">
+                    </div>
+                    <div class="form__group">
+                        <label for="mid-pace">Pace</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="mid-pace" name="mid-pace">
+                    </div>
+                    <div class="form__group">
+                        <label for="mid-technique">Technique</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="mid-technique" name="mid-technique">
+                    </div>
+                    <div class="form__group">
+                        <label for="mid-passing">Passing</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="mid-passing" name="mid-passing">
+                    </div>
+                    <div class="form__group">
+                        <label for="mid-keeper">Keeper</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="mid-keeper" name="mid-keeper">
+                    </div>
+                    <div class="form__group">
+                        <label for="mid-defender">Defender</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="mid-defender" name="mid-defender">
+                    </div>
+                    <div class="form__group">
+                        <label for="mid-playmaker">Playmaker</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="mid-playmaker" name="mid-playmaker">
+                    </div>
+                    <div class="form__group">
+                        <label for="mid-striker">Striker</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="mid-striker" name="mid-striker">
+                    </div>
+                </div>
+            </div>
+
+            <!-- STRIKER SKILLS IMPORTANCE -->
+            <div class="form__section">
+                <p class="form__section-label">ATT</p>
+                <div class="form__fields-group">
+                    <div class="form__group">
+                        <label for="att-stamina">Stamina</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="att-stamina" name="att-stamina">
+                    </div>
+                    <div class="form__group">
+                        <label for="att-pace">Pace</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="att-pace" name="att-pace">
+                    </div>
+                    <div class="form__group">
+                        <label for="att-technique">Technique</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="att-technique" name="att-technique">
+                    </div>
+                    <div class="form__group">
+                        <label for="att-passing">Passing</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="att-passing" name="att-passing">
+                    </div>
+                    <div class="form__group">
+                        <label for="att-keeper">Keeper</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="att-keeper" name="att-keeper">
+                    </div>
+                    <div class="form__group">
+                        <label for="att-defender">Defender</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="att-defender" name="att-defender">
+                    </div>
+                    <div class="form__group">
+                        <label for="att-playmaker">Playmaker</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="att-playmaker" name="att-playmaker">
+                    </div>
+                    <div class="form__group">
+                        <label for="att-striker">Striker</label>
+                        <input type="number" value="0" min="0" max="100" class="form__field" id="att-striker" name="att-striker">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="form__submit">Save</button>
+        </form>
+
+        <div class="status">
+            Settings saved!
+        </div>
+    </div>
 
     <script src="js/options.js"></script>
 </body>
