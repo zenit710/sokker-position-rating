@@ -32,10 +32,10 @@ const SKILLS_MAX_VALUE = {
 };
 
 const POSITION = {
-    keeper: "keeper",
-    defender: "defender",
-    midfielder: "midfielder",
-    striker: "striker",
+    keeper: "GK",
+    defender: "DEF",
+    midfielder: "MID",
+    striker: "ATT",
 };
 
 const POSITION_SKILLS_IMPORTANCE = {
