@@ -1,6 +1,6 @@
 const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
-const getPlayerContainerNode = ($player) => $player.closest(".well, .panel");
+const getPlayerContainerNode = ($player) => $player.parentNode;
 
 const getPlayerSkillNodes = ($player) => $player.querySelectorAll(".skillNameNumber");
 
