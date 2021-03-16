@@ -1,6 +1,9 @@
 # Sokker Position Rating
 Google Chrome Extension for display player ability rating to play at position in sokker.org
 
+## User requirements
+You need to enable skill numbers in skill name in your profile settings to be able to get player position rating.
+
 ## Development
 
 After cloning repository run `npm install`
@@ -24,7 +27,7 @@ To install local extension read <https://developer.chrome.com/docs/extensions/mv
 - `npm run stylelint:fix` to fix formatting errors
 
 ### Publishing
-`npm run publish` - extension code will be build and located in `build/farmersi-notifier.zip`
+`npm run publish` - extension code will be build and located in `build/sokker-position-rating.zip`
 
 ### Visual Studio Code support
 You can have automatically formatted code (JS, SCSS) in VSCode in few steps:

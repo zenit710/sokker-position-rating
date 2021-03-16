@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "description": "Display player ability rating to play at position in sokker.org",
   "permissions": [
+    "activeTab",
     "storage"
   ],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "options_page": "options-page.html",
   "content_scripts": [{
-    "js": ["content-script.js"],
-    "matches": ["https://sokker.org/"]
+    "js": ["js/content.js"],
+    "matches": ["https://sokker.org/*"]
   }],
   "browser_action": {
     "default_popup": "popup-page.html",

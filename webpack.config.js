@@ -1,5 +1,3 @@
-const path = require("path");
-
 const isDev = (nodeEnv) => {
     return "development" === nodeEnv;
 };
@@ -8,7 +6,7 @@ module.exports = ({ NODE_ENV = "production" }) => {
     return {
         entry: {
             content: "./src/js/content-script.js",
-            options: "./src/js/options-page.js",
+            options: "./src/js/options/options-page.js",
             popup: "./src/js/popup-page.js",
         },
         devtool: isDev(NODE_ENV) ? "inline-source-map" : undefined,
@@ -26,11 +24,6 @@ module.exports = ({ NODE_ENV = "production" }) => {
         },
         output: {
             path: __dirname + "/dist/js",
-        },
-        resolve: {
-            alias: {
-                config: path.join(__dirname, "config", NODE_ENV),
-            },
         },
     };
 };
