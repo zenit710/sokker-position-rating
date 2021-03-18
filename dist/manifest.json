@@ -1,6 +1,6 @@
 {
   "name": "Sokker.org Position Rating",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Display player ability rating to play at position in sokker.org",
   "permissions": [
     "storage"
