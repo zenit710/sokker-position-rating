@@ -1,4 +1,5 @@
 import RatingComponent from "../component/RatingComponent";
+import TransferReminderComponent from "../component/TransferReminderComponent";
 import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "../shared/const";
 import {
     findPlayerNodes,
@@ -12,7 +13,6 @@ import {
 import SkillRatingResolver from "../shared/SkillRatingResolver";
 import { getItemFromStore } from "../shared/storage";
 import "../../scss/content.scss";
-import TransferRemindedComponent from '../component/TransferReminderComponent';
 
 const transfromSkills = (skillNodes) => {
     const skills = {};
@@ -44,7 +44,7 @@ const init = async () => {
         const playerName = getTransferPlayerName();
         const bidEndDate = getTransferBidEndDate();
         const $transferPanelContainer = getTransferPanelContainer();
-        const reminderComponent = new TransferRemindedComponent();
+        const reminderComponent = new TransferReminderComponent();
 
         $transferPanelContainer.append(reminderComponent.render());
     }

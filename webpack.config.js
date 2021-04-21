@@ -8,6 +8,7 @@ module.exports = ({ NODE_ENV = "production" }) => {
             content: "./src/js/content/content-script.js",
             options: "./src/js/options/options-page.js",
             popup: "./src/js/popup-page.js",
+            background: "./src/js/background.js",
         },
         devtool: isDev(NODE_ENV) ? "inline-source-map" : undefined,
         module: {

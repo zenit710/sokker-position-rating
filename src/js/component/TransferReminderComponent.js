@@ -1,4 +1,52 @@
-class TransferRemindedComponent {
+import { MESSAGE_TRANSFER_REMINDER_SET_TYPE, STORAGE_REMINDERS_KEY } from "../shared/const";
+import { getTransferBidEndDate, getTransferPlayerName } from "../shared/domHelper";
+import { getItemFromStore, setItemInStore } from "../shared/storage";
+
+class TransferReminderComponent {
+    constructor() {
+        this.minuteInput = null;
+    }
+
+    async __storeTransfer(remindDate, transferBidEndDate) {
+        const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || {};
+        let reminderForDate = reminders[remindDate] || [];
+        // TODO check is reminder for player set
+        reminderForDate.push({
+            player: getTransferPlayerName(),
+            url: window.location.href,
+            bidEnd: transferBidEndDate,
+        });
+        reminders[remindDate] = reminderForDate;
+
+        setItemInStore(STORAGE_REMINDERS_KEY, reminders);
+    }
+
+    __setAlarm(remindDate) {
+        chrome.runtime.sendMessage({
+            type: MESSAGE_TRANSFER_REMINDER_SET_TYPE,
+            remindDate: remindDate,
+        }, () => {
+            console.log("Transfer reminder was set.");
+        });
+    }
+
+    __onSubmit(event) {
+        event.preventDefault();
+
+        const now = new Date();
+        const transferBidEnd = getTransferBidEndDate();
+        const remindDate = transferBidEnd;
+        remindDate.setMinutes(remindDate.getMinutes() - this.minuteInput.value);
+        const remindDateISO = remindDate.toISOString();
+
+        if (remindDate > now) {
+            this.__storeTransfer(remindDateISO, transferBidEnd);
+            this.__setAlarm(remindDateISO);
+        } else {
+            // TODO render error message
+        }
+    }
+
     __renderHeading() {
         const headingContent = document.createElement("div");
         headingContent.className = "h5";
@@ -22,6 +70,7 @@ class TransferRemindedComponent {
         minuteInput.className = "form-control";
         minuteInput.min = 0;
         minuteInput.value = 10;
+        this.minuteInput = minuteInput;
 
         const minuteInputAddon = document.createElement("span");
         minuteInputAddon.className = "input-group-addon";
@@ -40,6 +89,7 @@ class TransferRemindedComponent {
 
         const form = document.createElement("form");
         form.append(inputLabel, formGroup, submitButton);
+        form.addEventListener("submit", this.__onSubmit.bind(this));
 
         return form;
     }
@@ -60,4 +110,4 @@ class TransferRemindedComponent {
     }
 }
 
-export default TransferRemindedComponent;
+export default TransferReminderComponent;
