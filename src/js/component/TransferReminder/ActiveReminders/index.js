@@ -1,1 +1,1 @@
-export { default } from "./ActiveReminder";
+export { default } from "./ActiveReminders";
