@@ -4,7 +4,8 @@
   "description": "Display player ability rating to play at position in sokker.org",
   "permissions": [
     "storage",
-    "alarms"
+    "alarms",
+    "notifications"
   ],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "options_page": "options-page.html",

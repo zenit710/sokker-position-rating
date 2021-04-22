@@ -19,11 +19,28 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 
         if (toRemind.length) {
             toRemind.forEach(reminder => {
-                console.log(reminder);
+                const { player, bidEndDate, url } = reminder;
+                const endDate = new Date(bidEndDate);
+                const notificationId = `${encodeURI(player)}|${encodeURI(url)}`;
+
+                chrome.notifications.create(notificationId, {
+                    type: "basic",
+                    title: "Player bid will be end soon!",
+                    iconUrl: "images/logo-128.png",
+                    message: `${player} bid ends ${endDate.toLocaleString()}`,
+                });
             });
 
             const remindersLeft = reminders.filter(reminder => reminder.remindDate > now);
             setItemInStore(STORAGE_REMINDERS_KEY, remindersLeft);
         }
+    }
+});
+
+chrome.notifications.onClicked.addListener(notificationId => {
+    const [, url] = notificationId.split("|");
+
+    if (url) {
+        chrome.tabs.create({ url });
     }
 });
