@@ -1,8 +1,8 @@
-import { MESSAGE_TRANSFER_REMINDER_SET_TYPE, STORAGE_REMINDERS_KEY } from "../shared/const";
-import { getTransferBidEndDate, getTransferPlayerName } from "../shared/domHelper";
-import { getItemFromStore, setItemInStore } from "../shared/storage";
+import { MESSAGE_TRANSFER_REMINDER_SET_TYPE, STORAGE_REMINDERS_KEY } from "../../../shared/const";
+import { getTransferBidEndDate, getTransferPlayerName } from "../../../shared/domHelper";
+import { getItemFromStore, setItemInStore } from "../../../shared/storage";
 
-class TransferReminderComponent {
+export default class Form {
     constructor() {
         this.minuteInput = null;
     }
@@ -46,19 +46,7 @@ class TransferReminderComponent {
         }
     }
 
-    __renderHeading() {
-        const headingContent = document.createElement("div");
-        headingContent.className = "h5";
-        headingContent.innerText = "Transfer Reminder (Sokker.org Position Rating)";
-
-        const heading = document.createElement("div");
-        heading.className = "panel-heading";
-        heading.append(headingContent);
-
-        return heading;
-    }
-
-    __renderForm() {
+    render() {
         const submitButton = document.createElement("button");
         submitButton.type = "submit";
         submitButton.className = "btn btn-primary";
@@ -92,21 +80,4 @@ class TransferReminderComponent {
 
         return form;
     }
-
-    render() {
-        const heading = this.__renderHeading();
-        const form = this.__renderForm();
-
-        const panelBody = document.createElement("div");
-        panelBody.className = "panel-body";
-        panelBody.append(form);
-
-        const panel = document.createElement("div");
-        panel.className = "panel panel-default";
-        panel.append(heading, panelBody);
-
-        return panel;
-    }
 }
-
-export default TransferReminderComponent;

@@ -1,5 +1,5 @@
 import RatingComponent from "../component/RatingComponent";
-import TransferReminderComponent from "../component/TransferReminderComponent";
+import TransferReminderComponent from "../component/TransferReminder";
 import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "../shared/const";
 import {
     findPlayerNodes,
