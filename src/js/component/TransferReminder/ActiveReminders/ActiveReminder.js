@@ -1,6 +1,7 @@
 import { STORAGE_REMINDERS_KEY } from "../../../shared/const";
 import { getTransferPlayerName } from "../../../shared/domHelper";
 import { getItemFromStore } from "../../../shared/storage";
+import "./ActiveReminder.scss";
 
 export default class ActiveReminders {
     async __getPlayerReminders() {

@@ -1,6 +1,7 @@
 import { MESSAGE_TRANSFER_REMINDER_SET_TYPE, STORAGE_REMINDERS_KEY } from "../../../shared/const";
 import { getTransferBidEndDate, getTransferPlayerName } from "../../../shared/domHelper";
 import { getItemFromStore, setItemInStore } from "../../../shared/storage";
+import "./Form.scss";
 
 export default class Form {
     constructor() {
@@ -21,7 +22,7 @@ export default class Form {
         this.__removeMessage();
 
         const div = document.createElement("div");
-        div.className = `form-message form-message--${type}`;
+        div.className = `form__message form__message--${type}`;
         div.innerText = message;
 
         this.form.append(div);

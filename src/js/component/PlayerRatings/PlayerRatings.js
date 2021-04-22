@@ -1,3 +1,5 @@
+import "./PlayerRatings.scss";
+
 const CLASS_NAME_BASE = "player-ratings";
 const CLASS_NAME_SKILL = `${CLASS_NAME_BASE}__skill`;
 const SUBNODE_TYPE = {
@@ -5,7 +7,7 @@ const SUBNODE_TYPE = {
     score: "score",
 };
 
-class RatingComponent {
+export default class PlayerRatings {
     constructor(ratings) {
         this.ratings = ratings;
     }
@@ -57,5 +59,3 @@ class RatingComponent {
         return span;
     }
 }
-
-export default RatingComponent;
