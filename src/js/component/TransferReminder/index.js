@@ -1,1 +1,1 @@
-export { default } from "./TransferReminderComponent";
+export { default } from "./TransferReminder";

@@ -41,8 +41,6 @@ const init = async () => {
     }
 
     if (isTransferPage()) {
-        const playerName = getTransferPlayerName();
-        const bidEndDate = getTransferBidEndDate();
         const $transferPanelContainer = getTransferPanelContainer();
         const reminderComponent = new TransferReminderComponent();
 

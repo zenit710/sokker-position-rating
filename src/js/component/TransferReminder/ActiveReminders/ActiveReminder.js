@@ -11,7 +11,7 @@ export default class ActiveReminders {
     }
 
     async render() {
-        let component = null;
+        let component = "";
         const playerReminders = await this.__getPlayerReminders();
 
         const reminders = playerReminders.map(reminder => {

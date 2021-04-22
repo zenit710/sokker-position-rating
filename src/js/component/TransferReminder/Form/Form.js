@@ -5,6 +5,26 @@ import { getItemFromStore, setItemInStore } from "../../../shared/storage";
 export default class Form {
     constructor() {
         this.minuteInput = null;
+        this.form = null;
+        this.onSuccess = () => {};
+    }
+
+    __removeMessage() {
+        const messageNode = this.form.querySelector(".form-message");
+
+        if (messageNode) {
+            this.form.removeChild(messageNode);
+        }
+    }
+
+    __renderMessage(type, message) {
+        this.__removeMessage();
+
+        const div = document.createElement("div");
+        div.className = `form-message form-message--${type}`;
+        div.innerText = message;
+
+        this.form.append(div);
     }
 
     async __storeTransfer(remindDate, transferBidEndDate) {
@@ -29,7 +49,7 @@ export default class Form {
         });
     }
 
-    __onSubmit(event) {
+    async __onSubmit(event) {
         event.preventDefault();
 
         const now = new Date();
@@ -39,10 +59,12 @@ export default class Form {
         const remindDateTimestamp = remindDate.getTime();
 
         if (remindDate > now) {
-            this.__storeTransfer(remindDateTimestamp, transferBidEnd.getTime());
+            await this.__storeTransfer(remindDateTimestamp, transferBidEnd.getTime());
             this.__setAlarm(remindDateTimestamp);
+            this.__renderMessage("success", "Reminder was added!");
+            this.onSuccess();
         } else {
-            // TODO render error message
+            this.__renderMessage("error", "Can't set reminder in the past!");
         }
     }
 
@@ -78,6 +100,14 @@ export default class Form {
         form.append(inputLabel, formGroup, submitButton);
         form.addEventListener("submit", this.__onSubmit.bind(this));
 
+        this.form = form;
+
         return form;
+    }
+
+    listenOnSuccess(cb) {
+        if (typeof cb === "function") {
+            this.onSuccess = cb;
+        }
     }
 }
