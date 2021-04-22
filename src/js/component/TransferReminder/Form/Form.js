@@ -11,7 +11,7 @@ export default class Form {
     }
 
     __removeMessage() {
-        const messageNode = this.form.querySelector(".form-message");
+        const messageNode = this.form.querySelector(".form__message");
 
         if (messageNode) {
             this.form.removeChild(messageNode);
