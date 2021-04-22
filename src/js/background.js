@@ -1,7 +1,29 @@
-import { MESSAGE_TRANSFER_REMINDER_SET_TYPE } from "./shared/const";
+import { MESSAGE_TRANSFER_REMINDER_SET_TYPE, STORAGE_REMINDERS_KEY } from "./shared/const";
+import { getItemFromStore, setItemInStore } from "./shared/storage";
+
+const TRANSFER_REMINDER_ALARM_NAME = "transferReminderAlarm";
 
 chrome.runtime.onMessage.addListener((request) => {
     if (request.type === MESSAGE_TRANSFER_REMINDER_SET_TYPE) {
-        // TODO set alarm which will create notification eventually
+        chrome.alarms.create(TRANSFER_REMINDER_ALARM_NAME, {
+            when: request.remindDate,
+        });
+    }
+});
+
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+    if (alarm.name === TRANSFER_REMINDER_ALARM_NAME) {
+        const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
+        const now = (new Date()).getTime();
+        const toRemind = reminders.filter(reminder => reminder.remindDate <= now);
+
+        if (toRemind.length) {
+            toRemind.forEach(reminder => {
+                console.log(reminder);
+            });
+
+            const remindersLeft = reminders.filter(reminder => reminder.remindDate > now);
+            setItemInStore(STORAGE_REMINDERS_KEY, remindersLeft);
+        }
     }
 });

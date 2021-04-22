@@ -8,15 +8,14 @@ class TransferReminderComponent {
     }
 
     async __storeTransfer(remindDate, transferBidEndDate) {
-        const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || {};
-        let reminderForDate = reminders[remindDate] || [];
-        // TODO check is reminder for player set
-        reminderForDate.push({
+        const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
+
+        reminders.push({
             player: getTransferPlayerName(),
             url: window.location.href,
-            bidEnd: transferBidEndDate,
+            bidEndDate: transferBidEndDate,
+            remindDate,
         });
-        reminders[remindDate] = reminderForDate;
 
         setItemInStore(STORAGE_REMINDERS_KEY, reminders);
     }
@@ -26,7 +25,7 @@ class TransferReminderComponent {
             type: MESSAGE_TRANSFER_REMINDER_SET_TYPE,
             remindDate: remindDate,
         }, () => {
-            console.log("Transfer reminder was set.");
+            console.debug("Transfer reminder was set.");
         });
     }
 
@@ -37,11 +36,11 @@ class TransferReminderComponent {
         const transferBidEnd = getTransferBidEndDate();
         const remindDate = transferBidEnd;
         remindDate.setMinutes(remindDate.getMinutes() - this.minuteInput.value);
-        const remindDateISO = remindDate.toISOString();
+        const remindDateTimestamp = remindDate.getTime();
 
         if (remindDate > now) {
-            this.__storeTransfer(remindDateISO, transferBidEnd);
-            this.__setAlarm(remindDateISO);
+            this.__storeTransfer(remindDateTimestamp, transferBidEnd.getTime());
+            this.__setAlarm(remindDateTimestamp);
         } else {
             // TODO render error message
         }
