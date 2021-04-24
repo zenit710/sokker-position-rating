@@ -31,4 +31,16 @@ button {
       text-decoration: underline;
     }
   }
+
+  &__reminder {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__remove {
+    @include button;
+    min-width: auto;
+    padding: 5px;
+  }
 }

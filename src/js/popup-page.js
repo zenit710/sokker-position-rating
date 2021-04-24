@@ -1,5 +1,5 @@
 import { STORAGE_REMINDERS_KEY } from "./shared/const";
-import { getItemFromStore } from "./shared/storage";
+import { getItemFromStore, setItemInStore } from "./shared/storage";
 import "../scss/popup-page.scss";
 
 const bindEventListeners = () => {
@@ -12,6 +12,23 @@ const bindEventListeners = () => {
     });
 };
 
+const removeReminder = async (reminder) => {
+    const { player, remindDate } = reminder;
+    const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
+    const reminderIndex = reminders.findIndex(r => r.player === player && r.remindDate === remindDate);
+
+    if (reminderIndex >= 0) {
+        reminders.splice(reminderIndex, 1);
+    }
+
+    setItemInStore(STORAGE_REMINDERS_KEY, reminders);
+
+    // remove reminder from DOM
+    // remove alarm
+    // add remove feature to player view
+    // change to react components
+};
+
 const showReminders = async () => {
     const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
     const playerUrls = {};
@@ -21,15 +38,25 @@ const showReminders = async () => {
     if (reminders.length) {
         reminders.sort((reminderA, reminderB) => reminderA.remindDate - reminderB.remindDate).forEach(reminder => {
             const { player, remindDate, url } = reminder;
-            const dateNode = document.createElement("div");
+
+            const dateNode = document.createElement("span");
             dateNode.className = "active-reminders__date";
             dateNode.href = url;
             dateNode.innerText = (new Date(remindDate)).toLocaleString();
 
+            const buttonNode = document.createElement("button");
+            buttonNode.className = "active-reminders__remove";
+            buttonNode.innerText = "X";
+            buttonNode.addEventListener("click", () => removeReminder(reminder));
+
+            const reminderNode = document.createElement("div");
+            reminderNode.className = "active-reminders__reminder";
+            reminderNode.append(dateNode, buttonNode);
+
             if (playerReminders[player]) {
-                playerReminders[player].push(dateNode);
+                playerReminders[player].push(reminderNode);
             } else {
-                playerReminders[player] = [dateNode];
+                playerReminders[player] = [reminderNode];
             }
 
             if (!playerUrls[player]) {
