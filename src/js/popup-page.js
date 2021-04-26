@@ -12,7 +12,7 @@ const bindEventListeners = () => {
     });
 };
 
-const removeReminder = async (reminder) => {
+const removeReminder = async (event, reminder) => {
     const { player, remindDate } = reminder;
     const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
     const reminderIndex = reminders.findIndex(r => r.player === player && r.remindDate === remindDate);
@@ -23,7 +23,16 @@ const removeReminder = async (reminder) => {
 
     setItemInStore(STORAGE_REMINDERS_KEY, reminders);
 
-    // remove reminder from DOM
+    const reminderNode = event.target.closest(".active-reminders__reminder");
+    const playerNode = reminderNode.parentNode;
+    const playerContainer = playerNode.parentNode;
+
+    playerNode.removeChild(reminderNode);
+
+    if (playerNode.childElementCount === 1) {
+        playerContainer.removeChild(playerNode);
+    }
+
     // remove alarm
     // add remove feature to player view
     // change to react components
@@ -47,7 +56,7 @@ const showReminders = async () => {
             const buttonNode = document.createElement("button");
             buttonNode.className = "active-reminders__remove";
             buttonNode.innerText = "X";
-            buttonNode.addEventListener("click", () => removeReminder(reminder));
+            buttonNode.addEventListener("click", (event) => removeReminder(event, reminder));
 
             const reminderNode = document.createElement("div");
             reminderNode.className = "active-reminders__reminder";
