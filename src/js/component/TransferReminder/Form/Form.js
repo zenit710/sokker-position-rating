@@ -45,6 +45,7 @@ export default class Form {
         chrome.runtime.sendMessage({
             type: MESSAGE_TRANSFER_REMINDER_SET_TYPE,
             remindDate: remindDate,
+            url: window.location.href,
         }, () => {
             console.debug("Transfer reminder was set.");
         });

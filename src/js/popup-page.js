@@ -1,6 +1,7 @@
-import { STORAGE_REMINDERS_KEY } from "./shared/const";
+import { STORAGE_REMINDERS_KEY, MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE } from "./shared/const";
 import { getItemFromStore, setItemInStore } from "./shared/storage";
 import "../scss/popup-page.scss";
+import { getReminderAlarmName } from "./shared/reminder";
 
 const bindEventListeners = () => {
     document.getElementById("settings-button").addEventListener("click", () => {
@@ -14,6 +15,8 @@ const bindEventListeners = () => {
 
 const removeReminder = async (event, reminder) => {
     const { player, remindDate } = reminder;
+
+    // remove reminder from the store
     const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
     const reminderIndex = reminders.findIndex(r => r.player === player && r.remindDate === remindDate);
 
@@ -23,6 +26,7 @@ const removeReminder = async (event, reminder) => {
 
     setItemInStore(STORAGE_REMINDERS_KEY, reminders);
 
+    // remove reminder from the DOM
     const reminderNode = event.target.closest(".active-reminders__reminder");
     const playerNode = reminderNode.parentNode;
     const playerContainer = playerNode.parentNode;
@@ -33,8 +37,12 @@ const removeReminder = async (event, reminder) => {
         playerContainer.removeChild(playerNode);
     }
 
-    // remove alarm
-    // add remove feature to player view
+    // remove reminder alarm
+    chrome.runtime.sendMessage({
+        type: MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
+        alarmName: getReminderAlarmName(reminder),
+    });
+
     // change to react components
 };
 
