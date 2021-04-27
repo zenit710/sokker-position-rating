@@ -43,9 +43,12 @@ const getPlayerReminders = async () => {
     return reminders.filter(reminder => reminder.player === player);
 };
 
+const getReminderAlarmName = ({ url, remindDate }) => `alarm|${encodeURI(url)}|${remindDate}`;
+
 export {
     storeReminder,
     setReminderAlarm,
     getRemindDate,
     getPlayerReminders,
+    getReminderAlarmName,
 };

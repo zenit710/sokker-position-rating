@@ -1,7 +1,7 @@
 import { STORAGE_REMINDERS_KEY, MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE } from "./shared/const";
 import { getItemFromStore, setItemInStore } from "./shared/storage";
+import { getReminderAlarmName } from "./service/ReminderService";
 import "../scss/popup-page.scss";
-import { getReminderAlarmName } from "./shared/reminder";
 
 const bindEventListeners = () => {
     document.getElementById("settings-button").addEventListener("click", () => {
