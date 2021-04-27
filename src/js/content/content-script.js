@@ -13,7 +13,6 @@ import {
 import SkillRatingResolver from "../shared/SkillRatingResolver";
 import { getItemFromStore } from "../shared/storage";
 import "../../scss/content.scss";
-import { _ } from "core-js";
 
 const transfromSkills = (skillNodes) => {
     const skills = {};
@@ -36,8 +35,12 @@ const init = async () => {
             const skills = transfromSkills(getPlayerSkillNodes($player));
             const ratings = resolver.getPlayerRating(skills);
             const $container = getPlayerContainerNode($player);
-            const ratingComponent = new PlayerRatings(ratings);
-            $container.append(ratingComponent.render());
+            const $ratingComponentContainer = document.createElement("div");
+            $container.append($ratingComponentContainer);
+
+            ReactDOM.render(<PlayerRatings ratings={ratings} />, $ratingComponentContainer);
+            // const ratingComponent = new PlayerRatings(ratings);
+            // $container.append(ratingComponent.render());
         });
     }
 
@@ -47,9 +50,6 @@ const init = async () => {
         $transferPanelContainer.append($reminderComponentContainer);
 
         ReactDOM.render(<TransferReminder />, $reminderComponentContainer);
-        // const reminderComponent = new TransferReminder();
-
-        // $transferPanelContainer.append(reminderComponent.render());
     }
 };
 
