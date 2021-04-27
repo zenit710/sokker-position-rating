@@ -14,6 +14,10 @@ module.exports = ({ NODE_ENV = "production" }) => {
         module: {
             rules: [
                 {
+                    test: /\.js$/i,
+                    use: ["babel-loader"],
+                },
+                {
                     test: /\.scss$/i,
                     use: [
                         "style-loader",

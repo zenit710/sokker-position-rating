@@ -1,3 +1,5 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import PlayerRatings from "../component/PlayerRatings";
 import TransferReminder from "../component/TransferReminder";
 import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "../shared/const";
@@ -11,6 +13,7 @@ import {
 import SkillRatingResolver from "../shared/SkillRatingResolver";
 import { getItemFromStore } from "../shared/storage";
 import "../../scss/content.scss";
+import { _ } from "core-js";
 
 const transfromSkills = (skillNodes) => {
     const skills = {};
@@ -40,9 +43,13 @@ const init = async () => {
 
     if (isTransferPage()) {
         const $transferPanelContainer = getTransferPanelContainer();
-        const reminderComponent = new TransferReminder();
+        const $reminderComponentContainer = document.createElement("div");
+        $transferPanelContainer.append($reminderComponentContainer);
 
-        $transferPanelContainer.append(reminderComponent.render());
+        ReactDOM.render(<TransferReminder />, $reminderComponentContainer);
+        // const reminderComponent = new TransferReminder();
+
+        // $transferPanelContainer.append(reminderComponent.render());
     }
 };
 
