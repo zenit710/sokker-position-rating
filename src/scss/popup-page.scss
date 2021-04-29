@@ -1,6 +1,6 @@
 @import './mixins';
 
-button {
+.action-button {
   @include button;
   margin: 5px 0;
   min-width: 200px;
@@ -16,31 +16,5 @@ button {
       display: block;
       font-size: larger;
     }
-  }
-
-  &__player {
-    margin-top: 5px;
-  }
-
-  &__player-link {
-    color: #000;
-    font-weight: bold;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &__reminder {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__remove {
-    @include button;
-    min-width: auto;
-    padding: 5px;
   }
 }

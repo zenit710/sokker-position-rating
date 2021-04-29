@@ -52,6 +52,8 @@ const removeReminder = async (reminder) => {
     });
 };
 
+const getAllReminders = async () => await getItemFromStore(STORAGE_REMINDERS_KEY);
+
 const getRemindDate = (minutesBeforeEnd) => {
     const transferBidEnd = getTransferBidEndDate();
     const remindDate = transferBidEnd;
@@ -67,13 +69,31 @@ const getPlayerReminders = async () => {
     return reminders.filter(reminder => reminder.player === player);
 };
 
+const groupByPlayer = (reminders) => {
+    const playerReminders = {};
+
+    reminders.forEach(reminder => {
+        const { player } = reminder;
+
+        if (player in playerReminders) {
+            playerReminders[player].push(reminder);
+        } else {
+            playerReminders[player] = [reminder];
+        }
+    });
+
+    return playerReminders;
+};
+
 const getReminderAlarmName = ({ url, remindDate }) => `alarm|${encodeURI(url)}|${remindDate}`;
 
 export {
     storeReminder,
     setReminderAlarm,
+    getAllReminders,
     getRemindDate,
     getPlayerReminders,
     getReminderAlarmName,
     removeReminder,
+    groupByPlayer,
 };
