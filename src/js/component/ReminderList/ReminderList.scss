@@ -1,3 +1,21 @@
+@import '../../../scss/mixins';
+
 .reminder-list {
   margin-top: 15px;
+
+  &__item {
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+
+  &__date {
+    align-items: center;
+    display: inline-flex;
+  }
+
+  &__remove {
+    @include button;
+  }
 }

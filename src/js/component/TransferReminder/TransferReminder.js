@@ -14,6 +14,16 @@ const TransferReminder = () => {
         setReminders([...reminders, reminder]);
     };
 
+    const handleReminderRemove = (reminder) => {
+        const index = reminders.findIndex(r => r.player === reminder.player && r.remindDate === reminder.remindDate);
+
+        if (index > -1) {
+            const newReminders = reminders.slice();
+            newReminders.splice(index, 1);
+            setReminders(newReminders);
+        }
+    };
+
     return (
         <div className="transfer-reminder panel panel-default">
             <div className="panel-heading">
@@ -21,7 +31,7 @@ const TransferReminder = () => {
             </div>
             <div className="panel-body">
                 <Form onReminderAdded={handleReminderAdded} />
-                <ReminderList reminders={reminders} />
+                <ReminderList reminders={reminders} onRemove={handleReminderRemove} />
             </div>
         </div>
     );

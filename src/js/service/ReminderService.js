@@ -1,13 +1,17 @@
-const { STORAGE_REMINDERS_KEY, MESSAGE_TRANSFER_REMINDER_SET_TYPE } = require("../shared/const");
+const {
+    STORAGE_REMINDERS_KEY,
+    MESSAGE_TRANSFER_REMINDER_SET_TYPE,
+    MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
+} = require("../shared/const");
 const { getTransferPlayerName, getTransferBidEndDate } = require("../shared/domHelper");
 const { setItemInStore, getItemFromStore } = require("../shared/storage");
 
-const storeReminder = async (remindDate, transferBidEndDate) => {
+const storeReminder = async (remindDate) => {
     const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
     const newReminder = {
         player: getTransferPlayerName(),
         url: window.location.href,
-        bidEndDate: transferBidEndDate,
+        bidEndDate: getTransferBidEndDate().getTime(),
         remindDate: remindDate.getTime(),
     };
 
@@ -25,6 +29,26 @@ const setReminderAlarm = (remindDate) => {
         url: window.location.href,
     }, () => {
         console.debug("Transfer reminder was set.");
+    });
+};
+
+const removeReminder = async (reminder) => {
+    const { player, remindDate } = reminder;
+
+    // remove reminder from the store
+    const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
+    const reminderIndex = reminders.findIndex(r => r.player === player && r.remindDate === remindDate);
+
+    if (reminderIndex >= 0) {
+        reminders.splice(reminderIndex, 1);
+    }
+
+    setItemInStore(STORAGE_REMINDERS_KEY, reminders);
+
+    // remove reminder alarm
+    chrome.runtime.sendMessage({
+        type: MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
+        alarmName: getReminderAlarmName(reminder),
     });
 };
 
@@ -51,4 +75,5 @@ export {
     getRemindDate,
     getPlayerReminders,
     getReminderAlarmName,
+    removeReminder,
 };
