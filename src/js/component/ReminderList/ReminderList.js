@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Button from "../Button";
 import { removeReminder, groupByPlayer } from "../../service/ReminderService";
 import "./ReminderList.scss";
 
@@ -40,11 +41,11 @@ const ReminderList = ({ reminders, onRemove, showLabel }) => {
                                         key={`${reminder.player}|${reminder.remindDate}`}
                                     >
                                         <span className="reminder-list__date">{date}</span>
-                                        <button
-                                            className="reminder-list__remove"
+                                        <Button
+                                            text="X"
                                             title="Remove reminder"
                                             onClick={() => handleRemoveClick(reminder)}
-                                        >X</button>
+                                        />
                                     </li>
                                 );
                             })}
