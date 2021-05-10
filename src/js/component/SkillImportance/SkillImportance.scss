@@ -1,0 +1,12 @@
+.skill-importance {
+  &__position {
+    font-weight: bold;
+  }
+
+  @media screen and (min-width: 768px) {
+    &__fields {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

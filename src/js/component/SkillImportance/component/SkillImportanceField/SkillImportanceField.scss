@@ -1,0 +1,21 @@
+.skill-importance-field {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  max-width: 150px;
+    
+  &__input {
+    border: 0;
+    border-bottom: 1px solid $c-primary;
+    outline: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  
+    &__input {
+      margin-top: 5px;
+    }
+  }
+}
