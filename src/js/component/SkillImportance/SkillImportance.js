@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { SKILLS } from "@/consts";
 import SkillImportanceField from "./component/SkillImportanceField";
-import { SKILLS } from "../../shared/const";
 import "./SkillImportance.scss";
 
 const getImportancesShape = () => {

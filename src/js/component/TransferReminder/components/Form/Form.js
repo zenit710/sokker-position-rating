@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
-import { getRemindDate, setReminderAlarm, storeReminder } from "../../../../service/ReminderService";
-import Button from "../../../Button";
+import { getRemindDate, setReminderAlarm, storeReminder } from "@/service/ReminderService";
+import Button from "@/component/Button";
 import "./Form.scss";
 
 const Form = ({ onReminderAdded, player, bidEndDate }) => {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { POSITION, SKILLS, STORAGE_SKILL_IMPORTANCE_KEY } from "../../shared/const";
-import { getItemFromStore, setItemInStore } from "../../shared/storage";
-import Button from "../Button";
-import SkillImportance from "../SkillImportance/SkillImportance";
+import { POSITION, SKILLS, STORAGE_SKILL_IMPORTANCE_KEY } from "@/consts";
+import { getItemFromStore, setItemInStore } from "@/service/StorageService";
+import Button from "@/component/Button";
+import SkillImportance from "@/component/SkillImportance";
 import "./SkillImportanceForm.scss";
 
 const getDefaultImportances = () => {

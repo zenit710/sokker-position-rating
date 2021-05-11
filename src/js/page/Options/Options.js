@@ -1,5 +1,5 @@
 import React from "react";
-import SkillImportanceForm from "../../component/SkillImportanceForm/SkillImportanceForm";
+import SkillImportanceForm from "@/component/SkillImportanceForm/SkillImportanceForm";
 import "./Options.scss";
 
 const OptionsPage = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getPlayerReminders } from "../../service/ReminderService";
-import ReminderList from "../ReminderList";
+import { getPlayerReminders } from "@/service/ReminderService";
+import ReminderList from "@/component/ReminderList";
 import Form from "./components/Form";
 
 const TransferReminder = ({ player, bidEndDate }) => {

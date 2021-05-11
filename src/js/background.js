@@ -1,8 +1,8 @@
 import {
     MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE, MESSAGE_TRANSFER_REMINDER_SET_TYPE, STORAGE_REMINDERS_KEY,
-} from "./shared/const";
-import { getReminderAlarmName } from "./service/ReminderService";
-import { getItemFromStore, setItemInStore } from "./shared/storage";
+} from "@/consts";
+import { getReminderAlarmName } from "@/service/ReminderService";
+import { getItemFromStore, setItemInStore } from "@/service/StorageService";
 
 chrome.runtime.onMessage.addListener((request) => {
     switch (request.type) {

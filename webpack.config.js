@@ -1,3 +1,5 @@
+const path = require("path");
+
 const isDev = (nodeEnv) => {
     return "development" === nodeEnv;
 };
@@ -29,6 +31,12 @@ module.exports = ({ NODE_ENV = "production" }) => {
         },
         output: {
             path: __dirname + "/dist/js",
+        },
+        resolve: {
+            alias: {
+                "@": path.resolve(__dirname, "src/js"),
+                "styles": path.resolve(__dirname, "src/scss"),
+            },
         },
     };
 };

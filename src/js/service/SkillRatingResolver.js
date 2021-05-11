@@ -1,4 +1,4 @@
-import { POSITION, SKILLS_MAX_VALUE } from "./const";
+import { POSITION, SKILLS_MAX_VALUE } from "@/consts";
 
 class SkillRatingResolver {
     constructor(skillsImportance) {

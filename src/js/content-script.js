@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import PlayerRatings from "./component/PlayerRatings";
-import TransferReminder from "./component/TransferReminder";
-import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "./shared/const";
+import PlayerRatings from "@/component/PlayerRatings";
+import TransferReminder from "@/component/TransferReminder";
+import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "@/consts";
 import {
     findPlayerNodes,
     getPlayerContainerNode,
@@ -11,10 +11,9 @@ import {
     getTransferPanelContainer,
     getTransferPlayerName,
     getTransferBidEndDate,
-} from "./shared/domHelper";
-import SkillRatingResolver from "./shared/SkillRatingResolver";
-import { getItemFromStore } from "./shared/storage";
-import "./../scss/content.scss";
+} from "@/helper/domHelper";
+import SkillRatingResolver from "@/service/SkillRatingResolver";
+import { getItemFromStore } from "@/service/StorageService";
 
 const transfromSkills = (skillNodes) => {
     const skills = {};

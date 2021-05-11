@@ -2,8 +2,8 @@ const {
     STORAGE_REMINDERS_KEY,
     MESSAGE_TRANSFER_REMINDER_SET_TYPE,
     MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
-} = require("../shared/const");
-const { setItemInStore, getItemFromStore } = require("../shared/storage");
+} = require("@/consts");
+const { setItemInStore, getItemFromStore } = require("@/service/StorageService");
 
 const storeReminder = async (player, remindDate, bidEndDate) => {
     const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];

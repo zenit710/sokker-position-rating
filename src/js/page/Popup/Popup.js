@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../component/Button";
-import ReminderList from "../../component/ReminderList";
-import { getAllReminders } from "../../service/ReminderService";
+import Button from "@/component/Button";
+import ReminderList from "@/component/ReminderList";
+import { getAllReminders } from "@/service/ReminderService";
 import "./Popup.scss";
 
 const handleSkillsButtonClick = () => chrome.runtime.openOptionsPage();
