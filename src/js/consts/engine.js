@@ -38,11 +38,9 @@ const POSITION = {
     striker: "ATT",
 };
 
-const STORAGE_SKILL_IMPORTANCE_KEY = "skillsImportance";
-
 export {
     POSITION,
+    SKILLS,
     SKILLS_ORDER,
     SKILLS_MAX_VALUE,
-    STORAGE_SKILL_IMPORTANCE_KEY,
 };

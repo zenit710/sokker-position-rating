@@ -1,0 +1,17 @@
+.form {
+  &__message {
+    border: 1px solid;
+    margin-top: 5px;
+    padding: 5px 10px;
+  
+    &--error {
+      border-color: #c00;
+      color: #c00;
+    }
+  
+    &--success {
+      border-color: #0c0;
+      color: #0c0;
+    }
+  }
+}
