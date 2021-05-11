@@ -35,7 +35,12 @@ const PopupPage = () => {
             {reminders.length > 0 && (
                 <div className="popup-page__reminders">
                     <h3 className="popup-page__reminders-header">Active reminders:</h3>
-                    <ReminderList reminders={reminders} showLabel={false} onRemove={handleReminderRemove} />
+                    <ReminderList
+                        reminders={reminders}
+                        showLabel={false}
+                        showPlayerNames
+                        onRemove={handleReminderRemove}
+                    />
                 </div>
             )}
         </div>

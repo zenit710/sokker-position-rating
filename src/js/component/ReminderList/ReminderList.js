@@ -4,13 +4,12 @@ import Button from "../Button";
 import { removeReminder, groupByPlayer } from "../../service/ReminderService";
 import "./ReminderList.scss";
 
-const ReminderList = ({ reminders, onRemove, showLabel }) => {
+const ReminderList = ({ reminders, onRemove, showLabel, showPlayerNames }) => {
     if (!reminders.length) {
         return null;
     }
 
     const groupedReminders = groupByPlayer(reminders);
-    const hasManyPlayers = Object.keys(groupedReminders).length > 1;
 
     const handleRemoveClick = (reminder) => {
         removeReminder(reminder);
@@ -23,7 +22,7 @@ const ReminderList = ({ reminders, onRemove, showLabel }) => {
             <ul className="reminder-list__player-list">
                 {Object.entries(groupedReminders).map(([player, playerReminders]) => (
                     <li className="reminder-list__player-list-item" key={player}>
-                        {hasManyPlayers && (
+                        {showPlayerNames && (
                             <a
                                 href={playerReminders[0].url}
                                 target="_blank"
@@ -62,11 +61,13 @@ ReminderList.propTypes = {
     })).isRequired,
     onRemove: PropTypes.func,
     showLabel: PropTypes.bool,
+    showPlayerNames: PropTypes.bool,
 };
 
 ReminderList.defaultProps = {
     onRemove: () => {},
     showLabel: true,
+    showPlayerNames: false,
 };
 
 export default ReminderList;
