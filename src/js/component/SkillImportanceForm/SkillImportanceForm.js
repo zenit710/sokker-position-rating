@@ -23,18 +23,20 @@ const SkillImportanceForm = () => {
     const [ importances, setImportances ] = useState(getDefaultImportances());
     const [ message, setMessage ] = useState(null);
 
-    const onImportancesChange = (position, valid, importances) => {
+    const onImportancesChange = (position, valid, positionImportances) => {
         if (!valid) {
             return;
         }
 
         setImportances({
             ...importances,
-            [position]: importances,
+            [position]: positionImportances,
         });
     };
 
-    const onSubmitButtonClick = () => {
+    const onSubmitButtonClick = (event) => {
+        event.preventDefault();
+
         console.log("store importances", importances);
         setMessage({
             type: "success",
@@ -48,7 +50,7 @@ const SkillImportanceForm = () => {
                 {Object.values(POSITION).map(pos => (
                     <SkillImportance
                         position={pos}
-                        importances={importances}
+                        importances={importances[pos]}
                         onChange={(valid, value) => onImportancesChange(pos, valid, value)}
                         key={`skill-improve-form-${pos}`}
                     />

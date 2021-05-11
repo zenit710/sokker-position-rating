@@ -8,7 +8,7 @@ const SkillImportanceField = ({ name, value, onChange }) => {
             <label className="skill-importance-field__label">{name}</label>
             <input
                 type="number"
-                value={value}
+                defaultValue={value}
                 min="0"
                 max="100"
                 className="skill-importance-field__input"

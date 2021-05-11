@@ -8,30 +8,31 @@ const getImportancesShape = () => {
     const shape = {};
 
     Object.values(SKILLS).forEach(skill => {
-        shape[skill] = PropTypes.number;
+        shape[skill] = PropTypes.string;
     });
 
     return shape;
 };
 
-const isValidImportancesSum = (importances) => {
-    const sum = Object.values(importances).reduce((previous, current) => previous + current);
-
-    return sum === 100;
+const getImportancesSum = (importances) => {
+    return Object.values(importances).reduce((previous, current) => +previous + +current);
 };
 
+const isValidImportancesSum = (importances) => 100 === getImportancesSum(importances);
+
 const SkillImportance = ({ position, importances, onChange }) => {
+    const [skillsImportances, setSkillsImportances] = useState(importances);
     const [message, setMessage] = useState("");
 
     const onImportanceChange = (skill, importance) => {
         const newImportances = {
-            ...importances,
+            ...skillsImportances,
             [skill]: importance,
         };
         const valid = isValidImportancesSum(newImportances);
 
-        setMessage(valid ? "" : "Importances must sum up to 100!");
-
+        setMessage(valid ? "" : `Importances must sum up to 100! (current: ${getImportancesSum(newImportances)})`);
+        setSkillsImportances(newImportances);
         onChange(valid, newImportances);
     };
 
@@ -42,8 +43,8 @@ const SkillImportance = ({ position, importances, onChange }) => {
                 {Object.values(SKILLS).map(skill => (
                     <SkillImportanceField
                         name={skill}
-                        value={importances[skill]}
-                        onChange={(importance) => onImportanceChange(skill, importance)}
+                        value={+skillsImportances[skill]}
+                        onChange={(event) => onImportanceChange(skill, event.target.value)}
                         key={`skill-importance-${position}-${skill}`}
                     />
 
