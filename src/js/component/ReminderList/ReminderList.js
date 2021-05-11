@@ -42,10 +42,9 @@ const ReminderList = ({ reminders, onRemove, showLabel }) => {
                                     >
                                         <span className="reminder-list__date">{date}</span>
                                         <Button
-                                            text="X"
                                             title="Remove reminder"
                                             onClick={() => handleRemoveClick(reminder)}
-                                        />
+                                        >X</Button>
                                     </li>
                                 );
                             })}

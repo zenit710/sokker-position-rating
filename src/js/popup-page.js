@@ -4,5 +4,5 @@ import PopupPage from "./page/Popup";
 
 ReactDOM.render(
     <PopupPage />,
-    document.querySelector("body"),
+    document.querySelector(".app"),
 );

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { getRemindDate, setReminderAlarm, storeReminder } from "../../../../service/ReminderService";
 import "./Form.scss";
+import Button from "../../../Button";
 
 const Form = ({ onReminderAdded }) => {
     const minutuesInputRef = useRef(null);
@@ -41,7 +42,7 @@ const Form = ({ onReminderAdded }) => {
                     <span className="input-group-addon">min.</span>
                 </div>
             </div>
-            <button type="submit" className="btn btn-primary">Remind me</button>
+            <Button>Remind me</Button>
             {message && <div className={`form__message form__message--${message.type}`}>{message.value}</div>}
         </form>
     );

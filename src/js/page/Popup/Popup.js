@@ -28,8 +28,8 @@ const PopupPage = () => {
             <h1>Sokker Position Rating</h1>
 
             <div className="popup-page__controls">
-                <Button text="Set skills importance" onClick={handleSkillsButtonClick} />
-                <Button text="Go to sokker.org" onClick={handleSokkerButtonClick} />
+                <Button onClick={handleSkillsButtonClick}>Set skills importance</Button>
+                <Button onClick={handleSokkerButtonClick}>Go to sokker.org</Button>
             </div>
 
             {reminders.length > 0 && (

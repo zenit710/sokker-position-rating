@@ -4,5 +4,5 @@ import OptionsPage from "./page/Options";
 
 ReactDOM.render(
     <OptionsPage />,
-    document.querySelector("body"),
+    document.querySelector(".app"),
 );

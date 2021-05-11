@@ -75,7 +75,7 @@ const SkillImportanceForm = () => {
                 </p>
             )}
 
-            <Button onClick={onSubmitButtonClick} text="Save" disabled={message && message.type === "error"} />
+            <Button onClick={onSubmitButtonClick} disabled={message && message.type === "error"}>Save</Button>
         </form>
     );
 };
