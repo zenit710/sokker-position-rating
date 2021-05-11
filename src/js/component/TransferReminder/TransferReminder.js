@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { getPlayerReminders } from "../../service/ReminderService";
 import ReminderList from "../ReminderList";
 import Form from "./components/Form";
 
-const TransferReminder = () => {
+const TransferReminder = ({ player, bidEndDate }) => {
     const [reminders, setReminders] = useState([]);
 
     useEffect(async () => {
-        setReminders(await getPlayerReminders());
+        setReminders(await getPlayerReminders(player));
     }, []);
 
     const handleReminderAdded = (reminder) => {
@@ -30,11 +31,16 @@ const TransferReminder = () => {
                 <div className="h5">Transfer Reminder (Sokker.org Position Rating)</div>
             </div>
             <div className="panel-body">
-                <Form onReminderAdded={handleReminderAdded} />
+                <Form onReminderAdded={handleReminderAdded} player={player} bidEndDate={bidEndDate} />
                 <ReminderList reminders={reminders} onRemove={handleReminderRemove} />
             </div>
         </div>
     );
+};
+
+TransferReminder.propTypes = {
+    player: PropTypes.string.isRequired,
+    bidEndDate: PropTypes.instanceOf(Date).isRequired,
 };
 
 export default TransferReminder;

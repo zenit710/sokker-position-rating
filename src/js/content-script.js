@@ -1,18 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import PlayerRatings from "../component/PlayerRatings";
-import TransferReminder from "../component/TransferReminder";
-import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "../shared/const";
+import PlayerRatings from "./component/PlayerRatings";
+import TransferReminder from "./component/TransferReminder";
+import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "./shared/const";
 import {
     findPlayerNodes,
     getPlayerContainerNode,
     getPlayerSkillNodes,
     isTransferPage,
     getTransferPanelContainer,
-} from "../shared/domHelper";
-import SkillRatingResolver from "../shared/SkillRatingResolver";
-import { getItemFromStore } from "../shared/storage";
-import "../../scss/content.scss";
+    getTransferPlayerName,
+    getTransferBidEndDate,
+} from "./shared/domHelper";
+import SkillRatingResolver from "./shared/SkillRatingResolver";
+import { getItemFromStore } from "./shared/storage";
+import "./../scss/content.scss";
 
 const transfromSkills = (skillNodes) => {
     const skills = {};
@@ -39,8 +41,6 @@ const init = async () => {
             $container.append($ratingComponentContainer);
 
             ReactDOM.render(<PlayerRatings ratings={ratings} />, $ratingComponentContainer);
-            // const ratingComponent = new PlayerRatings(ratings);
-            // $container.append(ratingComponent.render());
         });
     }
 
@@ -49,7 +49,13 @@ const init = async () => {
         const $reminderComponentContainer = document.createElement("div");
         $transferPanelContainer.append($reminderComponentContainer);
 
-        ReactDOM.render(<TransferReminder />, $reminderComponentContainer);
+        ReactDOM.render(
+            <TransferReminder
+                player={getTransferPlayerName()}
+                bidEndDate={getTransferBidEndDate()}
+            />,
+            $reminderComponentContainer,
+        );
     }
 };
 

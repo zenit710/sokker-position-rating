@@ -3,15 +3,14 @@ const {
     MESSAGE_TRANSFER_REMINDER_SET_TYPE,
     MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
 } = require("../shared/const");
-const { getTransferPlayerName, getTransferBidEndDate } = require("../shared/domHelper");
 const { setItemInStore, getItemFromStore } = require("../shared/storage");
 
-const storeReminder = async (remindDate) => {
+const storeReminder = async (player, remindDate, bidEndDate) => {
     const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
     const newReminder = {
-        player: getTransferPlayerName(),
+        player,
         url: window.location.href,
-        bidEndDate: getTransferBidEndDate().getTime(),
+        bidEndDate: bidEndDate.getTime(),
         remindDate: remindDate.getTime(),
     };
 
@@ -54,16 +53,14 @@ const removeReminder = async (reminder) => {
 
 const getAllReminders = async () => await getItemFromStore(STORAGE_REMINDERS_KEY);
 
-const getRemindDate = (minutesBeforeEnd) => {
-    const transferBidEnd = getTransferBidEndDate();
-    const remindDate = transferBidEnd;
+const getRemindDate = (minutesBeforeEnd, bidEndDate) => {
+    const remindDate = new Date(bidEndDate);
     remindDate.setMinutes(remindDate.getMinutes() - minutesBeforeEnd);
 
     return remindDate;
 };
 
-const getPlayerReminders = async () => {
-    const player = getTransferPlayerName();
+const getPlayerReminders = async (player) => {
     const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY);
 
     return reminders.filter(reminder => reminder.player === player);

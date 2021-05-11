@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { getRemindDate, setReminderAlarm, storeReminder } from "../../../../service/ReminderService";
-import "./Form.scss";
 import Button from "../../../Button";
+import "./Form.scss";
 
-const Form = ({ onReminderAdded }) => {
+const Form = ({ onReminderAdded, player, bidEndDate }) => {
     const minutuesInputRef = useRef(null);
     const [message, setMessage] = useState(null);
 
@@ -14,10 +14,10 @@ const Form = ({ onReminderAdded }) => {
 
         if (current) {
             const now = new Date();
-            const remindDate = getRemindDate(current.value);
+            const remindDate = getRemindDate(current.value, bidEndDate);
 
             if (remindDate > now) {
-                const reminder = await storeReminder(remindDate);
+                const reminder = await storeReminder(player, remindDate, bidEndDate);
                 setReminderAlarm(remindDate);
                 setMessage({
                     type: "success",
@@ -49,6 +49,8 @@ const Form = ({ onReminderAdded }) => {
 };
 
 Form.propTypes = {
+    player: PropTypes.string.isRequired,
+    bidEndDate: PropTypes.instanceOf(Date).isRequired,
     onReminderAdded: PropTypes.func,
 };
 
