@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import SkillImportanceField from "./component/SkillImportanceField";
 import { SKILLS } from "../../shared/const";
@@ -23,6 +23,10 @@ const isValidImportancesSum = (importances) => 100 === getImportancesSum(importa
 const SkillImportance = ({ position, importances, onChange }) => {
     const [skillsImportances, setSkillsImportances] = useState(importances);
     const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        setSkillsImportances(importances);
+    }, [importances]);
 
     const onImportanceChange = (skill, importance) => {
         const newImportances = {

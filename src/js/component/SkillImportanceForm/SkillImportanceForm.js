@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { POSITION, SKILLS } from "../../shared/const";
+import React, { useEffect, useState } from "react";
+import { POSITION, SKILLS, STORAGE_SKILL_IMPORTANCE_KEY } from "../../shared/const";
+import { getItemFromStore, setItemInStore } from "../../shared/storage";
 import Button from "../Button";
 import SkillImportance from "../SkillImportance/SkillImportance";
 import "./SkillImportanceForm.scss";
@@ -23,6 +24,14 @@ const SkillImportanceForm = () => {
     const [ importances, setImportances ] = useState(getDefaultImportances());
     const [ message, setMessage ] = useState(null);
 
+    useEffect(async () => {
+        const storedImportances = await getItemFromStore(STORAGE_SKILL_IMPORTANCE_KEY);
+
+        if (storedImportances) {
+            setImportances(storedImportances);
+        }
+    }, []);
+
     const onImportancesChange = (position, valid, positionImportances) => {
         if (!valid) {
             return;
@@ -34,14 +43,17 @@ const SkillImportanceForm = () => {
         });
     };
 
-    const onSubmitButtonClick = (event) => {
+    const onSubmitButtonClick = async (event) => {
         event.preventDefault();
 
-        console.log("store importances", importances);
-        setMessage({
-            type: "success",
-            value: "Settings saved!",
-        });
+        const stored = await setItemInStore(STORAGE_SKILL_IMPORTANCE_KEY, importances);
+
+        if (stored) {
+            setMessage({
+                type: "success",
+                value: "Settings saved!",
+            });
+        }
     };
 
     return (

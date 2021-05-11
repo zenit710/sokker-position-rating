@@ -6,7 +6,7 @@ module.exports = ({ NODE_ENV = "production" }) => {
     return {
         entry: {
             content: "./src/js/content/content-script.js",
-            options: "./src/js/options/options-page.js",
+            options: "./src/js/options-page.js",
             popup: "./src/js/popup-page.js",
             background: "./src/js/background.js",
         },
