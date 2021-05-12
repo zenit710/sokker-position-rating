@@ -84,6 +84,14 @@ const groupByPlayer = (reminders) => {
 
 const getReminderAlarmName = ({ url, remindDate }) => `alarm|${encodeURI(url)}|${remindDate}`;
 
+const clearExpiredReminders = async () => {
+    const reminders = await getAllReminders();
+    const now = new Date();
+    const activeReminders = reminders.filter(reminder => +reminder.remindDate >= +now.getTime());
+
+    setItemInStore(STORAGE_REMINDERS_KEY, activeReminders);
+};
+
 export {
     storeReminder,
     setReminderAlarm,
@@ -93,4 +101,5 @@ export {
     getReminderAlarmName,
     removeReminder,
     groupByPlayer,
+    clearExpiredReminders,
 };
