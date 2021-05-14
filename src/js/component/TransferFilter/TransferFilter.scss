@@ -1,5 +1,7 @@
+@import 'styles/variables';
+
 .transfer-filter {
-  @media screen and (min-width: 786px) {
+  @media screen and ($tablet) {
     display: flex;
     justify-content: space-between;
   }
@@ -10,7 +12,7 @@
     flex-direction: column;
     margin-top: 15px;
 
-    @media screen and (min-width: 768px) {
+    @media screen and ($tablet) {
       width: 50%;
     }
   }
