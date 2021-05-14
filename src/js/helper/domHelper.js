@@ -8,7 +8,9 @@ const getPlayerSkillNodes = ($player) => $player.querySelectorAll(".skillNameNum
 
 const isTransferPage = () => !!document.getElementById(PLAYER_PRICE_ELEMENT_ID);
 
-const isTransferCriteriaPage = () => window.location.pathname === "/transfers";
+const isTransferCriteriaPage = () => window.location.pathname.startsWith("/transfers");
+
+const isTrainerCriteriaType = () => window.location.pathname.includes("/trainer/1");
 
 const getTransferPlayerName = () => document.querySelector(".navbar-brand")?.textContent?.trim();
 
@@ -57,6 +59,7 @@ export {
     getPlayerSkillNodes,
     isTransferPage,
     isTransferCriteriaPage,
+    isTrainerCriteriaType,
     getTransferPlayerName,
     getTransferBidEndDate,
     getTransferPanelContainer,

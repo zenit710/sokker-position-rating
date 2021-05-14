@@ -1,28 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import Button from "@/component/Button";
 import Message, { TYPE_SUCCESS } from "@/component/Message/Message";
 import { getAllFormFieldValues, fillFormValues } from "@/helper/domHelper";
-import { getFilters, saveFilter } from "@/service/TransferFilterService";
+import { getFiltersByType, saveFilter, sortByName } from "@/service/TransferFilterService";
 import "./TransferFilter.scss";
 
-const getSortedFilters = async () => (await getFilters()).sort((a, b) => {
-    if (a.name < b.name) {
-        return -1;
-    }
-    if (a.name > b.name) {
-        return 1;
-    }
-    return 0;
-});
+const TYPE_PLAYER = "player";
+const TYPE_TRAINER = "trainer";
 
-const TransferFilter = () => {
+const getSortedFilters = async (type) => sortByName((await getFiltersByType(type)));
+
+const TransferFilter = ({ type }) => {
     const [filters, setFilters] = useState([]);
     const [message, setMessage] = useState("");
     const filterNameRef = useRef(null);
     const selectFilterRef = useRef(null);
 
     useEffect(async () => {
-        setFilters(await getSortedFilters());
+        setFilters(await getSortedFilters(type));
     }, []);
 
     const onFilterAddSubmit = async (event) => {
@@ -32,10 +28,10 @@ const TransferFilter = () => {
         if (current) {
             const formFieldValues = getAllFormFieldValues();
             const filterName = current.value;
-            const saved = await saveFilter(filterName, formFieldValues);
+            const saved = await saveFilter(filterName, formFieldValues, type);
 
             if (saved) {
-                setFilters(await getSortedFilters());
+                setFilters(await getSortedFilters(type));
                 setMessage("Filter saved!");
                 setTimeout(() => setMessage(""), 3000);
             }
@@ -88,4 +84,13 @@ const TransferFilter = () => {
     );
 };
 
+TransferFilter.propTypes = {
+    type: PropTypes.oneOf([TYPE_PLAYER, TYPE_TRAINER]).isRequired,
+};
+
 export default TransferFilter;
+
+export {
+    TYPE_PLAYER,
+    TYPE_TRAINER,
+};

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
-import TransferFilter from "@/component/TransferFilter";
+import TransferFilter, { TYPE_PLAYER, TYPE_TRAINER } from "@/component/TransferFilter";
 import TransferReminder from "@/component/TransferReminder";
 import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "@/consts";
 import {
@@ -10,6 +10,7 @@ import {
     getPlayerSkillNodes,
     isTransferPage,
     isTransferCriteriaPage,
+    isTrainerCriteriaType,
     getTransferPanelContainer,
     getTransferPlayerName,
     getTransferBidEndDate,
@@ -63,10 +64,11 @@ const init = async () => {
     if (isTransferCriteriaPage()) {
         const $panelBody = getPanelBody();
         const $transferFilterContainer = document.createElement("div");
+        const criteriaType = isTrainerCriteriaType() ? TYPE_TRAINER : TYPE_PLAYER;
         $panelBody.append($transferFilterContainer);
 
         ReactDOM.render(
-            <TransferFilter />,
+            <TransferFilter type={criteriaType} />,
             $transferFilterContainer,
         );
     }
