@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
+import TransferFilter, { TYPE_PLAYER, TYPE_TRAINER } from "@/component/TransferFilter";
 import TransferReminder from "@/component/TransferReminder";
 import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "@/consts";
 import {
@@ -8,9 +9,12 @@ import {
     getPlayerContainerNode,
     getPlayerSkillNodes,
     isTransferPage,
+    isTransferCriteriaPage,
+    isTrainerCriteriaType,
     getTransferPanelContainer,
     getTransferPlayerName,
     getTransferBidEndDate,
+    getPanelBody,
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getItemFromStore } from "@/service/StorageService";
@@ -54,6 +58,18 @@ const init = async () => {
                 bidEndDate={getTransferBidEndDate()}
             />,
             $reminderComponentContainer,
+        );
+    }
+
+    if (isTransferCriteriaPage()) {
+        const $panelBody = getPanelBody();
+        const $transferFilterContainer = document.createElement("div");
+        const criteriaType = isTrainerCriteriaType() ? TYPE_TRAINER : TYPE_PLAYER;
+        $panelBody.append($transferFilterContainer);
+
+        ReactDOM.render(
+            <TransferFilter type={criteriaType} />,
+            $transferFilterContainer,
         );
     }
 };

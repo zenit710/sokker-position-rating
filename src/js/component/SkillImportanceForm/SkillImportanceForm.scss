@@ -1,4 +1,4 @@
-@import 'styles/mixins';
+@import 'styles/variables';
 
 .skill-importance-form {
   &__positions {
@@ -8,19 +8,6 @@
   }
 
   &__message {
-    border: 1px solid;
     margin-top: 20px;
-    padding: 10px 20px;
-    text-align: center;
-
-    &--success {
-      border-color: $c-success;
-      color: $c-success;
-    }
-  
-    &--error {
-      border-color: $c-failure;
-      color: $c-failure;
-    }
   }
 }

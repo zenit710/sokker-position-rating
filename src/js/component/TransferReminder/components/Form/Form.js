@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { getRemindDate, setReminderAlarm, storeReminder } from "@/service/ReminderService";
 import Button from "@/component/Button";
+import Message, { TYPE_ERROR, TYPE_SUCCESS } from "@/component/Message";
 import "./Form.scss";
 
 const Form = ({ onReminderAdded, player, bidEndDate }) => {
@@ -20,16 +21,17 @@ const Form = ({ onReminderAdded, player, bidEndDate }) => {
                 const reminder = await storeReminder(player, remindDate, bidEndDate);
                 setReminderAlarm(remindDate);
                 setMessage({
-                    type: "success",
+                    type: TYPE_SUCCESS,
                     value: "Reminder was added!",
                 });
                 onReminderAdded(reminder);
             } else {
                 setMessage({
-                    type: "error",
+                    type: TYPE_ERROR,
                     value: "Can't set reminder in the past!",
                 });
             }
+            setTimeout(() => setMessage(null), 3000);
         }
     };
 
@@ -42,8 +44,12 @@ const Form = ({ onReminderAdded, player, bidEndDate }) => {
                     <span className="input-group-addon">min.</span>
                 </div>
             </div>
-            <Button>Remind me</Button>
-            {message && <div className={`form__message form__message--${message.type}`}>{message.value}</div>}
+            <Button type="submit">Remind me</Button>
+            {message && (
+                <div className="form__message">
+                    <Message type={message.type}>{message.value}</Message>
+                </div>
+            )}
         </form>
     );
 };

@@ -1,9 +1,11 @@
+@import 'styles/variables';
+
 .skill-importance {
   &__position {
     font-weight: bold;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and ($tablet) {
     &__fields {
       display: flex;
       justify-content: space-between;

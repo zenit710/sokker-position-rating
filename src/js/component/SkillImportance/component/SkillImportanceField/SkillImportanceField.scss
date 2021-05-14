@@ -1,3 +1,5 @@
+@import 'styles/variables';
+
 .skill-importance-field {
   display: flex;
   justify-content: space-between;
@@ -10,7 +12,7 @@
     outline: none;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and ($tablet) {
     display: flex;
     flex-direction: column;
   
