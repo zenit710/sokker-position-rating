@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { POSITION, SKILLS, STORAGE_SKILL_IMPORTANCE_KEY } from "@/consts";
 import { getItemFromStore, setItemInStore } from "@/service/StorageService";
 import Button from "@/component/Button";
+import Message, { TYPE_ERROR, TYPE_SUCCESS } from "@/component/Message";
 import SkillImportance from "@/component/SkillImportance";
 import "./SkillImportanceForm.scss";
 
@@ -50,7 +51,7 @@ const SkillImportanceForm = () => {
 
         if (stored) {
             setMessage({
-                type: "success",
+                type: TYPE_SUCCESS,
                 value: "Settings saved!",
             });
         }
@@ -70,12 +71,12 @@ const SkillImportanceForm = () => {
             </div>
 
             {message && (
-                <p className={`skill-importance-form__message skill-importance-form__message--${message.type}`}>
-                    {message.value}
-                </p>
+                <div className="skill-importance-form__message">
+                    <Message type={message.type}>{message.value}</Message>
+                </div>
             )}
 
-            <Button onClick={onSubmitButtonClick} disabled={message && message.type === "error"}>Save</Button>
+            <Button onClick={onSubmitButtonClick} disabled={message && message.type === TYPE_ERROR}>Save</Button>
         </form>
     );
 };

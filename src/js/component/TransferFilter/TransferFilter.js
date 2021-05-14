@@ -1,8 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "@/component/Button";
+import Message, { TYPE_SUCCESS } from "@/component/Message/Message";
 import { getAllFormFieldValues, fillFormValues } from "@/helper/domHelper";
 import { getFilters, saveFilter } from "@/service/TransferFilterService";
 import "./TransferFilter.scss";
+
+const getSortedFilters = async () => (await getFilters()).sort((a, b) => {
+    if (a.name < b.name) {
+        return -1;
+    }
+    if (a.name > b.name) {
+        return 1;
+    }
+    return 0;
+});
 
 const TransferFilter = () => {
     const [filters, setFilters] = useState([]);
@@ -11,7 +22,7 @@ const TransferFilter = () => {
     const selectFilterRef = useRef(null);
 
     useEffect(async () => {
-        setFilters(await getFilters());
+        setFilters(await getSortedFilters());
     }, []);
 
     const onFilterAddSubmit = async (event) => {
@@ -24,7 +35,7 @@ const TransferFilter = () => {
             const saved = await saveFilter(filterName, formFieldValues);
 
             if (saved) {
-                setFilters(await getFilters());
+                setFilters(await getSortedFilters());
                 setMessage("Filter saved!");
             }
         }
@@ -45,15 +56,19 @@ const TransferFilter = () => {
     return (
         <div className="transfer-filter">
             <form className="transfer-filter__form transfer-filter__form--add" onSubmit={onFilterAddSubmit}>
-                <label className="transfer-filter__form-label">Filter name (3-50 chars):</label>
+                <label className="transfer-filter__form-label">Create new filter (3-50 chars name):</label>
                 <input
                     ref={filterNameRef}
-                    min="3"
-                    max="50"
+                    minLength="3"
+                    maxLength="50"
                     className="transfer-filter__form-field form-control input-sm"
                 />
                 <Button type="submit">Save</Button>
-                {!!message && <span className="transfer-filter__message">{message}</span>}
+                {!!message && (
+                    <div className="transfer-filter__message">
+                        <Message type={TYPE_SUCCESS}>{message}</Message>
+                    </div>
+                )}
             </form>
 
             {filters.length > 0 && (

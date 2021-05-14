@@ -1,0 +1,17 @@
+@import 'styles/mixins';
+
+.message {
+  border: 1px solid;
+  padding: 10px 20px;
+  text-align: center;
+
+  &--success {
+    border-color: $c-success;
+    color: $c-success;
+  }
+
+  &--error {
+    border-color: $c-failure;
+    color: $c-failure;
+  }
+}
