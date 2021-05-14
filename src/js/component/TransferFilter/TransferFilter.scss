@@ -1,0 +1,21 @@
+.transfer-filter {
+  @media screen and (min-width: 786px) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__form {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+
+    @media screen and (min-width: 768px) {
+      width: 50%;
+    }
+  }
+
+  &__form-field {
+    margin: 5px 0;
+  }
+}

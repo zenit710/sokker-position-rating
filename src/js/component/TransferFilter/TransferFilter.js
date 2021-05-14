@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "@/component/Button";
 import { getAllFormFieldValues, fillFormValues } from "@/helper/domHelper";
 import { getFilters, saveFilter } from "@/service/TransferFilterService";
+import "./TransferFilter.scss";
 
 const TransferFilter = () => {
     const [filters, setFilters] = useState([]);
@@ -45,7 +46,12 @@ const TransferFilter = () => {
         <div className="transfer-filter">
             <form className="transfer-filter__form transfer-filter__form--add" onSubmit={onFilterAddSubmit}>
                 <label className="transfer-filter__form-label">Filter name (3-50 chars):</label>
-                <input ref={filterNameRef} min="3" max="50" />
+                <input
+                    ref={filterNameRef}
+                    min="3"
+                    max="50"
+                    className="transfer-filter__form-field form-control input-sm"
+                />
                 <Button type="submit">Save</Button>
                 {!!message && <span className="transfer-filter__message">{message}</span>}
             </form>
@@ -53,7 +59,7 @@ const TransferFilter = () => {
             {filters.length > 0 && (
                 <form className="transfer-filter__form transfer-filter__form--select" onSubmit={onFilterSelectSubmit}>
                     <label className="transfer-filter__form-label">Select existing filter:</label>
-                    <select ref={selectFilterRef}>
+                    <select ref={selectFilterRef} className="transfer-filter__form-field form-control input-sm">
                         <option value="-1">-- Choose filter --</option>
                         {filters.map((filter, index) => (
                             <option value={index} key={filter.name}>{filter.name}</option>
