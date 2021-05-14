@@ -54,6 +54,7 @@ const SkillImportanceForm = () => {
                 type: TYPE_SUCCESS,
                 value: "Settings saved!",
             });
+            setTimeout(() => setMessage(null), 3000);
         }
     };
 

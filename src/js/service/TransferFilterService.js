@@ -1,4 +1,4 @@
-import { getItemFromStore, setItemInStore } from "@/service/StorageService";
+import { getItemFromStore, setItemInStore, removeItemFromStore } from "@/service/StorageService";
 import { STORAGE_TRANSFER_FILTERS_KEY } from "@/consts";
 
 const getFilters = async () => (await getItemFromStore(STORAGE_TRANSFER_FILTERS_KEY)) || [];
@@ -20,7 +20,10 @@ const saveFilter = async (name, formValues) => {
     return await setItemInStore(STORAGE_TRANSFER_FILTERS_KEY, filters);
 };
 
+const clearFilters = () => removeItemFromStore(STORAGE_TRANSFER_FILTERS_KEY);
+
 export {
     getFilters,
     saveFilter,
+    clearFilters,
 };

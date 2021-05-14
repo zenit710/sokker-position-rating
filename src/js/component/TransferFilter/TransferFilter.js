@@ -37,6 +37,7 @@ const TransferFilter = () => {
             if (saved) {
                 setFilters(await getSortedFilters());
                 setMessage("Filter saved!");
+                setTimeout(() => setMessage(""), 3000);
             }
         }
     };

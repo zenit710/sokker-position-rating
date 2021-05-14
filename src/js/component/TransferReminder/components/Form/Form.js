@@ -31,6 +31,7 @@ const Form = ({ onReminderAdded, player, bidEndDate }) => {
                     value: "Can't set reminder in the past!",
                 });
             }
+            setTimeout(() => setMessage(null), 3000);
         }
     };
 
