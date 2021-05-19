@@ -1,4 +1,4 @@
-const PLAYER_PRICE_ELEMENT_ID = "player-bid-price";
+const PLAYER_PRICE_ELEMENT_ID = "player-bid-place-group";
 
 const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
