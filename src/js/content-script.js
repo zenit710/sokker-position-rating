@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
-import TransferFilter, { TYPE_PLAYER, TYPE_TRAINER } from "@/component/TransferFilter";
+import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
-import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY } from "@/consts";
+import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY, TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
 import {
     findPlayerNodes,
     getPlayerContainerNode,
@@ -68,7 +68,7 @@ const init = async () => {
         $panelBody.append($transferFilterContainer);
 
         ReactDOM.render(
-            <TransferFilter type={criteriaType} />,
+            <TransferFilterForm type={criteriaType} />,
             $transferFilterContainer,
         );
     }

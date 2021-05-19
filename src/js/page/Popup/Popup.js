@@ -1,6 +1,10 @@
 import React from "react";
 import Button from "@/component/Button";
-import { OPTIONS_TAB_HASH_SKILLS_IMPORTANCE, OPTIONS_TAB_HASH_REMINDERS } from "@/consts";
+import {
+    OPTIONS_TAB_HASH_SKILLS_IMPORTANCE,
+    OPTIONS_TAB_HASH_REMINDERS,
+    OPTIONS_TAB_HASH_TRANSFER_FILTERS,
+} from "@/consts";
 import "./Popup.scss";
 
 const handleOptionsClick = (section) => window.open(
@@ -21,6 +25,12 @@ const PopupPage = () => (
             </Button>
 
             <Button onClick={() => handleOptionsClick(OPTIONS_TAB_HASH_REMINDERS)}>Show active reminders</Button>
+
+            <Button
+                onClick={() => handleOptionsClick(OPTIONS_TAB_HASH_TRANSFER_FILTERS)}
+            >
+                Show transfer filter list
+            </Button>
 
             <Button onClick={handleSokkerButtonClick}>Go to sokker.org</Button>
         </div>

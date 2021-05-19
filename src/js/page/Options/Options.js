@@ -3,8 +3,13 @@ import Tab from "@/component/Tabs/component/Tab/Tab";
 import Tabs from "@/component/Tabs/Tabs";
 import SkillImportanceForm from "@/component/SkillImportanceForm";
 import ReminderList from "@/component/ReminderList";
+import TransferFilters from "@/component/TransferFilters";
 import { getAllReminders } from "@/service/ReminderService";
-import { OPTIONS_TAB_HASH_SKILLS_IMPORTANCE, OPTIONS_TAB_HASH_REMINDERS } from "@/consts";
+import {
+    OPTIONS_TAB_HASH_SKILLS_IMPORTANCE,
+    OPTIONS_TAB_HASH_REMINDERS,
+    OPTIONS_TAB_HASH_TRANSFER_FILTERS,
+} from "@/consts";
 import "./Options.scss";
 
 const OptionsPage = () => {
@@ -39,10 +44,9 @@ const OptionsPage = () => {
                         onRemove={handleReminderRemove}
                     />
                 </Tab>
-                <Tab name="trzeci">
-                    Siemano, trzeci!
+                <Tab name="Transfer filters" active={hash === OPTIONS_TAB_HASH_TRANSFER_FILTERS}>
+                    <TransferFilters />
                 </Tab>
-                <div>A ja się nie renderuje!</div>
             </Tabs>
         </div>
     );
