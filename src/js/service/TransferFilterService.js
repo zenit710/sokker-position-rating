@@ -25,7 +25,18 @@ const saveFilter = async (name, formValues, type) => {
 
 const clearFilters = () => removeItemFromStore(STORAGE_TRANSFER_FILTERS_KEY);
 
-const sortByName = async (filters) => filters.sort((a, b) => {
+const removeFilter = async (name, type) => {
+    const filters = await getFilters();
+    const index = filters.findIndex(filter => filter.name === name && filter.type === type);
+
+    if (index > -1) {
+        filters.splice(index, 1);
+    }
+
+    return await setItemInStore(STORAGE_TRANSFER_FILTERS_KEY, filters);
+};
+
+const sortByName = (filters) => filters.sort((a, b) => {
     if (a.name < b.name) {
         return -1;
     }
@@ -41,4 +52,5 @@ export {
     saveFilter,
     clearFilters,
     sortByName,
+    removeFilter,
 };

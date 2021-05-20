@@ -4,14 +4,12 @@ import Button from "@/component/Button";
 import Message, { TYPE_SUCCESS } from "@/component/Message/Message";
 import { getAllFormFieldValues, fillFormValues } from "@/helper/domHelper";
 import { getFiltersByType, saveFilter, sortByName } from "@/service/TransferFilterService";
-import "./TransferFilter.scss";
-
-const TYPE_PLAYER = "player";
-const TYPE_TRAINER = "trainer";
+import { TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
+import "./TransferFilterForm.scss";
 
 const getSortedFilters = async (type) => sortByName((await getFiltersByType(type)));
 
-const TransferFilter = ({ type }) => {
+const TransferFilterForm = ({ type }) => {
     const [filters, setFilters] = useState([]);
     const [message, setMessage] = useState("");
     const filterNameRef = useRef(null);
@@ -84,11 +82,11 @@ const TransferFilter = ({ type }) => {
     );
 };
 
-TransferFilter.propTypes = {
+TransferFilterForm.propTypes = {
     type: PropTypes.oneOf([TYPE_PLAYER, TYPE_TRAINER]).isRequired,
 };
 
-export default TransferFilter;
+export default TransferFilterForm;
 
 export {
     TYPE_PLAYER,
