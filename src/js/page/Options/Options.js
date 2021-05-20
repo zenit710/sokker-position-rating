@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Tab from "@/component/Tabs/component/Tab/Tab";
-import Tabs from "@/component/Tabs/Tabs";
+import Tab from "@/component/Tabs/component/Tab";
+import Tabs from "@/component/Tabs";
 import SkillImportanceForm from "@/component/SkillImportanceForm";
 import ReminderList from "@/component/ReminderList";
 import TransferFilters from "@/component/TransferFilters";
