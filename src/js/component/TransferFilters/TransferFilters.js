@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getFilters, removeFilter } from "@/service/TransferFilterService";
+import Button from "@/component/Button";
+import { getFilters, removeFilter, clearFilters } from "@/service/TransferFilterService";
 import { TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
 import TransferFilterList from "./component/TransferFilerList/TransferFilterList";
 import "./TransferFilters.scss";
@@ -21,18 +22,34 @@ const TransferFilter = () => {
         }
     };
 
+    const handleClearAllButtonClick = async () => {
+        const cleared = await clearFilters();
+
+        if (cleared) {
+            setFilters([]);
+        }
+    };
+
     return (
         <div className="transfer-filters">
-            <div className="transfer-filters__block transfer-filters__block--players">
-                <p>Player filters:</p>
-                <TransferFilterList items={playerFilters} onRemove={(name) => handleFilterRemove(name, TYPE_PLAYER)} />
+            <div className="transfer-filters__clear">
+                <Button onClick={handleClearAllButtonClick}>Clear all</Button>
             </div>
-            <div className="transfer-filters__block transfer-filters__block--trainers">
-                <p>Trainer filters:</p>
-                <TransferFilterList
-                    items={trainerFilters}
-                    onRemove={(name) => handleFilterRemove(name, TYPE_TRAINER)}
-                />
+            <div className="transfer-filters__blocks">
+                <div className="transfer-filters__block transfer-filters__block--players">
+                    <p>Player filters:</p>
+                    <TransferFilterList
+                        items={playerFilters}
+                        onRemove={(name) => handleFilterRemove(name, TYPE_PLAYER)}
+                    />
+                </div>
+                <div className="transfer-filters__block transfer-filters__block--trainers">
+                    <p>Trainer filters:</p>
+                    <TransferFilterList
+                        items={trainerFilters}
+                        onRemove={(name) => handleFilterRemove(name, TYPE_TRAINER)}
+                    />
+                </div>
             </div>
         </div>
     );

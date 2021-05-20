@@ -1,15 +1,21 @@
 @import 'styles/variables';
 
 .transfer-filters {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  &__blocks {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-  @media screen and ($tablet) {
-    flex-direction: row;
+    @media screen and ($tablet) {
+      flex-direction: row;
+    }
   }
 
   &__block {
     flex: 1 1 auto;
+  }
+
+  &__clear {
+    text-align: right;
   }
 }

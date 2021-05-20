@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getPlayerReminders } from "@/service/ReminderService";
+import { getPlayerReminders, removeReminders } from "@/service/ReminderService";
 import ReminderList from "@/component/ReminderList";
 import Form from "./components/Form";
 
@@ -25,6 +25,14 @@ const TransferReminder = ({ player, bidEndDate }) => {
         }
     };
 
+    const handleRemindersClear = async () => {
+        const removed = removeReminders(reminders);
+
+        if (removed) {
+            setReminders([]);
+        }
+    };
+
     return (
         <div className="transfer-reminder panel panel-default">
             <div className="panel-heading">
@@ -32,7 +40,7 @@ const TransferReminder = ({ player, bidEndDate }) => {
             </div>
             <div className="panel-body">
                 <Form onReminderAdded={handleReminderAdded} player={player} bidEndDate={bidEndDate} />
-                <ReminderList reminders={reminders} onRemove={handleReminderRemove} />
+                <ReminderList reminders={reminders} onRemove={handleReminderRemove} onClear={handleRemindersClear} />
             </div>
         </div>
     );

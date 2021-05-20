@@ -4,7 +4,7 @@ import Tabs from "@/component/Tabs";
 import SkillImportanceForm from "@/component/SkillImportanceForm";
 import ReminderList from "@/component/ReminderList";
 import TransferFilters from "@/component/TransferFilters";
-import { getAllReminders } from "@/service/ReminderService";
+import { getAllReminders, clearAllReminders } from "@/service/ReminderService";
 import {
     OPTIONS_TAB_HASH_SKILLS_IMPORTANCE,
     OPTIONS_TAB_HASH_REMINDERS,
@@ -28,6 +28,14 @@ const OptionsPage = () => {
         }
     };
 
+    const handleRemindersClear = async () => {
+        const cleared = clearAllReminders();
+
+        if (cleared) {
+            setReminders([]);
+        }
+    };
+
     return (
         <div className="options-page">
             <h1 className="options-page__title">Sokker Position Rating</h1>
@@ -42,6 +50,7 @@ const OptionsPage = () => {
                         showLabel={false}
                         showPlayerNames
                         onRemove={handleReminderRemove}
+                        onClear={handleRemindersClear}
                     />
                 </Tab>
                 <Tab name="Transfer filters" active={hash === OPTIONS_TAB_HASH_TRANSFER_FILTERS}>

@@ -1,5 +1,8 @@
 import {
-    MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE, MESSAGE_TRANSFER_REMINDER_SET_TYPE, STORAGE_REMINDERS_KEY,
+    MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
+    MESSAGE_TRANSFER_REMINDER_REMOVE_ALL_TYPE,
+    MESSAGE_TRANSFER_REMINDER_SET_TYPE,
+    STORAGE_REMINDERS_KEY,
 } from "@/consts";
 import { getReminderAlarmName, clearExpiredReminders } from "@/service/ReminderService";
 import { getItemFromStore, setItemInStore } from "@/service/StorageService";
@@ -15,6 +18,9 @@ chrome.runtime.onMessage.addListener((request) => {
         break;
     case MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE:
         chrome.alarms.clear(request.alarmName, () => {});
+        break;
+    case MESSAGE_TRANSFER_REMINDER_REMOVE_ALL_TYPE:
+        chrome.alarms.clearAll();
         break;
     }
 });

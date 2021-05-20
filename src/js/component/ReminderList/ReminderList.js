@@ -5,7 +5,7 @@ import Message, { TYPE_INFO } from "@/component/Message";
 import { removeReminder, groupByPlayer } from "@/service/ReminderService";
 import "./ReminderList.scss";
 
-const ReminderList = ({ reminders, onRemove, showLabel, showPlayerNames }) => {
+const ReminderList = ({ reminders, onRemove, onClear, showLabel, showPlayerNames }) => {
     if (!reminders.length) {
         return (
             <div className="reminder-list reminder-list--empty">
@@ -21,9 +21,16 @@ const ReminderList = ({ reminders, onRemove, showLabel, showPlayerNames }) => {
         onRemove(reminder);
     };
 
+    const handleClearButtonClick = () => onClear();
+
     return (
         <div className="reminder-list">
-            {showLabel && <label>Active reminders:</label>}
+            <div className="reminder-list__header">
+                {showLabel && <label className="reminder-list__label">Active reminders:</label>}
+                <div className="reminder-list__clear">
+                    <Button onClick={handleClearButtonClick}>Clear all</Button>
+                </div>
+            </div>
             <ul className="reminder-list__player-list">
                 {Object.entries(groupedReminders).map(([player, playerReminders]) => (
                     <li className="reminder-list__player-list-item" key={player}>
@@ -65,12 +72,14 @@ ReminderList.propTypes = {
         remindDate: PropTypes.number,
     })).isRequired,
     onRemove: PropTypes.func,
+    onClear: PropTypes.func,
     showLabel: PropTypes.bool,
     showPlayerNames: PropTypes.bool,
 };
 
 ReminderList.defaultProps = {
     onRemove: () => {},
+    onClear: () => {},
     showLabel: true,
     showPlayerNames: false,
 };

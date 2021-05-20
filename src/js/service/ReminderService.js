@@ -2,11 +2,12 @@ const {
     STORAGE_REMINDERS_KEY,
     MESSAGE_TRANSFER_REMINDER_SET_TYPE,
     MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
+    MESSAGE_TRANSFER_REMINDER_REMOVE_ALL_TYPE,
 } = require("@/consts");
-const { setItemInStore, getItemFromStore } = require("@/service/StorageService");
+const { setItemInStore, getItemFromStore, removeItemFromStore } = require("@/service/StorageService");
 
 const storeReminder = async (player, remindDate, bidEndDate) => {
-    const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
+    const reminders = await getAllReminders();
     const newReminder = {
         player,
         url: window.location.href,
@@ -31,27 +32,30 @@ const setReminderAlarm = (remindDate) => {
     });
 };
 
-const removeReminder = async (reminder) => {
-    const { player, remindDate } = reminder;
+const removeReminder = async (reminder) => removeReminders([reminder]);
 
-    // remove reminder from the store
-    const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
-    const reminderIndex = reminders.findIndex(r => r.player === player && r.remindDate === remindDate);
+const removeReminders = async (remindersToRemove) => {
+    const reminders = await getAllReminders();
 
-    if (reminderIndex >= 0) {
-        reminders.splice(reminderIndex, 1);
-    }
+    remindersToRemove.forEach(reminder => {
+        const { player, remindDate } = reminder;
+        const reminderIndex = reminders.findIndex(r => r.player === player && r.remindDate === remindDate);
 
-    setItemInStore(STORAGE_REMINDERS_KEY, reminders);
+        if (reminderIndex >= 0) {
+            reminders.splice(reminderIndex, 1);
+        }
 
-    // remove reminder alarm
-    chrome.runtime.sendMessage({
-        type: MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
-        alarmName: getReminderAlarmName(reminder),
+        // remove reminder alarm
+        chrome.runtime.sendMessage({
+            type: MESSAGE_TRANSFER_REMINDER_REMOVE_TYPE,
+            alarmName: getReminderAlarmName(reminder),
+        });
     });
+
+    return await setItemInStore(STORAGE_REMINDERS_KEY, reminders);
 };
 
-const getAllReminders = async () => await getItemFromStore(STORAGE_REMINDERS_KEY);
+const getAllReminders = async () => await getItemFromStore(STORAGE_REMINDERS_KEY) || [];
 
 const getRemindDate = (minutesBeforeEnd, bidEndDate) => {
     const remindDate = new Date(bidEndDate);
@@ -61,7 +65,7 @@ const getRemindDate = (minutesBeforeEnd, bidEndDate) => {
 };
 
 const getPlayerReminders = async (player) => {
-    const reminders = await getItemFromStore(STORAGE_REMINDERS_KEY);
+    const reminders = await getAllReminders();
 
     return reminders.filter(reminder => reminder.player === player);
 };
@@ -89,7 +93,15 @@ const clearExpiredReminders = async () => {
     const now = new Date();
     const activeReminders = reminders.filter(reminder => +reminder.remindDate >= +now.getTime());
 
-    setItemInStore(STORAGE_REMINDERS_KEY, activeReminders);
+    return await setItemInStore(STORAGE_REMINDERS_KEY, activeReminders);
+};
+
+const clearAllReminders = async () => {
+    chrome.runtime.sendMessage({
+        type: MESSAGE_TRANSFER_REMINDER_REMOVE_ALL_TYPE,
+    });
+
+    return await removeItemFromStore(STORAGE_REMINDERS_KEY);
 };
 
 export {
@@ -100,6 +112,8 @@ export {
     getPlayerReminders,
     getReminderAlarmName,
     removeReminder,
+    removeReminders,
     groupByPlayer,
     clearExpiredReminders,
+    clearAllReminders,
 };

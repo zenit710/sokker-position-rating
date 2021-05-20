@@ -23,7 +23,7 @@ const saveFilter = async (name, formValues, type) => {
     return await setItemInStore(STORAGE_TRANSFER_FILTERS_KEY, filters);
 };
 
-const clearFilters = () => removeItemFromStore(STORAGE_TRANSFER_FILTERS_KEY);
+const clearFilters = async () => await removeItemFromStore(STORAGE_TRANSFER_FILTERS_KEY);
 
 const removeFilter = async (name, type) => {
     const filters = await getFilters();
