@@ -1,0 +1,19 @@
+@import 'styles/variables';
+
+.button {
+  background: $c-primary;
+  border: 1px solid $c-primary;
+  color: $c-secondary;
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: 0.2s;
+  
+  @media (hover: hover) {
+    &:hover {
+      background: $c-secondary;
+      color: $c-primary;
+    }
+  }
+}

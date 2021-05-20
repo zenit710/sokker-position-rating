@@ -1,0 +1,9 @@
+const STORAGE_SKILL_IMPORTANCE_KEY = "skillsImportance";
+const STORAGE_REMINDERS_KEY = "reminders";
+const STORAGE_TRANSFER_FILTERS_KEY = "transferFilters";
+
+export {
+    STORAGE_SKILL_IMPORTANCE_KEY,
+    STORAGE_REMINDERS_KEY,
+    STORAGE_TRANSFER_FILTERS_KEY,
+};

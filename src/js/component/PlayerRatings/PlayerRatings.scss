@@ -1,0 +1,15 @@
+.player-ratings {
+  display: flex;
+  font-size: 1rem;
+  justify-content: flex-end;
+  padding: 10px;
+  
+  &__skill {
+    padding: 10px;
+        
+    &--best {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}

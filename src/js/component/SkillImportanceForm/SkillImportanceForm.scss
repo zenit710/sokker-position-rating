@@ -1,0 +1,13 @@
+@import 'styles/variables';
+
+.skill-importance-form {
+  &__positions {
+    > * {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__message {
+    margin-top: 20px;
+  }
+}

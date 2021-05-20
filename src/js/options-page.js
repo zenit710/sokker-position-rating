@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import PopupPage from "@/page/Popup";
+import OptionsPage from "@/page/Options";
 
 ReactDOM.render(
-    <PopupPage />,
+    <OptionsPage />,
     document.querySelector(".app"),
 );

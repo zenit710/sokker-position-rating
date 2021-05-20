@@ -1,0 +1,27 @@
+@import 'styles/variables';
+
+.transfer-filter {
+  @media screen and ($tablet) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__form {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+
+    @media screen and ($tablet) {
+      width: 50%;
+    }
+  }
+
+  &__form-field {
+    margin: 5px 0;
+  }
+
+  &__message {
+    margin-top: 5px;
+  }
+}

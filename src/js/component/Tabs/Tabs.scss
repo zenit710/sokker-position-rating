@@ -1,0 +1,28 @@
+@import 'styles/variables';
+
+.tabs {
+  background-color: $c-secondary;
+    
+  &__list {
+    border-bottom: 1px solid $c-primary;
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__list-item {
+    border: 1px solid transparent;
+    border-radius: 3px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    cursor: pointer;
+    margin-bottom: -1px;
+    padding: 5px 10px;
+
+    &--active {
+      border-color: $c-primary;
+      border-bottom-color: $c-secondary;
+    }
+  }
+}

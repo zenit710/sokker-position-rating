@@ -1,0 +1,14 @@
+.transfer-filter-list {
+  list-style: none;
+  padding: 0;
+
+  &__item {
+    align-items: center;
+    display: flex;
+    margin: 5px auto;
+  }
+
+  &__item-name {
+    margin-left: 10px;
+  }
+}
