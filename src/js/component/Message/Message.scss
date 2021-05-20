@@ -14,4 +14,9 @@
     border-color: $c-failure;
     color: $c-failure;
   }
+
+  &--info {
+    border-color: $c-info;
+    color: $c-info;
+  }
 }

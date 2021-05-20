@@ -1,12 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "@/component/Button";
+import Message, { TYPE_INFO } from "@/component/Message";
 import { removeReminder, groupByPlayer } from "@/service/ReminderService";
 import "./ReminderList.scss";
 
 const ReminderList = ({ reminders, onRemove, showLabel, showPlayerNames }) => {
     if (!reminders.length) {
-        return null;
+        return (
+            <div className="reminder-list reminder-list--empty">
+                <Message type={TYPE_INFO}>No reminders added yet!</Message>
+            </div>
+        );
     }
 
     const groupedReminders = groupByPlayer(reminders);
