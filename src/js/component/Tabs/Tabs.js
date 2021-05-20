@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Tab from "./component/Tab/Tab";
 import "./Tabs.scss";
 
 const Tabs = ({ children }) => {
@@ -35,7 +34,7 @@ const Tabs = ({ children }) => {
 };
 
 Tabs.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.instanceOf(Tab)).isRequired,
+    children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 export default Tabs;

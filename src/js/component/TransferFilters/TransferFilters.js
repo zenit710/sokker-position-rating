@@ -11,7 +11,7 @@ const TransferFilter = () => {
 
     useEffect(async () => {
         setFilters(await getFilters());
-    });
+    }, []);
 
     const handleFilterRemove = async (name, type) => {
         const filterRemoved = await removeFilter(name, type);
