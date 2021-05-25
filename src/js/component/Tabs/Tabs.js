@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./Tabs.scss";
 
 const Tabs = ({ children }) => {
-    const tabs = children.filter(child => child.type.name === "Tab");
+    const tabs = children.filter(child => child.props.name && child.props.children);
     const initialActiveTabIndex = tabs.findIndex(tab => tab.props.active);
     const [activeTab, setActiveTab] = useState(initialActiveTabIndex > -1 ? initialActiveTabIndex : 0);
 
