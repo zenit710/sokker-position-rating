@@ -8,7 +8,8 @@ const getPlayerSkillNodes = ($player) => $player.querySelectorAll(".skillNameNum
 
 const isTransferPage = () => !!document.getElementById(PLAYER_PRICE_ELEMENT_ID);
 
-const isTransferCriteriaPage = () => window.location.pathname.startsWith("/transfers");
+const isTransferCriteriaPage = () => window.location.pathname === "/transfers"
+    || window.location.pathname.startsWith("/transfers/");
 
 const isTrainerCriteriaType = () => window.location.pathname.includes("/trainer/1");
 
