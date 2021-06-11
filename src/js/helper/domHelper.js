@@ -1,4 +1,5 @@
 const PLAYER_PRICE_ELEMENT_ID = "player-bid-place-group";
+const FRIENDLY_INVITATION_LINK_SELECTOR = "a[href^='friendlies/action/public_invitation_take/ID/']";
 
 const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
@@ -13,8 +14,12 @@ const isTransferPage = () => !!document.getElementById(PLAYER_PRICE_ELEMENT_ID);
 const isFriendliesAdsPage = () => window.location.pathname.startsWith("/friendlies/action/public_invitations");
 
 const getFriendliesInvitationsUrls = () => [
-    ...document.querySelectorAll("a[href^='friendlies/action/public_invitation_take/ID/']"),
+    ...document.querySelectorAll(FRIENDLY_INVITATION_LINK_SELECTOR),
 ].map(link => `${window.location.origin}/${link.getAttribute("href")}`);
+
+const getFriendliesInvitationsPanel = () => document
+    .querySelector(FRIENDLY_INVITATION_LINK_SELECTOR)
+    .closest(".panel-body");
 
 const isTransferCriteriaPage = () => window.location.pathname === "/transfers"
     || window.location.pathname.startsWith("/transfers/");
@@ -70,6 +75,7 @@ export {
     isTransferPage,
     isFriendliesAdsPage,
     getFriendliesInvitationsUrls,
+    getFriendliesInvitationsPanel,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
     getTransferPlayerName,

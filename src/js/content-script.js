@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
+import InviteAll from "@/component/InviteAll";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
 import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY, TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
@@ -12,6 +13,7 @@ import {
     isTransferPage,
     isFriendliesAdsPage,
     getFriendliesInvitationsUrls,
+    getFriendliesInvitationsPanel,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
     getTransferPanelContainer,
@@ -92,7 +94,14 @@ const handleTransferCriteriaPage = () => {
 
 const handleFriendliesAdsPage = () => {
     const invitationUrls = getFriendliesInvitationsUrls();
-    console.log(invitationUrls);
+    const $invitationsPanel = getFriendliesInvitationsPanel();
+    const $inviteAllContainer = document.createElement("div");
+    $invitationsPanel.append($inviteAllContainer);
+
+    ReactDOM.render(
+        <InviteAll invitationUrls={invitationUrls} />,
+        $inviteAllContainer,
+    );
 };
 
 const init = () => {
