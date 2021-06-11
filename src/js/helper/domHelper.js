@@ -19,7 +19,7 @@ const getFriendliesInvitationsUrls = () => [
 
 const getFriendliesInvitationsPanel = () => document
     .querySelector(FRIENDLY_INVITATION_LINK_SELECTOR)
-    .closest(".panel-body");
+    ?.closest(".panel-body");
 
 const isTransferCriteriaPage = () => window.location.pathname === "/transfers"
     || window.location.pathname.startsWith("/transfers/");

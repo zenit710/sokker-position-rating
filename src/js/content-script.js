@@ -94,14 +94,17 @@ const handleTransferCriteriaPage = () => {
 
 const handleFriendliesAdsPage = () => {
     const invitationUrls = getFriendliesInvitationsUrls();
-    const $invitationsPanel = getFriendliesInvitationsPanel();
-    const $inviteAllContainer = document.createElement("div");
-    $invitationsPanel.append($inviteAllContainer);
 
-    ReactDOM.render(
-        <InviteAll invitationUrls={invitationUrls} />,
-        $inviteAllContainer,
-    );
+    if (invitationUrls.length) {
+        const $invitationsPanel = getFriendliesInvitationsPanel();
+        const $inviteAllContainer = document.createElement("div");
+        $invitationsPanel.append($inviteAllContainer);
+
+        ReactDOM.render(
+            <InviteAll invitationUrls={invitationUrls} />,
+            $inviteAllContainer,
+        );
+    }
 };
 
 const init = () => {
