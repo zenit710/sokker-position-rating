@@ -12,6 +12,10 @@ const isTransferPage = () => !!document.getElementById(PLAYER_PRICE_ELEMENT_ID);
 
 const isFriendliesAdsPage = () => window.location.pathname.startsWith("/friendlies/action/public_invitations");
 
+const getFriendliesInvitationsUrls = () => [
+    ...document.querySelectorAll("a[href^='friendlies/action/public_invitation_take/ID/']"),
+].map(link => `${window.location.origin}/${link.getAttribute("href")}`);
+
 const isTransferCriteriaPage = () => window.location.pathname === "/transfers"
     || window.location.pathname.startsWith("/transfers/");
 
@@ -65,6 +69,7 @@ export {
     isPlayerDetailPage,
     isTransferPage,
     isFriendliesAdsPage,
+    getFriendliesInvitationsUrls,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
     getTransferPlayerName,

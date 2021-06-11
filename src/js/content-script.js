@@ -11,6 +11,7 @@ import {
     isPlayerDetailPage,
     isTransferPage,
     isFriendliesAdsPage,
+    getFriendliesInvitationsUrls,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
     getTransferPanelContainer,
@@ -90,7 +91,8 @@ const handleTransferCriteriaPage = () => {
 };
 
 const handleFriendliesAdsPage = () => {
-    console.log("welcome to friendlies ads page");
+    const invitationUrls = getFriendliesInvitationsUrls();
+    console.log(invitationUrls);
 };
 
 const init = () => {
