@@ -6,6 +6,8 @@ const getPlayerContainerNode = ($player) => $player.parentNode;
 
 const getPlayerSkillNodes = ($player) => $player.querySelectorAll(".skillNameNumber");
 
+const isPlayerDetailPage = () => window.location.pathname.startsWith("/player/PID/");
+
 const isTransferPage = () => !!document.getElementById(PLAYER_PRICE_ELEMENT_ID);
 
 const isTransferCriteriaPage = () => window.location.pathname === "/transfers"
@@ -58,6 +60,7 @@ export {
     findPlayerNodes,
     getPlayerContainerNode,
     getPlayerSkillNodes,
+    isPlayerDetailPage,
     isTransferPage,
     isTransferCriteriaPage,
     isTrainerCriteriaType,

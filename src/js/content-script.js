@@ -8,6 +8,7 @@ import {
     findPlayerNodes,
     getPlayerContainerNode,
     getPlayerSkillNodes,
+    isPlayerDetailPage,
     isTransferPage,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
@@ -30,47 +31,76 @@ const transfromSkills = (skillNodes) => {
     return skills;
 };
 
-const init = async () => {
+const assignPlayerRatings = async (players) => {
     const skillsImportance = await getItemFromStore(STORAGE_SKILL_IMPORTANCE_KEY);
     const resolver = new SkillRatingResolver(skillsImportance);
+
+    players.forEach($player => {
+        const skills = transfromSkills(getPlayerSkillNodes($player));
+        const ratings = resolver.getPlayerRating(skills);
+        const $container = getPlayerContainerNode($player);
+        const $ratingComponentContainer = document.createElement("div");
+        $container.append($ratingComponentContainer);
+
+        ReactDOM.render(<PlayerRatings ratings={ratings} />, $ratingComponentContainer);
+    });
+};
+
+const handlePlayerTransferPage = () => {
+    const $transferPanelContainer = getTransferPanelContainer();
+    const $reminderComponentContainer = document.createElement("div");
+    $transferPanelContainer.append($reminderComponentContainer);
+
+    ReactDOM.render(
+        <TransferReminder
+            player={getTransferPlayerName()}
+            bidEndDate={getTransferBidEndDate()}
+        />,
+        $reminderComponentContainer,
+    );
+};
+
+const tryPlayerTransferPage = (tryNumber = 1) => {
+    if (isTransferPage()) {
+        handlePlayerTransferPage();
+    } else {
+        if (tryNumber <= 3) {
+            setTimeout(() => {
+                tryPlayerTransferPage(tryNumber + 1);
+            }, 1000);
+        }
+    }
+};
+
+const handlePlayerDetailPage = () => {
+    tryPlayerTransferPage();
+};
+
+const handleTransferCriteriaPage = () => {
+    const $panelBody = getPanelBody();
+    const $transferFilterContainer = document.createElement("div");
+    const criteriaType = isTrainerCriteriaType() ? TYPE_TRAINER : TYPE_PLAYER;
+    $panelBody.append($transferFilterContainer);
+
+    ReactDOM.render(
+        <TransferFilterForm type={criteriaType} />,
+        $transferFilterContainer,
+    );
+};
+
+const init = () => {
     const players = findPlayerNodes();
 
     if (players.length) {
-        players.forEach($player => {
-            const skills = transfromSkills(getPlayerSkillNodes($player));
-            const ratings = resolver.getPlayerRating(skills);
-            const $container = getPlayerContainerNode($player);
-            const $ratingComponentContainer = document.createElement("div");
-            $container.append($ratingComponentContainer);
-
-            ReactDOM.render(<PlayerRatings ratings={ratings} />, $ratingComponentContainer);
-        });
+        assignPlayerRatings(players);
     }
 
-    if (isTransferPage()) {
-        const $transferPanelContainer = getTransferPanelContainer();
-        const $reminderComponentContainer = document.createElement("div");
-        $transferPanelContainer.append($reminderComponentContainer);
-
-        ReactDOM.render(
-            <TransferReminder
-                player={getTransferPlayerName()}
-                bidEndDate={getTransferBidEndDate()}
-            />,
-            $reminderComponentContainer,
-        );
+    if (isPlayerDetailPage()) {
+        handlePlayerDetailPage();
     }
 
     if (isTransferCriteriaPage()) {
-        const $panelBody = getPanelBody();
-        const $transferFilterContainer = document.createElement("div");
-        const criteriaType = isTrainerCriteriaType() ? TYPE_TRAINER : TYPE_PLAYER;
-        $panelBody.append($transferFilterContainer);
-
-        ReactDOM.render(
-            <TransferFilterForm type={criteriaType} />,
-            $transferFilterContainer,
-        );
+        handleTransferCriteriaPage();
     }
 };
 
