@@ -15,7 +15,7 @@ const isFriendliesAdsPage = () => window.location.pathname.startsWith("/friendli
 
 const getFriendliesInvitationsUrls = () => [
     ...document.querySelectorAll(FRIENDLY_INVITATION_LINK_SELECTOR),
-].map(link => `${window.location.origin}/${link.getAttribute("href")}`);
+].map(link => link.getAttribute("href"));
 
 const getFriendliesInvitationsPanel = () => document
     .querySelector(FRIENDLY_INVITATION_LINK_SELECTOR)
