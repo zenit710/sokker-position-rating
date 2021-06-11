@@ -10,6 +10,8 @@ const isPlayerDetailPage = () => window.location.pathname.startsWith("/player/PI
 
 const isTransferPage = () => !!document.getElementById(PLAYER_PRICE_ELEMENT_ID);
 
+const isFriendliesAdsPage = () => window.location.pathname.startsWith("/friendlies/action/public_invitations");
+
 const isTransferCriteriaPage = () => window.location.pathname === "/transfers"
     || window.location.pathname.startsWith("/transfers/");
 
@@ -62,6 +64,7 @@ export {
     getPlayerSkillNodes,
     isPlayerDetailPage,
     isTransferPage,
+    isFriendliesAdsPage,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
     getTransferPlayerName,

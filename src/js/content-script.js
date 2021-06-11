@@ -10,6 +10,7 @@ import {
     getPlayerSkillNodes,
     isPlayerDetailPage,
     isTransferPage,
+    isFriendliesAdsPage,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
     getTransferPanelContainer,
@@ -88,6 +89,10 @@ const handleTransferCriteriaPage = () => {
     );
 };
 
+const handleFriendliesAdsPage = () => {
+    console.log("welcome to friendlies ads page");
+};
+
 const init = () => {
     const players = findPlayerNodes();
 
@@ -101,6 +106,10 @@ const init = () => {
 
     if (isTransferCriteriaPage()) {
         handleTransferCriteriaPage();
+    }
+
+    if (isFriendliesAdsPage()) {
+        handleFriendliesAdsPage();
     }
 };
 
