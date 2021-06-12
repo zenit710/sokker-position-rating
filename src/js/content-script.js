@@ -14,6 +14,8 @@ import {
     isTrainerCriteriaType,
     isSquadPage,
     getPlayersSortSelect,
+    getPlayersSortDirNode,
+    getPlayersSortDirection,
     getTransferPanelContainer,
     getTransferPlayerName,
     getTransferBidEndDate,
@@ -92,6 +94,7 @@ const handleTransferCriteriaPage = () => {
 
 const handleSquadPage = () => {
     const $sortSelect = getPlayersSortSelect();
+    const $directionSwitch = getPlayersSortDirNode();
     const positionsOptGroup = document.createElement("optgroup");
     positionsOptGroup.label = "Position rating";
     $sortSelect.append(positionsOptGroup);
@@ -102,6 +105,21 @@ const handleSquadPage = () => {
         option.innerHTML = position;
         positionsOptGroup.append(option);
     });
+
+    const sortPlayers = () => {
+        const field = $sortSelect.value;
+
+        if (!field.startsWith("position_")) {
+            return;
+        }
+
+        const sortDirection = getPlayersSortDirection();
+        console.log("sortDirection: ", sortDirection);
+        console.log("order by: ", field);
+    };
+
+    $sortSelect.addEventListener("change", sortPlayers);
+    $directionSwitch.addEventListener("click", sortPlayers);
 };
 
 const init = () => {

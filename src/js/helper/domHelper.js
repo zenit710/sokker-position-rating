@@ -19,6 +19,10 @@ const isSquadPage = () => !!getPlayersSortSelect();
 
 const getPlayersSortSelect = () => document.getElementById("playersSortSelect");
 
+const getPlayersSortDirNode = () => document.getElementById("playersSortChangeDir");
+
+const getPlayersSortDirection = () => getPlayersSortDirNode()?.innerHTML === "\u21D3" ? "asc" : "desc";
+
 const getTransferPlayerName = () => document.querySelector(".navbar-brand")?.textContent?.trim();
 
 const getTransferBidEndDate = () => {
@@ -70,6 +74,8 @@ export {
     isTrainerCriteriaType,
     isSquadPage,
     getPlayersSortSelect,
+    getPlayersSortDirNode,
+    getPlayersSortDirection,
     getTransferPlayerName,
     getTransferBidEndDate,
     getTransferPanelContainer,
