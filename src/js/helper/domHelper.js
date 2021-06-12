@@ -15,6 +15,10 @@ const isTransferCriteriaPage = () => window.location.pathname === "/transfers"
 
 const isTrainerCriteriaType = () => window.location.pathname.includes("/trainer/1");
 
+const isSquadPage = () => !!getPlayersSortSelect();
+
+const getPlayersSortSelect = () => document.getElementById("playersSortSelect");
+
 const getTransferPlayerName = () => document.querySelector(".navbar-brand")?.textContent?.trim();
 
 const getTransferBidEndDate = () => {
@@ -64,6 +68,8 @@ export {
     isTransferPage,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
+    isSquadPage,
+    getPlayersSortSelect,
     getTransferPlayerName,
     getTransferBidEndDate,
     getTransferPanelContainer,

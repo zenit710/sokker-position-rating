@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
-import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY, TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
+import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY, TYPE_PLAYER, TYPE_TRAINER, POSITION } from "@/consts";
 import {
     findPlayerNodes,
     getPlayerContainerNode,
@@ -12,6 +12,8 @@ import {
     isTransferPage,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
+    isSquadPage,
+    getPlayersSortSelect,
     getTransferPanelContainer,
     getTransferPlayerName,
     getTransferBidEndDate,
@@ -88,6 +90,20 @@ const handleTransferCriteriaPage = () => {
     );
 };
 
+const handleSquadPage = () => {
+    const $sortSelect = getPlayersSortSelect();
+    const positionsOptGroup = document.createElement("optgroup");
+    positionsOptGroup.label = "Position rating";
+    $sortSelect.append(positionsOptGroup);
+
+    Object.values(POSITION).forEach(position => {
+        const option = document.createElement("option");
+        option.value = `position_${position}`;
+        option.innerHTML = position;
+        positionsOptGroup.append(option);
+    });
+};
+
 const init = () => {
     const players = findPlayerNodes();
 
@@ -101,6 +117,10 @@ const init = () => {
 
     if (isTransferCriteriaPage()) {
         handleTransferCriteriaPage();
+    }
+
+    if (isSquadPage()) {
+        handleSquadPage();
     }
 };
 
