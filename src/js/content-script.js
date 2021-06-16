@@ -16,6 +16,7 @@ import {
     getPlayersSortSelect,
     getPlayersSortDirNode,
     getPlayersSortDirection,
+    sortSquad,
     getTransferPanelContainer,
     getTransferPlayerName,
     getTransferBidEndDate,
@@ -114,8 +115,8 @@ const handleSquadPage = () => {
         }
 
         const sortDirection = getPlayersSortDirection();
-        console.log("sortDirection: ", sortDirection);
-        console.log("order by: ", field);
+
+        sortSquad(field.replace("position_", ""), sortDirection);
     };
 
     $sortSelect.addEventListener("change", sortPlayers);

@@ -23,6 +23,35 @@ const getPlayersSortDirNode = () => document.getElementById("playersSortChangeDi
 
 const getPlayersSortDirection = () => getPlayersSortDirNode()?.innerHTML === "\u21D3" ? "asc" : "desc";
 
+const sortSquad = (position, direction) => {
+    const playerCells = [...document.querySelectorAll("div[id^=playerCell]")].map(cell => {
+        const positions = [...cell.querySelectorAll(".player-ratings__position")];
+        const scores = [...cell.querySelectorAll(".player-ratings__score")];
+        const ratings = {};
+
+        for (let i = 0; i < positions.length; i++) {
+            ratings[positions[i].innerText.replace(": ", "")] = +scores[i].innerText.replace("%", "");
+        }
+
+        return { node: cell, ratings };
+    });
+
+    playerCells.sort((a, b) => {
+        return a.ratings[position] - b.ratings[position];
+    });
+
+    if (direction === "desc") {
+        playerCells.reverse();
+    }
+
+    for (let i = 1; i < playerCells.length; i++) {
+        const nodeToMove = playerCells[i].node.parentNode;
+        const nodeBefore = playerCells[i - 1].node.parentNode;
+
+        nodeToMove.parentNode.insertBefore(nodeToMove, nodeBefore.nextSibling); // insert after
+    }
+};
+
 const getTransferPlayerName = () => document.querySelector(".navbar-brand")?.textContent?.trim();
 
 const getTransferBidEndDate = () => {
@@ -76,6 +105,7 @@ export {
     getPlayersSortSelect,
     getPlayersSortDirNode,
     getPlayersSortDirection,
+    sortSquad,
     getTransferPlayerName,
     getTransferBidEndDate,
     getTransferPanelContainer,
