@@ -17,6 +17,7 @@ import {
     getPlayersSortDirNode,
     getPlayersSortDirection,
     sortSquad,
+    revertOriginalSquadOrder,
     getTransferPanelContainer,
     getTransferPlayerName,
     getTransferBidEndDate,
@@ -111,6 +112,7 @@ const handleSquadPage = () => {
         const field = $sortSelect.value;
 
         if (!field.startsWith("position_")) {
+            revertOriginalSquadOrder();
             return;
         }
 

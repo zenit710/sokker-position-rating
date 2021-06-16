@@ -52,6 +52,17 @@ const sortSquad = (position, direction) => {
     }
 };
 
+const revertOriginalSquadOrder = () => {
+    const playerCellsLength = [...document.querySelectorAll("div[id^=playerCell]")].length;
+
+    for (let i = playerCellsLength - 1; i > 0; i--) {
+        const nodeToMove = document.getElementById(`playerCell${i - 1}`).parentNode;
+        const nodeAfter = document.getElementById(`playerCell${i}`).parentNode;
+
+        nodeToMove.parentNode.insertBefore(nodeToMove, nodeAfter);
+    }
+};
+
 const getTransferPlayerName = () => document.querySelector(".navbar-brand")?.textContent?.trim();
 
 const getTransferBidEndDate = () => {
@@ -106,6 +117,7 @@ export {
     getPlayersSortDirNode,
     getPlayersSortDirection,
     sortSquad,
+    revertOriginalSquadOrder,
     getTransferPlayerName,
     getTransferBidEndDate,
     getTransferPanelContainer,
