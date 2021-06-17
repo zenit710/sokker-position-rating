@@ -23,8 +23,16 @@ const getPlayersSortDirNode = () => document.getElementById("playersSortChangeDi
 
 const getPlayersSortDirection = () => getPlayersSortDirNode()?.innerHTML === "\u21D3" ? "asc" : "desc";
 
+const organizeSquadWells = (wells) => {
+    for (let i = wells.length - 1; i > 0; i--) {
+        const nodeToMove = wells[i - 1];
+
+        nodeToMove.parentNode.insertBefore(nodeToMove, wells[i]);
+    }
+};
+
 const sortSquad = (position, direction) => {
-    const playerCells = [...document.querySelectorAll("div[id^=playerCell]")].map(cell => {
+    const playerWells = [...document.querySelectorAll("div[id^=playerCell]")].map(cell => {
         const positions = [...cell.querySelectorAll(".player-ratings__position")];
         const scores = [...cell.querySelectorAll(".player-ratings__score")];
         const ratings = {};
@@ -34,33 +42,24 @@ const sortSquad = (position, direction) => {
         }
 
         return { node: cell, ratings };
-    });
-
-    playerCells.sort((a, b) => {
-        return a.ratings[position] - b.ratings[position];
-    });
+    }).sort((a, b) => a.ratings[position] - b.ratings[position]).map(cell => cell.node.parentNode);
 
     if (direction === "desc") {
-        playerCells.reverse();
+        playerWells.reverse();
     }
 
-    for (let i = 1; i < playerCells.length; i++) {
-        const nodeToMove = playerCells[i].node.parentNode;
-        const nodeBefore = playerCells[i - 1].node.parentNode;
-
-        nodeToMove.parentNode.insertBefore(nodeToMove, nodeBefore.nextSibling); // insert after
-    }
+    organizeSquadWells(playerWells);
 };
 
 const revertOriginalSquadOrder = () => {
-    const playerCellsLength = [...document.querySelectorAll("div[id^=playerCell]")].length;
+    const playerWells = [...document.querySelectorAll("div[id^=playerCell]")].sort((a, b) => {
+        const aNumber = +a.id.replace("playerCell", "");
+        const bNumber = +b.id.replace("playerCell", "");
 
-    for (let i = playerCellsLength - 1; i > 0; i--) {
-        const nodeToMove = document.getElementById(`playerCell${i - 1}`).parentNode;
-        const nodeAfter = document.getElementById(`playerCell${i}`).parentNode;
+        return aNumber - bNumber;
+    }).map(cell => cell.parentNode);
 
-        nodeToMove.parentNode.insertBefore(nodeToMove, nodeAfter);
-    }
+    organizeSquadWells(playerWells);
 };
 
 const getTransferPlayerName = () => document.querySelector(".navbar-brand")?.textContent?.trim();
