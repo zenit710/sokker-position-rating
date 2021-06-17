@@ -1,5 +1,6 @@
 const PLAYER_PRICE_ELEMENT_ID = "player-bid-place-group";
 const FRIENDLY_INVITATION_LINK_SELECTOR = "a[href^='friendlies/action/public_invitation_take/ID/']";
+const PANEL_BODY_CLASS = ".panel-body";
 const PLAYER_CELL_ID_PREFIX = "playerCell";
 const SORT = {
     DESC: "desc",
@@ -24,7 +25,7 @@ const getFriendliesInvitationsUrls = () => [
 
 const getFriendliesInvitationsPanel = () => document
     .querySelector(FRIENDLY_INVITATION_LINK_SELECTOR)
-    ?.closest(".panel-body");
+    ?.closest(PANEL_BODY_CLASS);
 
 const isTransferCriteriaPage = () => window.location.pathname === "/transfers"
     || window.location.pathname.startsWith("/transfers/");
@@ -117,7 +118,7 @@ const fillFormValues = (values) => {
     });
 };
 
-const getPanelBody = () => document.querySelector(".panel-body");
+const getPanelBody = () => document.querySelector(PANEL_BODY_CLASS);
 
 export {
     findPlayerNodes,
