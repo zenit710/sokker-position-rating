@@ -1,4 +1,9 @@
 const PLAYER_PRICE_ELEMENT_ID = "player-bid-place-group";
+const PLAYER_CELL_ID_PREFIX = "playerCell";
+const SORT = {
+    DESC: "desc",
+    ASC: "asc",
+};
 
 const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
@@ -21,7 +26,7 @@ const getPlayersSortSelect = () => document.getElementById("playersSortSelect");
 
 const getPlayersSortDirNode = () => document.getElementById("playersSortChangeDir");
 
-const getPlayersSortDirection = () => getPlayersSortDirNode()?.innerHTML === "\u21D3" ? "asc" : "desc";
+const getPlayersSortDirection = () => getPlayersSortDirNode()?.innerHTML === "\u21D3" ? SORT.ASC : SORT.DESC;
 
 const organizeSquadWells = (wells) => {
     for (let i = wells.length - 1; i > 0; i--) {
@@ -31,8 +36,8 @@ const organizeSquadWells = (wells) => {
     }
 };
 
-const sortSquad = (position, direction) => {
-    const playerWells = [...document.querySelectorAll("div[id^=playerCell]")].map(cell => {
+const sortSquad = (position) => {
+    const playerWells = [...document.querySelectorAll(`div[id^=${PLAYER_CELL_ID_PREFIX}]`)].map(cell => {
         const positions = [...cell.querySelectorAll(".player-ratings__position")];
         const scores = [...cell.querySelectorAll(".player-ratings__score")];
         const ratings = {};
@@ -44,7 +49,7 @@ const sortSquad = (position, direction) => {
         return { node: cell, ratings };
     }).sort((a, b) => a.ratings[position] - b.ratings[position]).map(cell => cell.node.parentNode);
 
-    if (direction === "desc") {
+    if (getPlayersSortDirection() === SORT.DESC) {
         playerWells.reverse();
     }
 
@@ -52,9 +57,9 @@ const sortSquad = (position, direction) => {
 };
 
 const revertOriginalSquadOrder = () => {
-    const playerWells = [...document.querySelectorAll("div[id^=playerCell]")].sort((a, b) => {
-        const aNumber = +a.id.replace("playerCell", "");
-        const bNumber = +b.id.replace("playerCell", "");
+    const playerWells = [...document.querySelectorAll(`div[id^=${PLAYER_CELL_ID_PREFIX}]`)].sort((a, b) => {
+        const aNumber = +a.id.replace(PLAYER_CELL_ID_PREFIX, "");
+        const bNumber = +b.id.replace(PLAYER_CELL_ID_PREFIX, "");
 
         return aNumber - bNumber;
     }).map(cell => cell.parentNode);
@@ -114,7 +119,6 @@ export {
     isSquadPage,
     getPlayersSortSelect,
     getPlayersSortDirNode,
-    getPlayersSortDirection,
     sortSquad,
     revertOriginalSquadOrder,
     getTransferPlayerName,

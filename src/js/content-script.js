@@ -15,7 +15,6 @@ import {
     isSquadPage,
     getPlayersSortSelect,
     getPlayersSortDirNode,
-    getPlayersSortDirection,
     sortSquad,
     revertOriginalSquadOrder,
     getTransferPanelContainer,
@@ -25,6 +24,8 @@ import {
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getItemFromStore } from "@/service/StorageService";
+
+const SORT_BY_POSITION_PREFIX = "position_";
 
 const transfromSkills = (skillNodes) => {
     const skills = {};
@@ -103,7 +104,7 @@ const handleSquadPage = () => {
 
     Object.values(POSITION).forEach(position => {
         const option = document.createElement("option");
-        option.value = `position_${position}`;
+        option.value = `${SORT_BY_POSITION_PREFIX}${position}`;
         option.innerHTML = position;
         positionsOptGroup.append(option);
     });
@@ -111,14 +112,12 @@ const handleSquadPage = () => {
     const sortPlayers = () => {
         const field = $sortSelect.value;
 
-        if (!field.startsWith("position_")) {
+        if (!field.startsWith(SORT_BY_POSITION_PREFIX)) {
             revertOriginalSquadOrder();
             return;
         }
 
-        const sortDirection = getPlayersSortDirection();
-
-        sortSquad(field.replace("position_", ""), sortDirection);
+        sortSquad(field.replace(SORT_BY_POSITION_PREFIX, ""));
     };
 
     $sortSelect.addEventListener("change", sortPlayers);
