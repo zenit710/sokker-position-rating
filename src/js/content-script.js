@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
-import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY, TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
+import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY, TYPE_PLAYER, TYPE_TRAINER, POSITION } from "@/consts";
 import {
     findPlayerNodes,
     getPlayerContainerNode,
@@ -12,6 +12,11 @@ import {
     isTransferPage,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
+    isSquadPage,
+    getPlayersSortSelect,
+    getPlayersSortDirNode,
+    sortSquad,
+    revertOriginalSquadOrder,
     getTransferPanelContainer,
     getTransferPlayerName,
     getTransferBidEndDate,
@@ -19,6 +24,8 @@ import {
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getItemFromStore } from "@/service/StorageService";
+
+const SORT_BY_POSITION_PREFIX = "position_";
 
 const transfromSkills = (skillNodes) => {
     const skills = {};
@@ -88,6 +95,35 @@ const handleTransferCriteriaPage = () => {
     );
 };
 
+const handleSquadPage = () => {
+    const $sortSelect = getPlayersSortSelect();
+    const $directionSwitch = getPlayersSortDirNode();
+    const positionsOptGroup = document.createElement("optgroup");
+    positionsOptGroup.label = "Position rating";
+    $sortSelect.append(positionsOptGroup);
+
+    Object.values(POSITION).forEach(position => {
+        const option = document.createElement("option");
+        option.value = `${SORT_BY_POSITION_PREFIX}${position}`;
+        option.innerHTML = position;
+        positionsOptGroup.append(option);
+    });
+
+    const sortPlayers = () => {
+        const field = $sortSelect.value;
+
+        if (!field.startsWith(SORT_BY_POSITION_PREFIX)) {
+            revertOriginalSquadOrder();
+            return;
+        }
+
+        sortSquad(field.replace(SORT_BY_POSITION_PREFIX, ""));
+    };
+
+    $sortSelect.addEventListener("change", sortPlayers);
+    $directionSwitch.addEventListener("click", sortPlayers);
+};
+
 const init = () => {
     const players = findPlayerNodes();
 
@@ -101,6 +137,10 @@ const init = () => {
 
     if (isTransferCriteriaPage()) {
         handleTransferCriteriaPage();
+    }
+
+    if (isSquadPage()) {
+        handleSquadPage();
     }
 };
 
