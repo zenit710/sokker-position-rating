@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
+import InviteAll from "@/component/InviteAll";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
 import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY, TYPE_PLAYER, TYPE_TRAINER, POSITION } from "@/consts";
@@ -10,6 +11,9 @@ import {
     getPlayerSkillNodes,
     isPlayerDetailPage,
     isTransferPage,
+    isFriendliesAdsPage,
+    getFriendliesInvitationsUrls,
+    getFriendliesInvitationsPanel,
     isTransferCriteriaPage,
     isTrainerCriteriaType,
     isSquadPage,
@@ -94,7 +98,6 @@ const handleTransferCriteriaPage = () => {
         $transferFilterContainer,
     );
 };
-
 const handleSquadPage = () => {
     const $sortSelect = getPlayersSortSelect();
     const $directionSwitch = getPlayersSortDirNode();
@@ -124,6 +127,21 @@ const handleSquadPage = () => {
     $directionSwitch.addEventListener("click", sortPlayers);
 };
 
+const handleFriendliesAdsPage = () => {
+    const invitationUrls = getFriendliesInvitationsUrls();
+
+    if (invitationUrls.length) {
+        const $invitationsPanel = getFriendliesInvitationsPanel();
+        const $inviteAllContainer = document.createElement("div");
+        $invitationsPanel.append($inviteAllContainer);
+
+        ReactDOM.render(
+            <InviteAll invitationUrls={invitationUrls} />,
+            $inviteAllContainer,
+        );
+    }
+};
+
 const init = () => {
     const players = findPlayerNodes();
 
@@ -141,6 +159,10 @@ const init = () => {
 
     if (isSquadPage()) {
         handleSquadPage();
+    }
+
+    if (isFriendliesAdsPage()) {
+        handleFriendliesAdsPage();
     }
 };
 
