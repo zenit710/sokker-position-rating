@@ -34,6 +34,11 @@ const SkillImportanceForm = ({ positions }) => {
         }
     }, []);
 
+    useEffect(() => {
+        const defaultImportances = getDefaultImportances(positions);
+        setImportances({...defaultImportances, ...importances });
+    }, [positions]);
+
     const onImportancesChange = (position, valid, positionImportances) => {
         if (!valid) {
             return;

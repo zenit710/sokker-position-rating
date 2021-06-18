@@ -14,6 +14,16 @@ const getImportancesShape = () => {
     return shape;
 };
 
+const getDefaultImportances = () => {
+    const importances = {};
+
+    Object.values(SKILLS).forEach(skill => {
+        importances[skill] = 0;
+    });
+
+    return importances;
+};
+
 const getImportancesSum = (importances) => {
     return Object.values(importances).reduce((previous, current) => +previous + +current);
 };
@@ -21,11 +31,11 @@ const getImportancesSum = (importances) => {
 const isValidImportancesSum = (importances) => 100 === getImportancesSum(importances);
 
 const SkillImportance = ({ position, importances, onChange }) => {
-    const [skillsImportances, setSkillsImportances] = useState(importances);
+    const [skillsImportances, setSkillsImportances] = useState(importances || getDefaultImportances());
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        setSkillsImportances(importances);
+        setSkillsImportances(importances || getDefaultImportances());
     }, [importances]);
 
     const onImportanceChange = (skill, importance) => {
