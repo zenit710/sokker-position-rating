@@ -31,15 +31,7 @@ const SKILLS_MAX_VALUE = {
     [SKILLS.striker]: 18,
 };
 
-const POSITION = {
-    keeper: "GK",
-    defender: "DEF",
-    midfielder: "MID",
-    striker: "ATT",
-};
-
 export {
-    POSITION,
     SKILLS,
     SKILLS_ORDER,
     SKILLS_MAX_VALUE,
