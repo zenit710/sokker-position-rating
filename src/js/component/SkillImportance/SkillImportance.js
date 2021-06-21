@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SKILLS } from "@/consts";
+import Button from "@/component/Button";
 import SkillImportanceField from "./component/SkillImportanceField";
 import { SkillImportanceDefaultProps, SkillImportancePropTypes } from "./SkillImportance.types";
 import "./SkillImportance.scss";
@@ -10,7 +11,7 @@ const getImportancesSum = (importances) => {
 
 const isValidImportancesSum = (importances) => 100 === getImportancesSum(importances);
 
-const SkillImportance = ({ position, importances, onChange }) => {
+const SkillImportance = ({ position, importances, onChange, onRemove }) => {
     const [skillsImportances, setSkillsImportances] = useState(importances);
     const [message, setMessage] = useState("");
 
@@ -30,9 +31,16 @@ const SkillImportance = ({ position, importances, onChange }) => {
         onChange(valid, newImportances);
     };
 
+    const onPositionRemove = () => onRemove(position);
+
     return (
         <div className="skill-importance">
-            <p className="skill-importance__position">{position}</p>
+            <div className="skill-importance__header">
+                <div className="skill-importance-form__remove">
+                    <Button size="small" onClick={onPositionRemove}>X</Button>
+                </div>
+                <p className="skill-importance__position">{position}</p>
+            </div>
             <div className="skill-importance__fields">
                 {Object.values(SKILLS).map(skill => (
                     <SkillImportanceField

@@ -22,7 +22,7 @@ const getDefaultImportances = (positions) => {
     return positionSkillImportances;
 };
 
-const SkillImportanceForm = ({ positions }) => {
+const SkillImportanceForm = ({ positions, onPositionRemove }) => {
     const [ importances, setImportances ] = useState(getDefaultImportances(positions));
     const [ message, setMessage ] = useState(null);
 
@@ -64,6 +64,13 @@ const SkillImportanceForm = ({ positions }) => {
         }
     };
 
+    const onRemove = (position) => {
+        const newImportances = {...importances};
+        delete newImportances[position];
+        setImportances(newImportances);
+        onPositionRemove(position);
+    };
+
     return (
         <form className="skill-importance-form">
             <div className="skill-importance-form__positions">
@@ -72,6 +79,7 @@ const SkillImportanceForm = ({ positions }) => {
                         position={pos}
                         importances={importances[pos]}
                         onChange={(valid, value) => onImportancesChange(pos, valid, value)}
+                        onRemove={onRemove}
                         key={`skill-improve-form-${pos}`}
                     />
                 ))}
@@ -90,6 +98,11 @@ const SkillImportanceForm = ({ positions }) => {
 
 SkillImportanceForm.propTypes = {
     positions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onPositionRemove: PropTypes.func,
+};
+
+SkillImportanceForm.defaultProp = {
+    onPositionRemove: () => {},
 };
 
 export default SkillImportanceForm;

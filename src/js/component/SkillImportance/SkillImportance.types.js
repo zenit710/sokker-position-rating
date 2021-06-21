@@ -25,11 +25,13 @@ const SkillImportancePropTypes = {
     position: PropTypes.string.isRequired,
     importances: PropTypes.shape(getImportancesShape()),
     onChange: PropTypes.func,
+    onRemove: PropTypes.func,
 };
 
 const SkillImportanceDefaultProps = {
     importances: getDefaultImportances(),
     onChange: () => {},
+    onRemove: () => {},
 };
 
 export {

@@ -47,13 +47,23 @@ const OptionsPage = () => {
         }
     };
 
+    const handlePositionRemoved = (positionName) => {
+        const index = positions.findIndex(position => position === positionName);
+
+        if (index > -1) {
+            const newPositions = [...positions];
+            newPositions.splice(index, 1);
+            setPositions(newPositions);
+        }
+    };
+
     return (
         <div className="options-page">
             <h1 className="options-page__title">Sokker Position Rating</h1>
             <Tabs>
                 <Tab name="Skills importance" active={hash === OPTIONS_TAB_HASH_SKILLS_IMPORTANCE}>
                     <p>Set importance of each skill for each position - player rating will be based on this setup.</p>
-                    <SkillImportanceForm positions={positions} />
+                    <SkillImportanceForm positions={positions} onPositionRemove={handlePositionRemoved} />
                     <PositionAdd onAdded={handlePositionAdded} />
                 </Tab>
                 <Tab name="Reminders" active={hash === OPTIONS_TAB_HASH_REMINDERS}>
