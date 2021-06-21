@@ -1,14 +1,20 @@
-import { POSITION, SKILLS_MAX_VALUE } from "@/consts";
+import { SKILLS_MAX_VALUE } from "@/consts";
 
 class SkillRatingResolver {
-    constructor(skillsImportance) {
+    constructor(skillsImportance, positions) {
         this.skillsImportance = skillsImportance;
-        this.maxPositionScore = {
-            [POSITION.keeper]: this.resolvePositionScore(POSITION.keeper, SKILLS_MAX_VALUE),
-            [POSITION.defender]: this.resolvePositionScore(POSITION.defender, SKILLS_MAX_VALUE),
-            [POSITION.midfielder]: this.resolvePositionScore(POSITION.midfielder, SKILLS_MAX_VALUE),
-            [POSITION.striker]: this.resolvePositionScore(POSITION.striker, SKILLS_MAX_VALUE),
-        };
+        this.positions = positions;
+        this.maxPositionScores = {};
+    }
+
+    generateScores(skills) {
+        const scores = {};
+
+        this.positions.forEach(position => {
+            scores[position] = this.resolvePositionScore(position, skills);
+        });
+
+        return scores;
     }
 
     resolvePositionScore(position, skills) {
@@ -24,27 +30,23 @@ class SkillRatingResolver {
     }
 
     getPositionPercentageScore(position, score) {
-        if (this.maxPositionScore === 0) {
+        if (this.maxPositionScores[position] === 0) {
             return 0;
         }
 
-        return Math.round(score / this.maxPositionScore[position] * 1000) / 10; // allow one decimal place
+        return Math.round(score / this.maxPositionScores[position] * 1000) / 10; // allow one decimal place
     }
 
     getPlayerRating(playerSkills) {
-        const scores = {
-            [POSITION.keeper]: this.resolvePositionScore(POSITION.keeper, playerSkills),
-            [POSITION.defender]: this.resolvePositionScore(POSITION.defender, playerSkills),
-            [POSITION.midfielder]: this.resolvePositionScore(POSITION.midfielder, playerSkills),
-            [POSITION.striker]: this.resolvePositionScore(POSITION.striker, playerSkills),
-        };
+        this.maxPositionScores = this.generateScores(SKILLS_MAX_VALUE);
+        const scores = this.generateScores(playerSkills);
+        const ratings = {};
 
-        return {
-            [POSITION.keeper]: this.getPositionPercentageScore(POSITION.keeper, scores[POSITION.keeper]),
-            [POSITION.defender]: this.getPositionPercentageScore(POSITION.defender, scores[POSITION.defender]),
-            [POSITION.midfielder]: this.getPositionPercentageScore(POSITION.midfielder, scores[POSITION.midfielder]),
-            [POSITION.striker]: this.getPositionPercentageScore(POSITION.striker, scores[POSITION.striker]),
-        };
+        this.positions.forEach(position => {
+            ratings[position] = this.getPositionPercentageScore(position, scores[position]);
+        });
+
+        return ratings;
     }
 }
 

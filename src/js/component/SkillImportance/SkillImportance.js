@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { SKILLS } from "@/consts";
+import Button, { BUTTON_SIZE } from "@/component/Button";
 import SkillImportanceField from "./component/SkillImportanceField";
+import { SkillImportanceDefaultProps, SkillImportancePropTypes } from "./SkillImportance.types";
 import "./SkillImportance.scss";
-
-const getImportancesShape = () => {
-    const shape = {};
-
-    Object.values(SKILLS).forEach(skill => {
-        shape[skill] = PropTypes.string;
-    });
-
-    return shape;
-};
 
 const getImportancesSum = (importances) => {
     return Object.values(importances).reduce((previous, current) => +previous + +current);
@@ -20,7 +11,7 @@ const getImportancesSum = (importances) => {
 
 const isValidImportancesSum = (importances) => 100 === getImportancesSum(importances);
 
-const SkillImportance = ({ position, importances, onChange }) => {
+const SkillImportance = ({ position, importances, onChange, onRemove }) => {
     const [skillsImportances, setSkillsImportances] = useState(importances);
     const [message, setMessage] = useState("");
 
@@ -40,9 +31,16 @@ const SkillImportance = ({ position, importances, onChange }) => {
         onChange(valid, newImportances);
     };
 
+    const onPositionRemove = () => onRemove(position);
+
     return (
         <div className="skill-importance">
-            <p className="skill-importance__position">{position}</p>
+            <div className="skill-importance__header">
+                <div className="skill-importance-form__remove">
+                    <Button size={BUTTON_SIZE.small} onClick={onPositionRemove}>X</Button>
+                </div>
+                <p className="skill-importance__position">{position}</p>
+            </div>
             <div className="skill-importance__fields">
                 {Object.values(SKILLS).map(skill => (
                     <SkillImportanceField
@@ -59,14 +57,8 @@ const SkillImportance = ({ position, importances, onChange }) => {
     );
 };
 
-SkillImportance.propTypes = {
-    position: PropTypes.string.isRequired,
-    importances: PropTypes.shape(getImportancesShape()).isRequired,
-    onChange: PropTypes.func,
-};
+SkillImportance.propTypes = SkillImportancePropTypes;
 
-SkillImportance.defaultProps = {
-    onChange: () => {},
-};
+SkillImportance.defaultProps = SkillImportanceDefaultProps;
 
 export default SkillImportance;

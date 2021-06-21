@@ -4,7 +4,7 @@ import PlayerRatings from "@/component/PlayerRatings";
 import InviteAll from "@/component/InviteAll";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
-import { SKILLS_ORDER, STORAGE_SKILL_IMPORTANCE_KEY, TYPE_PLAYER, TYPE_TRAINER, POSITION } from "@/consts";
+import { SKILLS_ORDER, TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
 import {
     findPlayerNodes,
     getPlayerContainerNode,
@@ -27,7 +27,7 @@ import {
     getPanelBody,
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
-import { getItemFromStore } from "@/service/StorageService";
+import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
 
 const SORT_BY_POSITION_PREFIX = "position_";
 
@@ -43,8 +43,9 @@ const transfromSkills = (skillNodes) => {
 };
 
 const assignPlayerRatings = async (players) => {
-    const skillsImportance = await getItemFromStore(STORAGE_SKILL_IMPORTANCE_KEY);
-    const resolver = new SkillRatingResolver(skillsImportance);
+    const skillsImportance = await getSkillsImportances();
+    const positions = await getPositions();
+    const resolver = new SkillRatingResolver(skillsImportance, positions);
 
     players.forEach($player => {
         const skills = transfromSkills(getPlayerSkillNodes($player));
@@ -98,14 +99,15 @@ const handleTransferCriteriaPage = () => {
         $transferFilterContainer,
     );
 };
-const handleSquadPage = () => {
+const handleSquadPage = async () => {
+    const positions = await getPositions();
     const $sortSelect = getPlayersSortSelect();
     const $directionSwitch = getPlayersSortDirNode();
     const positionsOptGroup = document.createElement("optgroup");
     positionsOptGroup.label = "Position rating";
     $sortSelect.append(positionsOptGroup);
 
-    Object.values(POSITION).forEach(position => {
+    positions.forEach(position => {
         const option = document.createElement("option");
         option.value = `${SORT_BY_POSITION_PREFIX}${position}`;
         option.innerHTML = position;

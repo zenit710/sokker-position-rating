@@ -1,8 +1,19 @@
 @import 'styles/variables';
 
 .skill-importance {
+  &__header {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+  }
+
   &__position {
     font-weight: bold;
+    margin-left: 20px;
+  }
+
+  &__message {
+    color: $c-failure;
   }
 
   @media screen and ($tablet) {
