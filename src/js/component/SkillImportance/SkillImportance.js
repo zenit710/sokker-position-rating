@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SKILLS } from "@/consts";
-import Button from "@/component/Button";
+import Button, { BUTTON_SIZE } from "@/component/Button";
 import SkillImportanceField from "./component/SkillImportanceField";
 import { SkillImportanceDefaultProps, SkillImportancePropTypes } from "./SkillImportance.types";
 import "./SkillImportance.scss";
@@ -37,7 +37,7 @@ const SkillImportance = ({ position, importances, onChange, onRemove }) => {
         <div className="skill-importance">
             <div className="skill-importance__header">
                 <div className="skill-importance-form__remove">
-                    <Button size="small" onClick={onPositionRemove}>X</Button>
+                    <Button size={BUTTON_SIZE.small} onClick={onPositionRemove}>X</Button>
                 </div>
                 <p className="skill-importance__position">{position}</p>
             </div>
