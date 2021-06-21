@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Button from "@/component/Button";
+import "./PositionAdd.scss";
 
 const PositionAdd = ({ onAdded }) => {
     const positionNameRef = useRef(null);
@@ -10,7 +11,7 @@ const PositionAdd = ({ onAdded }) => {
         const { current } = positionNameRef;
 
         if (current) {
-            onAdded(current.value);
+            onAdded(current.value.toUpperCase());
         }
     };
 

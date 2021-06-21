@@ -1,28 +1,8 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { SKILLS } from "@/consts";
 import SkillImportanceField from "./component/SkillImportanceField";
+import { SkillImportanceDefaultProps, SkillImportancePropTypes } from "./SkillImportance.types";
 import "./SkillImportance.scss";
-
-const getImportancesShape = () => {
-    const shape = {};
-
-    Object.values(SKILLS).forEach(skill => {
-        shape[skill] = PropTypes.string;
-    });
-
-    return shape;
-};
-
-const getDefaultImportances = () => {
-    const importances = {};
-
-    Object.values(SKILLS).forEach(skill => {
-        importances[skill] = 0;
-    });
-
-    return importances;
-};
 
 const getImportancesSum = (importances) => {
     return Object.values(importances).reduce((previous, current) => +previous + +current);
@@ -31,11 +11,11 @@ const getImportancesSum = (importances) => {
 const isValidImportancesSum = (importances) => 100 === getImportancesSum(importances);
 
 const SkillImportance = ({ position, importances, onChange }) => {
-    const [skillsImportances, setSkillsImportances] = useState(importances || getDefaultImportances());
+    const [skillsImportances, setSkillsImportances] = useState(importances);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        setSkillsImportances(importances || getDefaultImportances());
+        setSkillsImportances(importances);
     }, [importances]);
 
     const onImportanceChange = (skill, importance) => {
@@ -69,14 +49,8 @@ const SkillImportance = ({ position, importances, onChange }) => {
     );
 };
 
-SkillImportance.propTypes = {
-    position: PropTypes.string.isRequired,
-    importances: PropTypes.shape(getImportancesShape()).isRequired,
-    onChange: PropTypes.func,
-};
+SkillImportance.propTypes = SkillImportancePropTypes;
 
-SkillImportance.defaultProps = {
-    onChange: () => {},
-};
+SkillImportance.defaultProps = SkillImportanceDefaultProps;
 
 export default SkillImportance;

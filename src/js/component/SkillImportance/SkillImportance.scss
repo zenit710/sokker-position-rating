@@ -5,6 +5,10 @@
     font-weight: bold;
   }
 
+  &__message {
+    color: $c-failure;
+  }
+
   @media screen and ($tablet) {
     &__fields {
       display: flex;
