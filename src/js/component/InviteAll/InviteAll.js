@@ -3,11 +3,29 @@ import PropTypes from "prop-types";
 import Button from "@/component/Button";
 import "./inviteAll.scss";
 
+const STATUS = {
+    initial: "initial",
+    process: "process",
+    failure: "failure",
+    completed: "completed",
+};
+
+const BUTTON_DISABLED_STATUS = [STATUS.process, STATUS.completed];
+
+const STATUS_MESSAGE = {
+    [STATUS.initial]: "Invite all",
+    [STATUS.process]: "Inviting...",
+    [STATUS.failure]: "Invite failed",
+    [STATUS.completed]: "All invited!",
+};
+
 const InviteAll = ({ invitationUrls }) => {
     const [urls, setUrls] = useState(invitationUrls);
-    const allInvited = urls.length === 0;
+    const [status, setStatus] = useState(STATUS.initial);
 
     const handleInviteAllClick = () => {
+        setStatus(STATUS.process);
+
         Promise.all([
             ...urls.map(url => fetch(url)
                 .catch(() => ({ status: "error" }))
@@ -32,6 +50,8 @@ const InviteAll = ({ invitationUrls }) => {
             if (newUrls.length < urls.length) {
                 setUrls(newUrls);
             }
+
+            setStatus(newUrls.length === 0 ? STATUS.completed : STATUS.failure);
         });
     };
 
@@ -41,8 +61,8 @@ const InviteAll = ({ invitationUrls }) => {
 
     return (
         <div className="invite-all">
-            <Button onClick={handleInviteAllClick} disabled={allInvited}>
-                {allInvited ? "All invited!" : `Invite all (${ urls.length })`}
+            <Button onClick={handleInviteAllClick} disabled={BUTTON_DISABLED_STATUS.includes(status)}>
+                {STATUS_MESSAGE[status]}
             </Button>
         </div>
     );
