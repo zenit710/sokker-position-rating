@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { POSITION, SKILLS, STORAGE_SKILL_IMPORTANCE_KEY } from "@/consts";
-import { getItemFromStore, setItemInStore } from "@/service/StorageService";
+import PropTypes from "prop-types";
+import { SKILLS } from "@/consts";
+import { getSkillsImportances, setSkillsImportances } from "@/service/SkillsImportance";
 import Button from "@/component/Button";
 import Message, { TYPE_ERROR, TYPE_SUCCESS } from "@/component/Message";
 import SkillImportance from "@/component/SkillImportance";
 import "./SkillImportanceForm.scss";
 
-const getDefaultImportances = () => {
+const getDefaultImportances = (positions) => {
     const positionSkillImportances = {};
     const skillImportances = {};
 
@@ -14,24 +15,29 @@ const getDefaultImportances = () => {
         skillImportances[skill] = "0";
     });
 
-    Object.values(POSITION).forEach(pos => {
+    positions.forEach(pos => {
         positionSkillImportances[pos] = skillImportances;
     });
 
     return positionSkillImportances;
 };
 
-const SkillImportanceForm = () => {
-    const [ importances, setImportances ] = useState(getDefaultImportances());
+const SkillImportanceForm = ({ positions, onPositionRemove }) => {
+    const [ importances, setImportances ] = useState(getDefaultImportances(positions));
     const [ message, setMessage ] = useState(null);
 
     useEffect(async () => {
-        const storedImportances = await getItemFromStore(STORAGE_SKILL_IMPORTANCE_KEY);
+        const storedImportances = await getSkillsImportances();
 
         if (storedImportances) {
             setImportances(storedImportances);
         }
     }, []);
+
+    useEffect(() => {
+        const defaultImportances = getDefaultImportances(positions);
+        setImportances({...defaultImportances, ...importances });
+    }, [positions]);
 
     const onImportancesChange = (position, valid, positionImportances) => {
         if (!valid) {
@@ -47,7 +53,7 @@ const SkillImportanceForm = () => {
     const onSubmitButtonClick = async (event) => {
         event.preventDefault();
 
-        const stored = await setItemInStore(STORAGE_SKILL_IMPORTANCE_KEY, importances);
+        const stored = setSkillsImportances(importances);
 
         if (stored) {
             setMessage({
@@ -58,14 +64,22 @@ const SkillImportanceForm = () => {
         }
     };
 
+    const onRemove = (position) => {
+        const newImportances = {...importances};
+        delete newImportances[position];
+        setImportances(newImportances);
+        onPositionRemove(position);
+    };
+
     return (
         <form className="skill-importance-form">
             <div className="skill-importance-form__positions">
-                {Object.values(POSITION).map(pos => (
+                {positions.map(pos => (
                     <SkillImportance
                         position={pos}
                         importances={importances[pos]}
                         onChange={(valid, value) => onImportancesChange(pos, valid, value)}
+                        onRemove={onRemove}
                         key={`skill-improve-form-${pos}`}
                     />
                 ))}
@@ -80,6 +94,15 @@ const SkillImportanceForm = () => {
             <Button onClick={onSubmitButtonClick} disabled={message && message.type === TYPE_ERROR}>Save</Button>
         </form>
     );
+};
+
+SkillImportanceForm.propTypes = {
+    positions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onPositionRemove: PropTypes.func,
+};
+
+SkillImportanceForm.defaultProp = {
+    onPositionRemove: () => {},
 };
 
 export default SkillImportanceForm;

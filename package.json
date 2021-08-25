@@ -1,7 +1,7 @@
 {
   "name": "sokker-position-rating",
-  "version": "1.0.1",
-  "description": "Display player ability rating to play at position in sokker.org",
+  "version": "1.1.0",
+  "description": "Chrome extension which will make your sokker.org play easier!",
   "private": true,
   "dependencies": {},
   "devDependencies": {

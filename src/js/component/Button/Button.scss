@@ -9,9 +9,17 @@
   padding: 10px 20px;
   text-decoration: none;
   transition: 0.2s;
+
+  &[disabled] {
+    background-color: $c-info;
+  }
+
+  &--small {
+    padding: 2px 5px;
+  }
   
   @media (hover: hover) {
-    &:hover {
+    &:hover:enabled {
       background: $c-secondary;
       color: $c-primary;
     }
