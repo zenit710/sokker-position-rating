@@ -8,12 +8,14 @@ const SORT = {
     DESC: "desc",
     ASC: "asc",
 };
+const SKILL_VALUE_PATTERN = /\[(\d+)\]/;
+const SKILL_NAME_NUMBER_CLASS = ".skillNameNumber";
 
 const transformSkills = (skillNodes) => {
     const skills = {};
 
     skillNodes.forEach(($skill, index) => {
-        const skillValue = /\[(\d+)\]/.exec($skill.textContent)[1];
+        const skillValue = SKILL_VALUE_PATTERN.exec($skill.textContent)[1];
         skills[SKILLS_ORDER[index]] = skillValue;
     });
 
@@ -24,7 +26,33 @@ const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
 const getPlayerContainerNode = ($player) => $player.parentNode;
 
-const getPlayerSkills = ($player) => transformSkills($player.querySelectorAll(".skillNameNumber"));
+const getPlayerSkills = ($player) => transformSkills($player.querySelectorAll(SKILL_NAME_NUMBER_CLASS));
+
+const getPlayerMetadata = ($player) => {
+    const $container = getPlayerContainerNode($player);
+    const $metaNodes = $container.querySelectorAll(".media-body ul li");
+    const $membershipNodes = $metaNodes[0].querySelectorAll("a");
+    const club = $membershipNodes[0].textContent;
+    const country = $membershipNodes[1].getAttribute("href").split("/")[2];
+    const value = $metaNodes[1].querySelector("span").textContent;
+    const wage = $metaNodes[2].querySelector("span").textContent;
+    const form = SKILL_VALUE_PATTERN.exec($metaNodes[3].querySelector(SKILL_NAME_NUMBER_CLASS).textContent)[1];
+    const discipline = SKILL_VALUE_PATTERN.exec($metaNodes[4].querySelector(SKILL_NAME_NUMBER_CLASS).textContent)[1];
+    const height = $metaNodes[5].querySelector("strong").textContent;
+
+    return {
+        skills: getPlayerSkills($player),
+        meta: {
+            club,
+            country,
+            value,
+            wage,
+            form,
+            discipline,
+            height,
+        },
+    };
+};
 
 const isPlayerDetailPage = () => window.location.pathname.startsWith("/player/PID/");
 
@@ -137,6 +165,7 @@ export {
     findPlayerNodes,
     getPlayerContainerNode,
     getPlayerSkills,
+    getPlayerMetadata,
     isPlayerDetailPage,
     isTransferPage,
     isFriendliesAdsPage,

@@ -9,6 +9,7 @@ import {
     findPlayerNodes,
     getPlayerContainerNode,
     getPlayerSkills,
+    getPlayerCharacteristic,
     isPlayerDetailPage,
     isTransferPage,
     isFriendliesAdsPage,
@@ -36,6 +37,8 @@ const assignPlayerRatings = async (players) => {
     const resolver = new SkillRatingResolver(skillsImportance, positions);
 
     players.forEach(($player) => {
+        const characteristic = getPlayerCharacteristic($player);
+        console.log("characteristic: ", characteristic);
         const skills = getPlayerSkills($player);
         const ratings = resolver.getPlayerRating(skills);
         const $container = getPlayerContainerNode($player);
