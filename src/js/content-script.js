@@ -4,11 +4,11 @@ import PlayerRatings from "@/component/PlayerRatings";
 import InviteAll from "@/component/InviteAll";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
-import { SKILLS_ORDER, TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
+import { TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
 import {
     findPlayerNodes,
     getPlayerContainerNode,
-    getPlayerSkillNodes,
+    getPlayerSkills,
     isPlayerDetailPage,
     isTransferPage,
     isFriendliesAdsPage,
@@ -30,25 +30,13 @@ import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
 
 const SORT_BY_POSITION_PREFIX = "position_";
-
-const transfromSkills = (skillNodes) => {
-    const skills = {};
-
-    skillNodes.forEach(($skill, index) => {
-        const skillValue = /\[(\d+)\]/.exec($skill.textContent)[1];
-        skills[SKILLS_ORDER[index]] = skillValue;
-    });
-
-    return skills;
-};
-
 const assignPlayerRatings = async (players) => {
     const skillsImportance = await getSkillsImportances();
     const positions = await getPositions();
     const resolver = new SkillRatingResolver(skillsImportance, positions);
 
-    players.forEach($player => {
-        const skills = transfromSkills(getPlayerSkillNodes($player));
+    players.forEach(($player) => {
+        const skills = getPlayerSkills($player);
         const ratings = resolver.getPlayerRating(skills);
         const $container = getPlayerContainerNode($player);
         const $ratingComponentContainer = document.createElement("div");

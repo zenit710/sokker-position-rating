@@ -1,3 +1,5 @@
+import { SKILLS_ORDER } from "@/consts";
+
 const PLAYER_PRICE_ELEMENT_ID = "player-bid-place-group";
 const FRIENDLY_INVITATION_LINK_SELECTOR = "a[href^='friendlies/action/public_invitation_take/ID/']";
 const PANEL_BODY_CLASS = ".panel-body";
@@ -7,11 +9,22 @@ const SORT = {
     ASC: "asc",
 };
 
+const transformSkills = (skillNodes) => {
+    const skills = {};
+
+    skillNodes.forEach(($skill, index) => {
+        const skillValue = /\[(\d+)\]/.exec($skill.textContent)[1];
+        skills[SKILLS_ORDER[index]] = skillValue;
+    });
+
+    return skills;
+};
+
 const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
 const getPlayerContainerNode = ($player) => $player.parentNode;
 
-const getPlayerSkillNodes = ($player) => $player.querySelectorAll(".skillNameNumber");
+const getPlayerSkills = ($player) => transformSkills($player.querySelectorAll(".skillNameNumber"));
 
 const isPlayerDetailPage = () => window.location.pathname.startsWith("/player/PID/");
 
@@ -123,7 +136,7 @@ const getPanelBody = () => document.querySelector(PANEL_BODY_CLASS);
 export {
     findPlayerNodes,
     getPlayerContainerNode,
-    getPlayerSkillNodes,
+    getPlayerSkills,
     isPlayerDetailPage,
     isTransferPage,
     isFriendliesAdsPage,
