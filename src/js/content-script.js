@@ -29,6 +29,7 @@ import {
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
+import NTDBButton from "./component/NTDBButton/NTDBButton";
 
 const SORT_BY_POSITION_PREFIX = "position_";
 const assignPlayerRatings = async (players) => {
@@ -45,7 +46,13 @@ const assignPlayerRatings = async (players) => {
         const $ratingComponentContainer = document.createElement("div");
         $container.append($ratingComponentContainer);
 
-        ReactDOM.render(<PlayerRatings ratings={ratings} />, $ratingComponentContainer);
+        ReactDOM.render(
+            <>
+                <PlayerRatings ratings={ratings} />
+                <NTDBButton playerCharacteristic={characteristic} />
+            </>,
+            $ratingComponentContainer,
+        );
     });
 };
 

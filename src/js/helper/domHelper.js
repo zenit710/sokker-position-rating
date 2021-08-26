@@ -28,7 +28,7 @@ const getPlayerContainerNode = ($player) => $player.parentNode;
 
 const getPlayerSkills = ($player) => transformSkills($player.querySelectorAll(SKILL_NAME_NUMBER_CLASS));
 
-const getPlayerMetadata = ($player) => {
+const getPlayerCharacteristic = ($player) => {
     const $container = getPlayerContainerNode($player);
     const $metaNodes = $container.querySelectorAll(".media-body ul li");
     const $membershipNodes = $metaNodes[0].querySelectorAll("a");
@@ -165,7 +165,7 @@ export {
     findPlayerNodes,
     getPlayerContainerNode,
     getPlayerSkills,
-    getPlayerMetadata,
+    getPlayerCharacteristic,
     isPlayerDetailPage,
     isTransferPage,
     isFriendliesAdsPage,
