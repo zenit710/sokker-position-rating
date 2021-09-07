@@ -32,27 +32,20 @@ import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
 import NTDBButton from "./component/NTDBButton/NTDBButton";
 
 const SORT_BY_POSITION_PREFIX = "position_";
+
 const assignPlayerRatings = async (players) => {
     const skillsImportance = await getSkillsImportances();
     const positions = await getPositions();
     const resolver = new SkillRatingResolver(skillsImportance, positions);
 
     players.forEach(($player) => {
-        const characteristic = getPlayerCharacteristic($player);
-        console.log("characteristic: ", characteristic);
         const skills = getPlayerSkills($player);
         const ratings = resolver.getPlayerRating(skills);
         const $container = getPlayerContainerNode($player);
         const $ratingComponentContainer = document.createElement("div");
         $container.append($ratingComponentContainer);
 
-        ReactDOM.render(
-            <>
-                <PlayerRatings ratings={ratings} />
-                <NTDBButton playerCharacteristic={characteristic} />
-            </>,
-            $ratingComponentContainer,
-        );
+        ReactDOM.render(<PlayerRatings ratings={ratings} />, $ratingComponentContainer);
     });
 };
 
@@ -82,8 +75,27 @@ const tryPlayerTransferPage = (tryNumber = 1) => {
     }
 };
 
+const handleNTDB = () => {
+    const players = findPlayerNodes();
+
+    players.forEach(($player) => {
+        const characteristic = getPlayerCharacteristic($player);
+        const $container = getPlayerContainerNode($player);
+        const $ntdbComponentContainer = document.createElement("div");
+        $container.append($ntdbComponentContainer);
+
+        ReactDOM.render(
+            <>
+                <NTDBButton playerCharacteristic={characteristic} />
+            </>,
+            $ntdbComponentContainer,
+        );
+    });
+};
+
 const handlePlayerDetailPage = () => {
     tryPlayerTransferPage();
+    handleNTDB();
 };
 
 const handleTransferCriteriaPage = () => {
