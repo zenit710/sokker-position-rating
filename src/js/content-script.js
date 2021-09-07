@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
 import InviteAll from "@/component/InviteAll";
+import NTDBButton from "@/component/NTDBButton";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
 import { TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
@@ -29,7 +30,6 @@ import {
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
-import NTDBButton from "./component/NTDBButton/NTDBButton";
 
 const SORT_BY_POSITION_PREFIX = "position_";
 
