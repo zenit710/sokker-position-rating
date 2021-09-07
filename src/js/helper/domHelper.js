@@ -26,12 +26,18 @@ const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
 const getPlayerContainerNode = ($player) => $player.parentNode;
 
+const getPlayerTitleNode = ($player) =>
+    getPlayerContainerNode($player)?.parentNode?.querySelector(".panel-heading .title-block-1");
+
 const getPlayerSkills = ($player) => transformSkills($player.querySelectorAll(SKILL_NAME_NUMBER_CLASS));
 
 const getPlayerCharacteristic = ($player) => {
     const $container = getPlayerContainerNode($player);
+    const $title = getPlayerTitleNode($player);
     const $metaNodes = $container.querySelectorAll(".media-body ul li");
     const $membershipNodes = $metaNodes[0].querySelectorAll("a");
+    const $playerLink = $title?.querySelector("a[href^='player/PID']");
+    const $age = $title?.querySelector("strong");
     const club = $membershipNodes[0].textContent;
     const country = $membershipNodes[1].getAttribute("href").split("/")[2];
     const value = $metaNodes[1].querySelector("span").textContent;
@@ -39,6 +45,9 @@ const getPlayerCharacteristic = ($player) => {
     const form = SKILL_VALUE_PATTERN.exec($metaNodes[3].querySelector(SKILL_NAME_NUMBER_CLASS).textContent)[1];
     const discipline = SKILL_VALUE_PATTERN.exec($metaNodes[4].querySelector(SKILL_NAME_NUMBER_CLASS).textContent)[1];
     const height = $metaNodes[5].querySelector("strong").textContent;
+    const pid = /\d+/.exec($playerLink.getAttribute("href"))[0];
+    const name = $playerLink.textContent;
+    const age = $age.textContent;
 
     return {
         skills: getPlayerSkills($player),
@@ -50,6 +59,9 @@ const getPlayerCharacteristic = ($player) => {
             form,
             discipline,
             height,
+            pid,
+            name,
+            age,
         },
     };
 };

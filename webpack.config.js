@@ -11,6 +11,7 @@ module.exports = ({ NODE_ENV = "production" }) => {
             options: "./src/js/options-page.js",
             popup: "./src/js/popup-page.js",
             background: "./src/js/background.js",
+            ntdb: "./src/js/ntdb.js",
         },
         devtool: isDev(NODE_ENV) ? "inline-source-map" : undefined,
         module: {

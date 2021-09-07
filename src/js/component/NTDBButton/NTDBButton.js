@@ -1,26 +1,49 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button, { BUTTON_SIZE } from "@/component/Button";
+import {
+    NTDB_PARAM_CLUB,
+    NTDB_PARAM_COUNTRY,
+    NTDB_PARAM_DISCIPLINE,
+    NTDB_PARAM_FORM,
+    NTDB_PARAM_HEIGHT,
+    NTDB_PARAM_VALUE,
+    NTDB_PARAM_WAGE,
+    NTDB_PARAM_DEFENDER,
+    NTDB_PARAM_KEEPER,
+    NTDB_PARAM_PACE,
+    NTDB_PARAM_PASSING,
+    NTDB_PARAM_PLAYMAKER,
+    NTDB_PARAM_STAMINA,
+    NTDB_PARAM_STRIKER,
+    NTDB_PARAM_TECHNIQUE,
+    NTDB_PARAM_PLAYER_ID,
+    NTDB_PARAM_PLAYER_NAME,
+    NTDB_PARAM_AGE,
+} from "@/consts";
 
 const NTDB_URL = "https://ntdb.sokker.cz";
 
 const openNTDB = ({ meta, skills }) => {
     const searchParams = new URLSearchParams();
-    searchParams.append("club", meta.club);
-    searchParams.append("country", meta.country);
-    searchParams.append("discipline", meta.discipline);
-    searchParams.append("form", meta.form);
-    searchParams.append("height", meta.height);
-    searchParams.append("value", meta.value);
-    searchParams.append("wage", meta.wage);
-    searchParams.append("defender", skills.defender);
-    searchParams.append("keeper", skills.keeper);
-    searchParams.append("pace", skills.pace);
-    searchParams.append("passing", skills.passing);
-    searchParams.append("playmaker", skills.playmaker);
-    searchParams.append("stamina", skills.stamina);
-    searchParams.append("striker", skills.striker);
-    searchParams.append("technique", skills.technique);
+    searchParams.append(NTDB_PARAM_CLUB, meta.club);
+    searchParams.append(NTDB_PARAM_COUNTRY, meta.country);
+    searchParams.append(NTDB_PARAM_DISCIPLINE, meta.discipline);
+    searchParams.append(NTDB_PARAM_FORM, meta.form);
+    searchParams.append(NTDB_PARAM_HEIGHT, meta.height);
+    searchParams.append(NTDB_PARAM_VALUE, meta.value);
+    searchParams.append(NTDB_PARAM_WAGE, meta.wage);
+    searchParams.append(NTDB_PARAM_PLAYER_ID, meta.pid);
+    searchParams.append(NTDB_PARAM_PLAYER_NAME, meta.name);
+    searchParams.append(NTDB_PARAM_AGE, meta.age);
+    searchParams.append(NTDB_PARAM_DEFENDER, skills.defender);
+    searchParams.append(NTDB_PARAM_KEEPER, skills.keeper);
+    searchParams.append(NTDB_PARAM_PACE, skills.pace);
+    searchParams.append(NTDB_PARAM_PASSING, skills.passing);
+    searchParams.append(NTDB_PARAM_PLAYMAKER, skills.playmaker);
+    searchParams.append(NTDB_PARAM_STAMINA, skills.stamina);
+    searchParams.append(NTDB_PARAM_STRIKER, skills.striker);
+    searchParams.append(NTDB_PARAM_TECHNIQUE, skills.technique);
 
     const url = `${NTDB_URL}?${searchParams.toString()}`;
 
