@@ -1,5 +1,10 @@
 # Sokker.org Support Changelog
 
+## [v1.2.0](https://github.com/zenit710/sokker-position-rating/compare/v1.1.0...v1.2.0)
+
+### Added
+- NTDB integration
+
 ## [v1.1.0](https://github.com/zenit710/sokker-position-rating/compare/v1.0.1...v1.1.0)
 
 ### Added
