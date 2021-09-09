@@ -2,13 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
 import InviteAll from "@/component/InviteAll";
+import NTDBButton from "@/component/NTDBButton";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
-import { SKILLS_ORDER, TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
+import { TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
 import {
     findPlayerNodes,
     getPlayerContainerNode,
-    getPlayerSkillNodes,
+    getPlayerSkills,
+    getPlayerCharacteristic,
     isPlayerDetailPage,
     isTransferPage,
     isFriendliesAdsPage,
@@ -31,24 +33,13 @@ import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
 
 const SORT_BY_POSITION_PREFIX = "position_";
 
-const transfromSkills = (skillNodes) => {
-    const skills = {};
-
-    skillNodes.forEach(($skill, index) => {
-        const skillValue = /\[(\d+)\]/.exec($skill.textContent)[1];
-        skills[SKILLS_ORDER[index]] = skillValue;
-    });
-
-    return skills;
-};
-
 const assignPlayerRatings = async (players) => {
     const skillsImportance = await getSkillsImportances();
     const positions = await getPositions();
     const resolver = new SkillRatingResolver(skillsImportance, positions);
 
-    players.forEach($player => {
-        const skills = transfromSkills(getPlayerSkillNodes($player));
+    players.forEach(($player) => {
+        const skills = getPlayerSkills($player);
         const ratings = resolver.getPlayerRating(skills);
         const $container = getPlayerContainerNode($player);
         const $ratingComponentContainer = document.createElement("div");
@@ -84,8 +75,27 @@ const tryPlayerTransferPage = (tryNumber = 1) => {
     }
 };
 
+const handleNTDB = () => {
+    const players = findPlayerNodes();
+
+    players.forEach(($player) => {
+        const characteristic = getPlayerCharacteristic($player);
+        const $container = getPlayerContainerNode($player);
+        const $ntdbComponentContainer = document.createElement("div");
+        $container.append($ntdbComponentContainer);
+
+        ReactDOM.render(
+            <>
+                <NTDBButton playerCharacteristic={characteristic} />
+            </>,
+            $ntdbComponentContainer,
+        );
+    });
+};
+
 const handlePlayerDetailPage = () => {
     tryPlayerTransferPage();
+    handleNTDB();
 };
 
 const handleTransferCriteriaPage = () => {

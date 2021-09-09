@@ -1,6 +1,6 @@
 {
   "name": "Sokker.org Support",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Chrome extension which will make your sokker.org play easier!",
   "permissions": [
     "storage",
@@ -13,10 +13,16 @@
     "scripts": ["js/background.js"],
     "persistent": false
   },
-  "content_scripts": [{
-    "js": ["js/content.js"],
-    "matches": ["https://sokker.org/*"]
-  }],
+  "content_scripts": [
+    {
+      "js": ["js/content.js"],
+      "matches": ["https://sokker.org/*"]
+    },
+    {
+      "js": ["js/ntdb.js"],
+      "matches": ["https://ntdb.sokker.cz/*"]
+    }
+  ],
   "browser_action": {
     "default_popup": "popup-page.html",
     "default_icon": {

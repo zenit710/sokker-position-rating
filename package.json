@@ -1,8 +1,11 @@
 {
   "name": "sokker-position-rating",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Chrome extension which will make your sokker.org play easier!",
   "private": true,
+  "engines": {
+    "node": "^16.6.2"
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.13.16",
@@ -16,7 +19,7 @@
     "eslint-plugin-react": "^7.23.2",
     "husky": "^5.0.9",
     "mkdirp": "^1.0.4",
-    "node-sass": "^5.0.0",
+    "node-sass": "^6.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
