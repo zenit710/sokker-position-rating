@@ -1,4 +1,5 @@
 import {
+    NTDB_PARAM_CLUB,
     NTDB_PARAM_COUNTRY,
     NTDB_PARAM_DISCIPLINE,
     NTDB_PARAM_FORM,
@@ -19,6 +20,7 @@ import {
 } from "@/consts";
 
 const PARAM_SELECTOR_MAP = {
+    [NTDB_PARAM_CLUB]: "input[name='login']",
     [NTDB_PARAM_COUNTRY]: "select[name='countryid']",
     [NTDB_PARAM_DISCIPLINE]: "select[name='tac']",
     [NTDB_PARAM_FORM]: "select[name='frm']",
