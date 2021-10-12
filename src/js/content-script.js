@@ -29,7 +29,7 @@ import {
     getTransferBidEndDate,
     getPanelBody,
     getTransferSearchFormSkillsRow,
-    getTransferSearchSubmitButton,
+    getTransferSearchControlButtons,
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
@@ -116,9 +116,10 @@ const handleTransferCriteriaPage = () => {
         const $skillsRow = getTransferSearchFormSkillsRow();
         const $skillsSumCriteriaContainer = document.createElement("div");
         $skillsRow.append($skillsSumCriteriaContainer);
+        const { submit, clear } = getTransferSearchControlButtons();
 
         ReactDOM.render(
-            <SkillsSumCriteria submitButton={getTransferSearchSubmitButton()} />,
+            <SkillsSumCriteria submitButton={submit} clearButton={clear} />,
             $skillsSumCriteriaContainer,
         );
     }

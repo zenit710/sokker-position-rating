@@ -177,8 +177,10 @@ const getPanelBody = () => document.querySelector(PANEL_BODY_CLASS);
 const getTransferSearchFormSkillsRow = () =>
     document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} .row:nth-of-type(4)`);
 
-const getTransferSearchSubmitButton = () =>
-    document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} button[type=submit]`);
+const getTransferSearchControlButtons = () => ({
+    submit: document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} button[type=submit]`),
+    clear: document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} button[name=clear]`),
+});
 
 export {
     findPlayerNodes,
@@ -204,5 +206,5 @@ export {
     fillFormValues,
     getPanelBody,
     getTransferSearchFormSkillsRow,
-    getTransferSearchSubmitButton,
+    getTransferSearchControlButtons,
 };

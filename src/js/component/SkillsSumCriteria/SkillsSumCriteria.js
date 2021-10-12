@@ -21,7 +21,7 @@ const getStoredSkillsSumCriteria = () => {
     };
 };
 
-const SkillsSumCriteria = ({ submitButton }) => {
+const SkillsSumCriteria = ({ submitButton, clearButton }) => {
     const skillsMinRef = useRef(null);
     const skillsMaxRef = useRef(null);
     const skillsSummedRef = useRef(null);
@@ -48,11 +48,17 @@ const SkillsSumCriteria = ({ submitButton }) => {
         }
     };
 
+    const handleFormClean = () => {
+        sessionStorage.removeItem("skillsSumCriteria");
+    };
+
     useEffect(() => {
         submitButton.addEventListener("click", handleFormSubmit);
+        clearButton.addEventListener("click", handleFormClean);
 
         return () => {
             submitButton.removeEventListener("click", handleFormSubmit);
+            clearButton.removeEventListener("click", handleFormClean);
         };
     }, []);
 
@@ -109,6 +115,7 @@ const SkillsSumCriteria = ({ submitButton }) => {
 
 SkillsSumCriteria.propTypes = {
     submitButton: PropTypes.node.isRequired,
+    clearButton: PropTypes.node.isRequired,
 };
 
 export default SkillsSumCriteria;
