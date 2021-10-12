@@ -29,6 +29,7 @@ import {
     getTransferBidEndDate,
     getPanelBody,
     getTransferSearchFormSkillsRow,
+    getTransferSearchSubmitButton,
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
@@ -117,7 +118,7 @@ const handleTransferCriteriaPage = () => {
         $skillsRow.append($skillsSumCriteriaContainer);
 
         ReactDOM.render(
-            <SkillsSumCriteria />,
+            <SkillsSumCriteria submitButton={getTransferSearchSubmitButton()} />,
             $skillsSumCriteriaContainer,
         );
     }

@@ -10,6 +10,7 @@ const SORT = {
 };
 const SKILL_VALUE_PATTERN = /\[(\d+)\]/;
 const SKILL_NAME_NUMBER_CLASS = ".skillNameNumber";
+const TRASNFER_SEARCH_FORM_SELECTOR = "form[name=searchform]";
 
 const transformSkills = (skillNodes) => {
     const skills = {};
@@ -173,7 +174,11 @@ const fillFormValues = (values) => {
 
 const getPanelBody = () => document.querySelector(PANEL_BODY_CLASS);
 
-const getTransferSearchFormSkillsRow = () => document.querySelector("form[name=searchform] .row:nth-of-type(4)");
+const getTransferSearchFormSkillsRow = () =>
+    document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} .row:nth-of-type(4)`);
+
+const getTransferSearchSubmitButton = () =>
+    document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} button[type=submit]`);
 
 export {
     findPlayerNodes,
@@ -199,4 +204,5 @@ export {
     fillFormValues,
     getPanelBody,
     getTransferSearchFormSkillsRow,
+    getTransferSearchSubmitButton,
 };
