@@ -173,6 +173,8 @@ const fillFormValues = (values) => {
 
 const getPanelBody = () => document.querySelector(PANEL_BODY_CLASS);
 
+const getTransferSearchFormSkillsRow = () => document.querySelector("form[name=searchform] .row:nth-of-type(4)");
+
 export {
     findPlayerNodes,
     getPlayerContainerNode,
@@ -196,4 +198,5 @@ export {
     getAllFormFieldValues,
     fillFormValues,
     getPanelBody,
+    getTransferSearchFormSkillsRow,
 };

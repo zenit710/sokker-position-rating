@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
 import InviteAll from "@/component/InviteAll";
 import NTDBButton from "@/component/NTDBButton";
+import SkillsSumCriteria from "@/component/SkillsSumCriteria";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
 import { TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
@@ -27,6 +28,7 @@ import {
     getTransferPlayerName,
     getTransferBidEndDate,
     getPanelBody,
+    getTransferSearchFormSkillsRow,
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
@@ -108,6 +110,17 @@ const handleTransferCriteriaPage = () => {
         <TransferFilterForm type={criteriaType} />,
         $transferFilterContainer,
     );
+
+    if (!isTrainerCriteriaType()) {
+        const $skillsRow = getTransferSearchFormSkillsRow();
+        const $skillsSumCriteriaContainer = document.createElement("div");
+        $skillsRow.append($skillsSumCriteriaContainer);
+
+        ReactDOM.render(
+            <SkillsSumCriteria />,
+            $skillsSumCriteriaContainer,
+        );
+    }
 };
 const handleSquadPage = async () => {
     const positions = await getPositions();
