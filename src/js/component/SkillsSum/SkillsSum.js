@@ -4,7 +4,7 @@ import { getStoredSkillsSumCriteria } from "@/service/SkillsSumService";
 import "./SkillsSum.scss";
 
 const SkillsSum = ({ sum, playerContainer, collapseChange }) => {
-    const { min, max } = getStoredSkillsSumCriteria();
+    const { min, max, skillsToSum } = getStoredSkillsSumCriteria();
     const inRange = sum >= min && sum <= max;
     const [expanded, setExpanded] = useState(inRange);
     const switchDetailedClass = `skills-sum__expand-switch--${expanded ? "expanded" : "collapsed"}`;
@@ -18,7 +18,7 @@ const SkillsSum = ({ sum, playerContainer, collapseChange }) => {
         collapseChange(playerContainer, !expanded);
     }, []);
 
-    if (min === undefined && max === undefined) {
+    if (skillsToSum.length === 0) {
         return null;
     }
 
