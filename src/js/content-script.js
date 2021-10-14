@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
 import InviteAll from "@/component/InviteAll";
 import NTDBButton from "@/component/NTDBButton";
+import SkillsSum from "@/component/SkillsSum";
 import SkillsSumCriteria from "@/component/SkillsSumCriteria";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
@@ -33,11 +34,12 @@ import {
     isPlayerTransferSearchPage,
     getPlayerTransferSearchContainerNode,
     getPlayerTransferSearchNameNode,
+    changePlayerOnTransferSearchPageCollapse,
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
-import { getSkillsSum } from "./service/SkillsSumService";
-import SkillsSum from "./component/SkillsSum";
+import { getSkillsSum } from "@/service/SkillsSumService";
+import "styles/global.scss";
 
 const SORT_BY_POSITION_PREFIX = "position_";
 
@@ -183,7 +185,11 @@ const handlePlayerTransferSearchPage = (players) => {
         $name.append($skillSumContainer);
 
         ReactDOM.render(
-            <SkillsSum sum={getSkillsSum(skills)} playerContainer={$container} />,
+            <SkillsSum
+                sum={getSkillsSum(skills)}
+                playerContainer={$container}
+                collapseChange={changePlayerOnTransferSearchPageCollapse}
+            />,
             $skillSumContainer,
         );
     });

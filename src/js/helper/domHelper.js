@@ -189,6 +189,15 @@ const getTransferSearchControlButtons = () => ({
 
 const isPlayerTransferSearchPage = () => window.location.pathname.startsWith("/transferSearch/trainer/0");
 
+const changePlayerOnTransferSearchPageCollapse = ($playerContainer, collapse) => {
+    const $titleContainer = $playerContainer.querySelector(".playersCell__row");
+    [...$playerContainer.childNodes].forEach(node => {
+        if (node.nodeType === Node.ELEMENT_NODE && !node.isSameNode($titleContainer)) {
+            node.classList.toggle("collapsed", collapse);
+        }
+    });
+};
+
 export {
     findPlayerNodes,
     getPlayerContainerNode,
@@ -217,4 +226,5 @@ export {
     isPlayerTransferSearchPage,
     getPlayerTransferSearchContainerNode,
     getPlayerTransferSearchNameNode,
+    changePlayerOnTransferSearchPageCollapse,
 };

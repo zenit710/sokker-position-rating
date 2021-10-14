@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getStoredSkillsSumCriteria } from "@/service/SkillsSumService";
 import "./SkillsSum.scss";
 
-const SkillsSum = ({ sum, playerContainer }) => {
+const SkillsSum = ({ sum, playerContainer, collapseChange }) => {
     const { min, max } = getStoredSkillsSumCriteria();
     const inRange = sum >= min && sum <= max;
-    const [expanded, setExpanded] = useState(!inRange);
+    const [expanded, setExpanded] = useState(inRange);
+    const switchDetailedClass = `skills-sum__expand-switch--${expanded ? "expanded" : "collapsed"}`;
+
+    const handleExpandSwitchClick = () => {
+        collapseChange(playerContainer, expanded);
+        setExpanded(!expanded);
+    };
+
+    useEffect(() => {
+        collapseChange(playerContainer, !expanded);
+    }, []);
 
     if (min === undefined && max === undefined) {
         return null;
@@ -19,7 +29,9 @@ const SkillsSum = ({ sum, playerContainer }) => {
             </span>
             {!inRange && (
                 <span
-                    className="skills-sum__expand-switch"
+                    className={`skills-sum__expand-switch ${switchDetailedClass}`}
+                    onClick={handleExpandSwitchClick}
+                    role="button"
                 >
                     {expanded ? "collapse" : "expand"}
                 </span>
@@ -31,6 +43,7 @@ const SkillsSum = ({ sum, playerContainer }) => {
 SkillsSum.propTypes = {
     sum: PropTypes.number.isRequired,
     playerContainer: PropTypes.node.isRequired,
+    collapseChange: PropTypes.func.isRequired,
 };
 
 export default SkillsSum;

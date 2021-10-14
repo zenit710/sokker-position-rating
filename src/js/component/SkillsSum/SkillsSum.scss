@@ -13,4 +13,28 @@
       color: $c-failure;
     }
   }
+
+  &__expand-switch {
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    margin: 0 5px;
+
+    &::after {
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      content: '';
+      display: inline-block;
+      height: 0;
+      width: 0;
+    }
+
+    &--expanded::after {
+      border-bottom: 5px solid $c-secondary;
+    }
+
+    &--collapsed::after {
+      border-top: 5px solid $c-secondary;
+    }
+  }
 }
