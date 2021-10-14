@@ -27,6 +27,11 @@ const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
 const getPlayerContainerNode = ($player) => $player.parentNode;
 
+const getPlayerTransferSearchContainerNode = ($player) => $player.closest(".playersList.row");
+
+const getPlayerTransferSearchNameNode = ($player) =>
+    getPlayerTransferSearchContainerNode($player).querySelector(".c-player__cell");
+
 const getPlayerTitleNode = ($player) =>
     getPlayerContainerNode($player)?.parentNode?.querySelector(".panel-heading .title-block-1");
 
@@ -182,6 +187,8 @@ const getTransferSearchControlButtons = () => ({
     clear: document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} button[name=clear]`),
 });
 
+const isPlayerTransferSearchPage = () => window.location.pathname.startsWith("/transferSearch/trainer/0");
+
 export {
     findPlayerNodes,
     getPlayerContainerNode,
@@ -207,4 +214,7 @@ export {
     getPanelBody,
     getTransferSearchFormSkillsRow,
     getTransferSearchControlButtons,
+    isPlayerTransferSearchPage,
+    getPlayerTransferSearchContainerNode,
+    getPlayerTransferSearchNameNode,
 };

@@ -30,9 +30,14 @@ import {
     getPanelBody,
     getTransferSearchFormSkillsRow,
     getTransferSearchControlButtons,
+    isPlayerTransferSearchPage,
+    getPlayerTransferSearchContainerNode,
+    getPlayerTransferSearchNameNode,
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
+import { getSkillsSum } from "./service/SkillsSumService";
+import SkillsSum from "./component/SkillsSum";
 
 const SORT_BY_POSITION_PREFIX = "position_";
 
@@ -169,6 +174,21 @@ const handleFriendliesAdsPage = () => {
     }
 };
 
+const handlePlayerTransferSearchPage = (players) => {
+    players.forEach(($player) => {
+        const skills = getPlayerSkills($player);
+        const $container = getPlayerTransferSearchContainerNode($player);
+        const $name = getPlayerTransferSearchNameNode($player);
+        const $skillSumContainer = document.createElement("span");
+        $name.append($skillSumContainer);
+
+        ReactDOM.render(
+            <SkillsSum sum={getSkillsSum(skills)} playerContainer={$container} />,
+            $skillSumContainer,
+        );
+    });
+};
+
 const init = () => {
     const players = findPlayerNodes();
 
@@ -190,6 +210,10 @@ const init = () => {
 
     if (isFriendliesAdsPage()) {
         handleFriendliesAdsPage();
+    }
+
+    if (isPlayerTransferSearchPage()) {
+        handlePlayerTransferSearchPage(players);
     }
 };
 

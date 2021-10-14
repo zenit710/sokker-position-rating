@@ -1,25 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { SKILLS } from "@/consts/engine";
+import { getStoredSkillsSumCriteria, storeSkillsSumCriteria } from "@/service/SkillsSumService";
 import "./SkillsSumCriteria.scss";
-
-const getStoredSkillsSumCriteria = () => {
-    const criteria = sessionStorage.getItem("skillsSumCriteria");
-
-    if (criteria) {
-        try {
-            return JSON.parse(criteria);
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    return {
-        min: undefined,
-        max: undefined,
-        skillsToSum: [],
-    };
-};
 
 const SkillsSumCriteria = ({ submitButton, clearButton }) => {
     const skillsMinRef = useRef(null);
@@ -40,11 +23,7 @@ const SkillsSumCriteria = ({ submitButton, clearButton }) => {
                 .filter(input => input.checked)
                 .map(input => input.getAttribute("name").replace("skills_sum_", ""));
 
-            sessionStorage.setItem("skillsSumCriteria", JSON.stringify({
-                min,
-                max,
-                skillsToSum,
-            }));
+            storeSkillsSumCriteria(min, max, skillsToSum);
         }
     };
 

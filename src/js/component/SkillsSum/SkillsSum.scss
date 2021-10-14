@@ -1,0 +1,16 @@
+@import 'styles/variables';
+
+.skills-sum {
+  display: inline-block;
+  margin: 0 5px;
+    
+  &__value {
+    &--in-range {
+      color: $c-success;
+    }
+      
+    &--out-of-range {
+      color: $c-failure;
+    }
+  }
+}
