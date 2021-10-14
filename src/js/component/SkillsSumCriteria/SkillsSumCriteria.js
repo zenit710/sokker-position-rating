@@ -49,17 +49,17 @@ const SkillsSumCriteria = ({ submitButton, clearButton }) => {
                     <div className="col-sm-6">
                         <input
                             type="number"
-                            min="1"
+                            min="0"
                             max="130"
                             name="skills_sum_min"
                             className="form-control input-sm"
-                            placeholder="min: 1"
+                            placeholder="min: 0"
                             ref={skillsMinRef}
                             defaultValue={min}
                         />
                         <input
                             type="number"
-                            min="1"
+                            min="0"
                             max="130"
                             name="skills_sum_max"
                             className="form-control input-sm"

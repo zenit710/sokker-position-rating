@@ -10,8 +10,8 @@ export const getStoredSkillsSumCriteria = () => {
     }
 
     return {
-        min: undefined,
-        max: undefined,
+        min: 0,
+        max: 130,
         skillsToSum: [],
     };
 };
