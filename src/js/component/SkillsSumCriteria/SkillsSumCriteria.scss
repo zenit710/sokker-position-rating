@@ -1,5 +1,12 @@
 @import 'styles/variables';
 
-.form-control[name^=skills_sum]::placeholder {
-  color: $c-info;
+.skills-sum-criteria {
+  &__range::placeholder {
+    color: $c-info;
+  }
+
+  &__skill {
+    height: auto;
+    width: auto;
+  }
 }

@@ -43,7 +43,7 @@ const SkillsSumCriteria = ({ submitButton, clearButton }) => {
 
     return (
         <>
-            <div className="form-horizontal col-sm-6 col-xs-6">
+            <div className="form-horizontal col-sm-6 col-xs-6 skills-sum-criteria">
                 <div className="form-group">
                     <label className="col-sm-6 control-label">Skills sum</label>
                     <div className="col-sm-6">
@@ -52,7 +52,7 @@ const SkillsSumCriteria = ({ submitButton, clearButton }) => {
                             min="0"
                             max="130"
                             name="skills_sum_min"
-                            className="form-control input-sm"
+                            className="form-control input-sm skills-sum-criteria__range"
                             placeholder="min: 0"
                             ref={skillsMinRef}
                             defaultValue={min}
@@ -62,7 +62,7 @@ const SkillsSumCriteria = ({ submitButton, clearButton }) => {
                             min="0"
                             max="130"
                             name="skills_sum_max"
-                            className="form-control input-sm"
+                            className="form-control input-sm skills-sum-criteria__range"
                             placeholder="max: 130"
                             ref={skillsMaxRef}
                             defaultValue={max}
@@ -79,6 +79,7 @@ const SkillsSumCriteria = ({ submitButton, clearButton }) => {
                                 <label className="col-sm-6" htmlFor={`skills_sum_${skill}`}>{skill}</label>
                                 <input
                                     type="checkbox"
+                                    className="form-control skills-sum-criteria__skill"
                                     name={`skills_sum_${skill}`}
                                     id={`skills_sum_${skill}`}
                                     defaultChecked={skillsToSum.includes(skill)}

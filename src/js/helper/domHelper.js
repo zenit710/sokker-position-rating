@@ -152,7 +152,7 @@ const getAllFormFieldValues = () => {
     const fields = document.querySelectorAll(".form-control");
     const values = {};
 
-    fields.forEach(field => values[field.name] = field.value);
+    fields.forEach(field => values[field.name] = field.type === "checkbox" ? field.checked : field.value);
 
     return values;
 };
@@ -163,7 +163,11 @@ const fillFormValues = (values) => {
         const tag = node?.tagName;
 
         if (node) {
-            node.value = value;
+            if (node.type === "checkbox") {
+                node.checked = value;
+            } else {
+                node.value = value;
+            }
         }
 
         if (tag === "SELECT") {
