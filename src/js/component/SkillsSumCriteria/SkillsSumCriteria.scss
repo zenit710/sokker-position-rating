@@ -1,0 +1,12 @@
+@import 'styles/variables';
+
+.skills-sum-criteria {
+  &__range::placeholder {
+    color: $c-info;
+  }
+
+  &__skill {
+    height: auto;
+    width: auto;
+  }
+}

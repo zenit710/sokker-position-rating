@@ -10,6 +10,7 @@ const SORT = {
 };
 const SKILL_VALUE_PATTERN = /\[(\d+)\]/;
 const SKILL_NAME_NUMBER_CLASS = ".skillNameNumber";
+const TRASNFER_SEARCH_FORM_SELECTOR = "form[name=searchform]";
 
 const transformSkills = (skillNodes) => {
     const skills = {};
@@ -25,6 +26,11 @@ const transformSkills = (skillNodes) => {
 const findPlayerNodes = () => document.querySelectorAll(".table-skills");
 
 const getPlayerContainerNode = ($player) => $player.parentNode;
+
+const getPlayerTransferSearchContainerNode = ($player) => $player.closest(".playersList.row");
+
+const getPlayerTransferSearchNameNode = ($player) =>
+    getPlayerTransferSearchContainerNode($player).querySelector(".c-player__cell");
 
 const getPlayerTitleNode = ($player) =>
     getPlayerContainerNode($player)?.parentNode?.querySelector(".panel-heading .title-block-1");
@@ -146,7 +152,7 @@ const getAllFormFieldValues = () => {
     const fields = document.querySelectorAll(".form-control");
     const values = {};
 
-    fields.forEach(field => values[field.name] = field.value);
+    fields.forEach(field => values[field.name] = field.type === "checkbox" ? field.checked : field.value);
 
     return values;
 };
@@ -157,7 +163,11 @@ const fillFormValues = (values) => {
         const tag = node?.tagName;
 
         if (node) {
-            node.value = value;
+            if (node.type === "checkbox") {
+                node.checked = value;
+            } else {
+                node.value = value;
+            }
         }
 
         if (tag === "SELECT") {
@@ -172,6 +182,25 @@ const fillFormValues = (values) => {
 };
 
 const getPanelBody = () => document.querySelector(PANEL_BODY_CLASS);
+
+const getTransferSearchFormSkillsRow = () =>
+    document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} .row:nth-of-type(4)`);
+
+const getTransferSearchControlButtons = () => ({
+    submit: document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} button[type=submit]`),
+    clear: document.querySelector(`${TRASNFER_SEARCH_FORM_SELECTOR} button[name=clear]`),
+});
+
+const isPlayerTransferSearchPage = () => window.location.pathname.startsWith("/transferSearch/trainer/0");
+
+const changePlayerOnTransferSearchPageCollapse = ($playerContainer, collapse) => {
+    const $titleContainer = $playerContainer.querySelector(".playersCell__row");
+    [...$playerContainer.childNodes].forEach(node => {
+        if (node.nodeType === Node.ELEMENT_NODE && !node.isSameNode($titleContainer)) {
+            node.classList.toggle("collapsed", collapse);
+        }
+    });
+};
 
 export {
     findPlayerNodes,
@@ -196,4 +225,10 @@ export {
     getAllFormFieldValues,
     fillFormValues,
     getPanelBody,
+    getTransferSearchFormSkillsRow,
+    getTransferSearchControlButtons,
+    isPlayerTransferSearchPage,
+    getPlayerTransferSearchContainerNode,
+    getPlayerTransferSearchNameNode,
+    changePlayerOnTransferSearchPageCollapse,
 };
