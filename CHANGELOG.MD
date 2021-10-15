@@ -1,5 +1,10 @@
 # Sokker.org Support Changelog
 
+## [v1.3.0](https://github.com/zenit710/sokker-position-rating/compare/v1.2.0...v1.3.0)
+
+### Added
+- skills sum criteria in player transfer search
+
 ## [v1.2.0](https://github.com/zenit710/sokker-position-rating/compare/v1.1.0...v1.2.0)
 
 ### Added
