@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import PlayerRatings from "@/component/PlayerRatings";
 import InviteAll from "@/component/InviteAll";
 import NTDBButton from "@/component/NTDBButton";
+import SkillsSum from "@/component/SkillsSum";
+import SkillsSumCriteria from "@/component/SkillsSumCriteria";
 import TransferFilterForm from "@/component/TransferFilterForm";
 import TransferReminder from "@/component/TransferReminder";
 import { TYPE_PLAYER, TYPE_TRAINER } from "@/consts";
@@ -27,9 +29,17 @@ import {
     getTransferPlayerName,
     getTransferBidEndDate,
     getPanelBody,
+    getTransferSearchFormSkillsRow,
+    getTransferSearchControlButtons,
+    isPlayerTransferSearchPage,
+    getPlayerTransferSearchContainerNode,
+    getPlayerTransferSearchNameNode,
+    changePlayerOnTransferSearchPageCollapse,
 } from "@/helper/domHelper";
 import SkillRatingResolver from "@/service/SkillRatingResolver";
 import { getSkillsImportances, getPositions } from "@/service/SkillsImportance";
+import { getSkillsSum } from "@/service/SkillsSumService";
+import "styles/global.scss";
 
 const SORT_BY_POSITION_PREFIX = "position_";
 
@@ -108,6 +118,18 @@ const handleTransferCriteriaPage = () => {
         <TransferFilterForm type={criteriaType} />,
         $transferFilterContainer,
     );
+
+    if (!isTrainerCriteriaType()) {
+        const $skillsRow = getTransferSearchFormSkillsRow();
+        const $skillsSumCriteriaContainer = document.createElement("div");
+        $skillsRow.append($skillsSumCriteriaContainer);
+        const { submit, clear } = getTransferSearchControlButtons();
+
+        ReactDOM.render(
+            <SkillsSumCriteria submitButton={submit} clearButton={clear} />,
+            $skillsSumCriteriaContainer,
+        );
+    }
 };
 const handleSquadPage = async () => {
     const positions = await getPositions();
@@ -154,6 +176,25 @@ const handleFriendliesAdsPage = () => {
     }
 };
 
+const handlePlayerTransferSearchPage = (players) => {
+    players.forEach(($player) => {
+        const skills = getPlayerSkills($player);
+        const $container = getPlayerTransferSearchContainerNode($player);
+        const $name = getPlayerTransferSearchNameNode($player);
+        const $skillSumContainer = document.createElement("span");
+        $name.append($skillSumContainer);
+
+        ReactDOM.render(
+            <SkillsSum
+                sum={getSkillsSum(skills)}
+                playerContainer={$container}
+                collapseChange={changePlayerOnTransferSearchPageCollapse}
+            />,
+            $skillSumContainer,
+        );
+    });
+};
+
 const init = () => {
     const players = findPlayerNodes();
 
@@ -175,6 +216,10 @@ const init = () => {
 
     if (isFriendliesAdsPage()) {
         handleFriendliesAdsPage();
+    }
+
+    if (isPlayerTransferSearchPage()) {
+        handlePlayerTransferSearchPage(players);
     }
 };
 
