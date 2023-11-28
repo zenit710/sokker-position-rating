@@ -20,7 +20,7 @@
     },
     {
       "js": ["js/ntdb.js"],
-      "matches": ["https://ntdb.sokker.cz/*"]
+      "matches": ["https://ntdb.bluezero.sk/*"]
     }
   ],
   "browser_action": {

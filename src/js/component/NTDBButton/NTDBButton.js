@@ -22,7 +22,7 @@ import {
     NTDB_PARAM_AGE,
 } from "@/consts";
 
-const NTDB_URL = "https://ntdb.sokker.cz";
+const NTDB_URL = "https://ntdb.bluezero.sk";
 
 const openNTDB = ({ meta, skills }) => {
     const searchParams = new URLSearchParams();
