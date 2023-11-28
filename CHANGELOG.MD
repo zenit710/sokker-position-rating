@@ -4,6 +4,7 @@
 
 ### Fixed
 - NTDB domain changed
+- security vulnerabilities fix
 
 ---
 
