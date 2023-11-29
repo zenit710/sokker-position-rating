@@ -6,7 +6,17 @@ You need to enable skill numbers in skill name in your profile settings to be ab
 
 ## Development
 
+### System requirements
+NPM scripts uses Unix commands, like `cp`. You have to work on some Unix system to develop this extensions without customization.
+`node v16.6.2` with `npm v7.20.3` was used by the author.
+
+### First steps
 After cloning repository run `npm install`
+
+### Choose web browser
+Extension use manifest V3 and some of properties are incompatible between Chrome and Firefox.
+You need to choose which one to use by running `npm use:chrome` for Chrome compatibility
+or `npm use:firefox` for Firefox compatibilty.
 
 ### Build
 `npm run build` - builds in production mode
@@ -27,7 +37,8 @@ To install local extension read <https://developer.chrome.com/docs/extensions/mv
 - `npm run stylelint:fix` to fix formatting errors
 
 ### Publishing
-`npm run publish` - extension code will be build and located in `build/sokker-position-rating.zip`
+`npm run publish` - extension code will be build and located in `build` directory.
+There will be two `.zip` files: first for Chrome extension and second for Firefox Add-on.
 
 ### Visual Studio Code support
 You can have automatically formatted code (JS, SCSS) in VSCode in few steps:
