@@ -39,7 +39,7 @@ chrome.alarms.onAlarm.addListener(async () => {
             chrome.notifications.create(notificationId, {
                 type: "basic",
                 title: "Player bid will be end soon!",
-                iconUrl: "images/logo-128.png",
+                iconUrl: chrome.runtime.getURL("images/logo-128.png"),
                 message: `${player} bid ends ${endDate.toLocaleString()}`,
             });
         });
