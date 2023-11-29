@@ -36,11 +36,15 @@
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint src/**/*.js --fix",
     "postinstall": "husky install",
-    "publish": "npm run build && npm run zip",
+    "publish": "npm run publish:firefox && npm run publish:chrome",
+    "publish:chrome": "npm run build && mkdirp build && npm run use:chrome && npm run zip -- build/$npm_package_name\\_$npm_package_version\\_chrome.zip",
+    "publish:firefox": "npm run build && mkdirp build && npm run use:firefox && npm run zip -- build/$npm_package_name\\_$npm_package_version\\_firefox.zip",
     "stylelint": "stylelint **/*.scss",
     "stylelint:fix": "stylelint --fix **/*.scss",
+    "use:chrome": "cp dist/manifest.chrome.json dist/manifest.json",
+    "use:firefox": "cp dist/manifest.firefox.json dist/manifest.json",
     "watch": "webpack --watch --env NODE_ENV=development --mode=development",
-    "zip": "mkdirp build && cross-zip dist build/sokker-position-rating.zip"
+    "zip": "cross-zip dist"
   },
   "repository": {
     "type": "git",
