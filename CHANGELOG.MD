@@ -1,5 +1,12 @@
 # Sokker.org Support Changelog
 
+## [v1.3.2](https://github.com/zenit710/sokker-position-rating/compare/v1.3.1...v1.3.2)
+
+### Fixed
+- Firefox add-on id - v.1.3.1 could not be published
+
+---
+
 ## [v1.3.1](https://github.com/zenit710/sokker-position-rating/compare/v1.3.0...v1.3.1)
 
 ### Fixed
