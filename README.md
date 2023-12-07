@@ -8,7 +8,7 @@ You need to enable skill numbers in skill name in your profile settings to be ab
 
 ### System requirements
 NPM scripts uses Unix commands, like `cp`. You have to work on some Unix system to develop this extensions without customization.
-`node v16.6.2` with `npm v7.20.3` was used by the author.
+`node v20.10.0` with `npm v10.2.3` was used by the author.
 
 ### First steps
 After cloning repository run `npm install`
@@ -39,6 +39,13 @@ To install local extension read <https://developer.chrome.com/docs/extensions/mv
 ### Publishing
 `npm run publish` - extension code will be build and located in `build` directory.
 There will be two `.zip` files: first for Chrome extension and second for Firefox Add-on.
+
+## Build with docker
+You can build output .zip files with Docker using simple script:
+```
+docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app node:20.10.0-alpine sh -c "apk add zip python3 && npm install && npm run publish"
+```
+Zip files for both Chrome Extension and Firefox Addon will be placed in `./build` directory.
 
 ### Visual Studio Code support
 You can have automatically formatted code (JS, SCSS) in VSCode in few steps:
