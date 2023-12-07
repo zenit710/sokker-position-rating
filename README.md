@@ -43,7 +43,7 @@ There will be two `.zip` files: first for Chrome extension and second for Firefo
 ## Build with docker
 You can build output .zip files with Docker using simple script:
 ```
-docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app node:20.10.0-alpine sh -c "apk add zip && npm install && npm run publish"
+docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app node:20.10.0-alpine sh -c "apk add zip python3 && npm install && npm run publish"
 ```
 Zip files for both Chrome Extension and Firefox Addon will be placed in `./build` directory.
 
