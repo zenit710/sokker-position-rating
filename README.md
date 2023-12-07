@@ -40,6 +40,13 @@ To install local extension read <https://developer.chrome.com/docs/extensions/mv
 `npm run publish` - extension code will be build and located in `build` directory.
 There will be two `.zip` files: first for Chrome extension and second for Firefox Add-on.
 
+## Build with docker
+You can build output .zip files with Docker using simple script:
+```
+docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app node:20.10.0-alpine sh -c "apk add zip && npm install && npm run publish"
+```
+Zip files for both Chrome Extension and Firefox Addon will be placed in `./build` directory.
+
 ### Visual Studio Code support
 You can have automatically formatted code (JS, SCSS) in VSCode in few steps:
 1. Install VSCode plugins [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)

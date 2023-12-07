@@ -1,5 +1,12 @@
 # Sokker.org Support Changelog
 
+## [v1.3.3](https://github.com/zenit710/sokker-position-rating/compare/v1.3.2...v1.3.3)
+
+### Added
+- build with node 20
+
+---
+
 ## [v1.3.2](https://github.com/zenit710/sokker-position-rating/compare/v1.3.1...v1.3.2)
 
 ### Fixed

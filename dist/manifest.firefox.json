@@ -1,6 +1,6 @@
 {
   "name": "Sokker.org Support",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Firefox add-on which will make your sokker.org play easier!",
   "permissions": [
     "storage",
